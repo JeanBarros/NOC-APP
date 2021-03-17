@@ -1,0 +1,208 @@
+﻿<style type="text/css">
+    .smart-form fieldset {
+        padding-top: 0px !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i>Masterdata - <span data-localize="labelCadastroDeMaterial">Cadastro de Material</span>
+        </h1>
+    </div>
+</div>
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+    <div class="container">
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="well no-padding">
+                    <form id="masterdataMaterialRegistrationForm" name="masterdataMaterialRegistrationForm" class="smart-form client-form" ng-submit="submit()" novalidate>
+                        <header>
+                            <span data-localize="labelCadastroDeMaterial">Cadastro de Material</span>
+                        </header>
+                        <fieldset>
+                            <section>
+                                <div class="row" ng-if="entity.Id">
+                                    <div class="alert adjusted alert-info fade in" style="margin: 10px;">
+                                        <span><i class="fa-fw fa-lg fa fa-info"></i>
+                                            <label data-localize="labelPedidoCorrecao" style="font-weight: bold;">Pedido de Correção</label>
+                                        </span>
+                                        <br />
+                                        <span>{{entity.PedidoCorrecao}}</span>
+                                    </div>
+                                </div>
+                            </section>
+                            <section>
+                                <div class="tab-pane active">
+                                    <fieldset>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelTipoDeMaterial">Tipo de Material</label>
+                                                <label class="label" ng-class="{'state-error': masterdataMaterialRegistrationForm.tipoMaterial.$invalid && showValidation}">
+                                                    <select ng-model="entity.TipoMaterial" name="tipoMaterial" id="tipoMaterial" required class="form-control">
+                                                        <option value="0" selected="selected">ERSA</option>
+                                                        <option value="1">ROH</option>
+                                                        <option value="2">LEIH</option>
+                                                        <option value="3">VERP</option>
+                                                        <option value="4">DIEN</option>
+                                                        <option value="5">HIBE</option>
+                                                        <option value="6">HALB</option>
+                                                        <option value="7">NLAG</option>
+                                                        <option value="8">FERT</option>
+                                                    </select>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row no-space">
+                                            <fieldset>
+                                                <div ng-if="entity.TipoMaterial == 0" ng-include="'views/masterdataMaterial/ERSA.html'" onload="init()"></div>
+                                                <div ng-if="entity.TipoMaterial == 1" ng-include="'views/masterdataMaterial/ROH.html'" onload="init()"></div>
+                                                <div ng-if="entity.TipoMaterial == 2" ng-include="'views/masterdataMaterial/LEIH.html'" onload="init()"></div>
+                                                <div ng-if="entity.TipoMaterial == 3" ng-include="'views/masterdataMaterial/VERP.html'" onload="init()"></div>
+                                                <div ng-if="entity.TipoMaterial == 4" ng-include="'views/masterdataMaterial/DIEN.html'" onload="init()"></div>
+                                                <div ng-if="entity.TipoMaterial == 5" ng-include="'views/masterdataMaterial/HIBE.html'" onload="init()"></div>
+                                                <div ng-if="entity.TipoMaterial == 6" ng-include="'views/masterdataMaterial/HALB.html'" onload="init()"></div>
+                                                <div ng-if="entity.TipoMaterial == 7" ng-include="'views/masterdataMaterial/NLAG.html'" onload="init()"></div>
+                                                <div ng-if="entity.TipoMaterial == 8" ng-include="'views/masterdataMaterial/FERT.html'" onload="init()"></div>
+                                                <file-upload></file-upload>
+                                                <div ng-show="entity.ListaAnexos.length">
+                                                    <div ng-repeat="anexo in entity.ListaAnexos.slice(0) track by $index">
+                                                        <span><a target="_blank" href="{{ '/files/' + anexo.NomeArquivo }}" download="{{ anexo.NomeArquivo }}"><span>{{ anexo.NomeArquivo }}</span> </a></span><span class="remove" ng-click="removeArquivo($index)"><i class="fa fa-trash-o fa-lg"></i></span>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <br>
+                                        <br>
+
+                                        <div class="col-sm-12">
+                                            <ul class="pager wizard no-margin">
+                                                <li class="next finish">
+                                                    <a href="javascript:void(0);" id="salvar" class="btn btn-lg txt-color-darken" ng-click="submit()"><span data-localize="liSalvar">Enviar</span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </section>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+</section>
+<!-- end widget grid -->
+<div class="modal fade" id="cadListaTecnica" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel" data-localize="labelNovaInformacaoListaTecnica">Nova Informação Lista Técnica</h4>
+            </div>
+            <div class="modal-body smart-form client-form">
+                <fieldset>
+                    <div class="row">
+                        <section>
+                            <label class="label" data-localize="labelCodigo">Código</label>
+                            <label class="input" ng-class="{'state-error': showValidationListaTecnica && !entityListaTecnica.codigo}">
+                                <input type="text" ng-model="entityListaTecnica.codigo" data-localize="placeCodigo" maxlength="20" name="codigoListaTecnica" id="codigoListaTecnica" class="form-control">
+                            </label>
+                            <em class="invalid" ng-show="showValidationListaTecnica && !entityListaTecnica.codigo"><span data-localize="validacaoCodigo">Informe o código</span></em>
+                        </section>
+                    </div>
+                    <div class="row">
+                        <section>
+                            <label class="label" data-localize="labelProduto">Produto</label>
+                            <label class="input" ng-class="{'state-error': showValidationListaTecnica && !entityListaTecnica.produto}">
+                                <input type="text" ng-model="entityListaTecnica.produto" data-localize="placeProduto" maxlength="20" name="produtoListaTecnica" id="produtoListaTecnica" class="form-control">
+                            </label>
+                            <em class="invalid" ng-show="showValidationListaTecnica && !entityListaTecnica.produto"><span data-localize="validacaoProduto">Informe o produto</span></em>
+                        </section>
+                    </div>
+                    <div class="row">
+                        <section>
+                            <label class="label" data-localize="labelQuantidade">Quantidade</label>
+                            <label class="input" ng-class="{'state-error': showValidationListaTecnica && !entityListaTecnica.quantidade}">
+                                <input type="text" ng-model="entityListaTecnica.quantidade" data-localize="placeQuantidade" maxlength="10" name="quantidadeListaTecnica" id="quantidadeListaTecnica" class="form-control" numbers-only>
+                            </label>
+                            <em class="invalid" ng-show="showValidationListaTecnica && !entityListaTecnica.quantidade"><span data-localize="validacaoQuantidade">Informe a quantidade</span></em>
+                        </section>
+                    </div>
+                    <div class="row">
+                        <section>
+                            <label class="label" data-localize="labelUnidadeMedida">Unidade de Medida</label>
+                            <label class="input" ng-class="{'state-error': showValidationListaTecnica && !entityListaTecnica.unidadeMedida}">
+                                <input type="text" ng-model="entityListaTecnica.unidadeMedida" data-localize="placeInformeUnidadeMedida" maxlength="20" name="unidadeMedidaListaTecnica" id="unidadeMedidaListaTecnica" class="form-control">
+                            </label>
+                            <em class="invalid" ng-show="showValidationListaTecnica && !entityListaTecnica.unidadeMedida"><span data-localize="validacaoUnidadeMedida">Informe a unidade de medida</span></em>
+                        </section>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-primary"  data-localize="liSalvar" ng-click="IncluirInformacaoListaTecnica()">
+                    Salvar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cadPlanta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel" data-localize="labelNovaPlanta">Nova Planta</h4>
+            </div>
+            <div class="modal-body smart-form client-form">
+                <fieldset>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelPlanta">Planta</label>
+                            <label class="label" ng-class="{'state-error': !entityPlanta.Planta && showValidationPlanta}">
+                                <select ng-model="entityPlanta.Planta" name="regPlanta" id="regPlanta" ng-options="p.Nome for p in plantas track by p.Id" required class="form-control">
+                                    <option value="" selected="selected" data-localize="validacaoPlanta">Selecione a planta</option>
+                                </select>
+                            </label>
+                            <em class="invalid" ng-show="!entityPlanta.Planta && showValidationPlanta"><span data-localize="optionSelecioneAPlanta"></span></em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelDeposito">Depósito</label>
+                            <label class="label" ng-class="{'state-error': !entityPlanta.Deposito && showValidationPlanta}">
+                                <select ng-model="entityPlanta.Deposito" name="regDeposito" id="regDeposito" ng-options="d.Nome for d in depositos track by d.Id" required disabled class="form-control">
+                                    <option value="" selected="selected" data-localize="optionDeposito">Selecione o depósito</option>
+                                </select>
+                            </label>
+                            <em class="invalid" ng-show="!entityPlanta.Deposito && showValidationPlanta"><span data-localize="validacaoDeposito"></span></em>
+                            <em class="invalid" ng-show="masterdataMaterialRegistrationForm.tipoMaterial.$valid && depositos.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" data-localize="liSalvar" class="btn btn-primary" ng-click="IncluirPlanta()">
+                    Salvar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

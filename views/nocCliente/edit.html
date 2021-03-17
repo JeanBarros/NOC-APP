@@ -1,0 +1,232 @@
+<style type="text/css">
+    .smart-form fieldset {
+        padding-top: 0px !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i>NOC <span data-localize="labelEdicaoDeNocCliente">Edição de NOC Cliente: </span><span></span>
+        </h1>
+    </div>
+</div>
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+    <div class="container">
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="well no-padding">
+                    <form id="nocClienteEditForm" name="nocClienteEditForm" class="smart-form client-form" ng-submit="submit()" novalidate>
+
+                        <header>
+                            <span data-localize="labelResposta">Resposta</span>
+                        </header>
+                        <fieldset>
+
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="label" data-localize="labelNocCliente">Noc Cliente</label>
+                                    <label class="label">{{entity.IdExterno}}</label>
+
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <div class="form-group">
+                                    <label class="label" data-localize="labelSeveridade">Severidade</label>
+                                    <label class="label" ng-class="{'state-error': nocClienteRespostaForm.severidade.$invalid && showValidation}">
+                                        <select ng-model="entity.Severidade" name="severidade" id="severidade" ng-options="s.Nome for s in severidades track by s.Id" class="form-control">
+                                            <option value="" selected="selected" data-localize="optionSelecioneSeveridade">Selecione a severidade</option>
+                                        </select>
+                                    </label>
+                                    <em class="invalid" ng-show="nocClienteRespostaForm.severidade.$invalid && showValidation"><span data-localize="validacaoSeveridade"></span></em>
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <div class="form-group">
+                                    <label class="label" data-localize="labelParecer">Parecer</label>
+                                    <label class="label" ng-class="{'state-error': nocClienteRespostaForm.parecer.$invalid && showValidation}">
+                                        <select ng-model="entity.Resposta.Parecer" name="parecer" id="parecer" ng-options="s.Nome for s in pareceres track by s.Id" class="form-control">
+                                            <option value="" selected="selected" data-localize="optionSelecioneParecer">Selecione o parecer</option>
+                                        </select>
+                                    </label>
+                                    <em class="invalid" ng-show="nocClienteRespostaForm.parecer.$invalid && showValidation"><span data-localize="validacaoParecer"></span></em>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="label" data-localize="labelRessarcimento">Ressarcimento</label>
+                                    <div class="inline-group">
+                                        <label class="label">
+                                            <label class="radio" ng-class="{'state-error': nocClienteRespostaForm.ressarcimento.$invalid && showValidation}">
+                                                <input type="radio" ng-model="entity.Resposta.Ressarcimento" name="ressarcimento" ng-value="true" ng-required="entity.Resposta.Parecer.IdCampo != '01'"><i></i><span data-localize="labelSim"> Sim </span>
+                                            </label>
+                                            <label class="radio" ng-class="{'state-error': nocClienteRespostaForm.devolucao.$invalid && showValidation}">
+                                                <input type="radio" ng-model="entity.Resposta.Ressarcimento" name="ressarcimento" ng-value="false" ng-required="entity.Resposta.Parecer.IdCampo != '01'"><i></i><span data-localize="labelNao"> Não </span>
+                                            </label>
+                                        </label>
+                                        <em class="invalid" ng-show="nocClienteRespostaForm.ressarcimento.$invalid && showValidation"><span data-localize="validacaoRessarcimento"></span></em>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="label" data-localize="labelQuantidadeASerRessarcidaEmLata">Quantidade a ser Ressarcida em Lata</label>
+                                    <label class="label" ng-class="{'state-error': nocClienteRespostaForm.quantidadeRessarcidaLata.$invalid && showValidation}">
+                                        <input type="text" ng-model="entity.Resposta.QuantidadeRessarcidaEmLata" maxlength="10" data-localize="placeQuantidadeASerRessarcidaEmLata" name="quantidadeRessarcidaLata" id="quantidadeRessarcidaLata" numbers-only disabled class="form-control" ng-required="entity.Resposta.Ressarcimento == true">
+                                    </label>
+                                    <em class="invalid" ng-show="nocClienteRespostaForm.quantidadeRessarcidaLata.$invalid && showValidation"><span data-localize="validacaoQuantidadeASerRessarcidaEmLata"></span></em>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="label" data-localize="labelQuantidadeASerRessarcidaEmTampa">Quantidade a ser Ressarcida em Tampa</label>
+                                    <label class="label" ng-class="{'state-error': nocClienteRespostaForm.quantidadeRessarcidaTampa.$invalid && showValidation}">
+                                        <input type="text" ng-model="entity.Resposta.QuantidadeRessarcidaEmTampa" maxlength="10" data-localize="placeQuantidadeASerRessarcidaEmTampa" name="quantidadeRessarcidaTampa" id="quantidadeRessarcidaTampa" numbers-only disabled class="form-control" ng-required="resposta.Ressarcimento == true">
+                                    </label>
+                                    <em class="invalid" ng-show="nocClienteRespostaForm.quantidadeRessarcidaTampa.$invalid && showValidation"><span data-localize="validacaoQuantidadeASerRessarcidaEmTampa"></span></em>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="label" data-localize="labelDataAutorizacaoRessarcimento">Data de Autorização do Ressarcimento</label>
+                                    <div class="input-group" ng-class="{'state-error': nocClienteRespostaForm.dataAutorizacaoRessarcimento.$invalid && showValidation}">
+                                        <input type="text" ng-class="{invalid: nocClienteRespostaForm.dataAutorizacaoRessarcimento.$invalid && showValidation}" ui-date ng-model="entity.Resposta.DataAutorizacaoRessarcimento" name="dataAutorizacaoRessarcimento" id="dataAutorizacaoRessarcimento" disabled datepicker-popup="dd/MM/yyyy" is-open="exibirDatepickerDataAutorizacaoRessarcimento" datepicker-options="{ showWeeks: false }" show-button-bar="false" class="form-control" max-date="entity.Resposta.Hoje" ng-required="entity.Resposta.Ressarcimento == true">
+                                        <span class="input-group-addon" ng-click="exibirDatepicker($event, 'exibirDatepickerDataAutorizacaoRessarcimento')"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                    <em class="invalid" ng-show="nocClienteRespostaForm.dataAutorizacaoRessarcimento.$invalid && showValidation"><span data-localize="validacaoDataAutorizacaoRessarcimento"></span></em>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="label" data-localize="Devolução">Devolução</label>
+                                    <div class="inline-group">
+                                        <label class="label">
+                                            <label class="radio" ng-class="{'state-error': nocClienteRespostaForm.devolucao.$invalid && showValidation}">
+                                                <input type="radio" ng-model="entity.Resposta.Devolucao" name="devolucao" ng-value="true" ng-required="entity.Resposta.Parecer.IdCampo != '01'"><i></i><span data-localize="labelSim"> Sim </span>
+                                            </label>
+                                            <label class="radio" ng-class="{'state-error': nocClienteRespostaForm.devolucao.$invalid && showValidation}">
+                                                <input type="radio" ng-model="entity.Resposta.Devolucao" name="devolucao" ng-value="false" ng-required="entity.Resposta.Parecer.IdCampo != '01'"><i></i><span data-localize="labelNao"> Não </span>
+                                            </label>
+                                        </label>
+                                        <em class="invalid" ng-show="nocClienteRespostaForm.devolucao.$invalid && showValidation"><span data-localize="validacaoDevolucao"></span></em>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <div class="form-group">
+                                    <label class="label" data-localize="labelFabricaDevolucao">Fábrica Devolução</label>
+                                    <label class="label" ng-class="{'state-error': nocClienteRespostaForm.fabricaDevolucao.$invalid && showValidation}">
+                                        <select ng-model="entity.Resposta.FabricaDevolucao" name="fabricaDevolucao" id="fabricaDevolucao" ng-options="f.Nome for f in fabricas track by f.Id" disabled class="form-control" ng-required="entity.Resposta.Devolucao == true">
+                                            <option value="" selected="selected" data-localize="optionSelecioneFabricaDevolucao">Selecione a fabrica devolução</option>
+                                        </select>
+                                    </label>
+                                    <em class="invalid" ng-show="nocClienteRespostaForm.fabricaDevolucao.$invalid && showValidation"><span data-localize="validacaoFabricaDevolucao"></span></em>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="label" data-localize="labelQuantidadeAutorizadaDevolver">Quantidade Autorizada a Devolver</label>
+                                    <label class="label" ng-class="{'state-error': nocClienteRespostaForm.PedidoDeCorrecaoquantidadeAutorizadaADevolver.$invalid && showValidation}">
+                                        <input type="text" ng-model="entity.Resposta.QuantidadeAutorizadaADevolver" maxlength="10" data-localize="placeQuantidadeAutorizadaDevolver" name="quantidadeAutorizadaADevolver" id="quantidadeAutorizadaADevolver" numbers-only disabled class="form-control" ng-required="resposta.Devolucao == true">
+                                    </label>
+                                    <em class="invalid" ng-show="nocClienteRespostaForm.quantidadeAutorizadaADevolver.$invalid && showValidation"><span data-localize="validacaoQuantidadeAutorizadaDevolver">Informe a data de autorização da devolução</span></em>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="label" data-localize="labelDataAutorizacaoDevolucao">Data de Autorização da Devolução</label>
+                                    <div class="input-group" ng-class="{'state-error': nocClienteRespostaForm.dataAutorizacaoDevolucao.$invalid && showValidation}">
+                                        <input type="text" ng-class="{invalid: nocClienteRespostaForm.dataAutorizacaoDevolucao.$invalid && showValidation}" ui-date ng-model="entity.Resposta.DataAutorizacaoDevolucao" name="dataAutorizacaoDevolucao" id="dataAutorizacaoDevolucao" disabled datepicker-popup="dd/MM/yyyy" is-open="exibirDatepickerDataAutorizacaoDevolucao" datepicker-options="{ showWeeks: false }" show-button-bar="false" class="form-control" ng-required="resposta.Devolucao == true">
+                                        <span class="input-group-addon" ng-click="exibirDatepicker($event, 'exibirDatepickerDataAutorizacaoDevolucao')"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                    <em class="invalid" ng-show="nocClienteRespostaForm.dataAutorizacaoDevolucao.$invalid && showValidation"><span data-localize="validacaoDataAutorizacaoDevolucao">Informe a data de autorização da devolução</span> </em>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="label" data-localize="labelValorDoFrete">Valor do Frete</label>
+                                    <label class="label" ng-class="{'state-error': nocClienteRespostaForm.valorDoFrete.$invalid && showValidation}">
+                                        <input type="text" ng-model="entity.Resposta.ValorDoFrete" maxlength="13" data-localize="placeValorDoFrete" name="valorDoFrete" id="valorDoFrete" number-decimal disabled class="form-control" ng-required="entity.Resposta.Devolucao == true">
+                                    </label>
+                                    <em class="invalid" ng-show="nocClienteRespostaForm.valorDoFrete.$invalid && showValidation"><span data-localize="validacaoValorDoFrete"></span></em>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="label" data-localize="labelConclusao">Conclusão</label>
+                                    <label class="textarea" ng-class="{'state-error': nocClienteRespostaForm.conclusao.$invalid && showValidation}">
+                                        <textarea ng-model="entity.Resposta.Conclusao" name="conclusao" id="conclusao" data-localize="placeConclusao" rows="5" class="form-control" maxlength="4000"></textarea>
+                                    </label>
+                                    <em class="invalid" ng-show=" nocClienteRespostaForm.conclusao.$invalid && showValidation"><span data-localize="validacaoConclusao"></span></em>
+                                </div>
+                            </div>
+
+
+
+
+                        </fieldset>
+
+                        <header>
+                            <span data-localize="labelDispatch">Dispatch</span>
+                        </header>
+                        <fieldset>
+
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="label" data-localize="labelQuantidadeDevolvida">Quantidade devolvida</label>
+                                    <label class="label" ng-class="{'state-error': nocClienteDispatchForm.quantidadeDevolvida.$invalid && showValidation}">
+                                        <input type="text" ng-model="entity.QuantidadeDevolvida" maxlength="9" data-localize="placeQuantidadeDevolvida" name="quantidadeDevolvida" id="quantidadeDevolvida" required numbers-only class="form-control">
+                                    </label>
+                                    <em class="invalid" ng-show="nocClienteDispatchForm.quantidadeDevolvida.$invalid && showValidation"><span data-localize="validacaoQuantidadeDevolvida"></span></em>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="label" data-localize="labelDataChegadaDoLoteDevoldidoAFabrica">Data chegada do lote devolvido à fábrica</label>
+                                    <div class="input-group" ng-class="{'state-error': nocClienteDispatchForm.dataChegadaDoLote.$invalid && showValidation}">
+                                        <input type="text" ng-class="{invalid: nocClienteDispatchForm.dataChegadaDoLote.$invalid && showValidation}" ui-date ng-model="entity.DataChegadaDoLote" name="dataChegadaDoLote" id="dataChegadaDoLote" datepicker-popup="dd/MM/yyyy" is-open="exibirDatepickerDataChegadaDoLote" datepicker-options="{ showWeeks: false }" show-button-bar="false" class="form-control" required max-date="hoje">
+                                        <span class="input-group-addon" ng-click="exibirDatepicker($event, 'exibirDatepickerDataChegadaDoLote')"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                    <em class="invalid" ng-show="nocClienteDispatchForm.dataChegadaDoLote.$invalid && showValidation"><span data-localize="validacaoDataChegadaDoLoteDevoldidoAFabrica"></span></em>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="label" data-localize="labelValorDoFrete">Valor do Frete</label>
+                                    <label class="label" ng-class="{'state-error': nocClienteDispatchForm.valorDoFrete.$invalid && showValidation}">
+                                        <input type="text" ng-model="entity.ValorDoFrete" maxlength="13" data-localize="placeValorDoFrete" name="valorDoFreteDispatch" id="valorDoFreteDispatch" required number-decimal class="form-control">
+                                    </label>
+                                    <em class="invalid" ng-show="nocClienteDispatchForm.valorDoFrete.$invalid && showValidation"><span data-localize="validacaoValorDoFrete"></span></em>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="col-sm-12">
+                                <ul class="pager wizard no-margin">
+                                    <li class="next finish">
+                                        <a href="javascript:void(0);" id="A1" class="btn btn-lg txt-color-darken" ng-click="salvar()"><span data-localize="liSalvar">Enviar</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                        </fieldset>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <br />
+</section>
+
+<!-- end widget grid -->

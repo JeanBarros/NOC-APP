@@ -1,0 +1,184 @@
+﻿<script src="js/plugin/datatables/jquery.dataTables.min.js"></script>
+<script src="js/plugin/datatables/dataTables.bootstrap.min.js"></script>
+<script src="js/plugin/datatables/dataTables.tableTools.min.js"></script>
+<script src="js/plugin/datatable-responsive/datatables.responsive.min.js"></script>
+
+<style type="text/css">
+    .linkGrid {
+        -webkit-tap-highlight-color: rgba(169,3,41,.5);
+        color: #3276b1;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .input-group-addon {
+        height: 15px !important;
+    }
+</style>
+<script type="text/javascript">
+    $("#myTabContent .tab").bind('shown.bs.tab', function () {
+        var oTT = TableTools.fnGetInstance($(this).data('table'));
+        if (oTT)
+            oTT.fnResizeButtons();
+    });
+</script>
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i>ERexam <span>>
+			Home </span></h1>
+    </div>
+</div>
+<!-- widget grid -->
+<section id="widget-grid" class="">
+
+    <!-- START ROW -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="well no-padding">
+                <form id="nocHomeForm" name="nocHomeForm" class="smart-form client-form" ng-submit="submit()" novalidate>
+                    <header>
+                        Home
+                    </header>
+                    <fieldset>
+                        <section>
+                            <span class="ribbon-button-alignment ng-scope" style="float: right;">
+                                <span id="refresh" class="btn btn-ribbon" ng-click="refreshCallback()" title="Refresh"><i class="fa fa-refresh"></i></span>
+                                <!--<span id="Span1" class="btn btn-ribbon" data-action="refreshCallback" data-title="refresh" rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true" data-reset-msg="Would you like to RESET all your saved widgets and clear LocalStorage?"><i class="fa fa-refresh"></i></span>-->
+                            </span>
+
+                            <div id="myTabContent" class="tab-content col-sm-12">
+                                <ul class="nav nav-tabs pull-center in" id="myTab">
+                                    <li class="tab active" data-table="datatable_tabletools">
+                                        <a data-toggle="tab" href="#tab1"><span class="hidden-mobile hidden-tablet">Initiate</span></a>
+                                    </li>
+
+                                    <li class="tab"  data-table="tblInbox">
+                                        <a data-toggle="tab" href="#tab2"><span class="hidden-mobile hidden-tablet">Inbox</span></a>
+                                    </li>
+
+                                    <li class="tab" data-table="tblInProgress">
+                                        <a data-toggle="tab" href="#tab3"><span class="hidden-mobile hidden-tablet">In Progress</span></a>
+                                    </li>
+
+                                    <li class="tab" data-table="tblCompleted">
+                                        <a data-toggle="tab" href="#tab4"><span class="hidden-mobile hidden-tablet">Completed</span></a>
+                                    </li>
+                                     <li class="tab" data-table="tblReports">
+                                        <a data-toggle="tab" href="#tab5"><span class="hidden-mobile hidden-tablet">Reports</span></a>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-pane fade padding-10 no-padding-bottom active in" id="tab1">
+                                    <div class="row no-space">
+                                        <fieldset>
+                                            <table id="tblInitiate" my-table aa-data="InitiateBox" ao-column-defs="columnInitiateDefs" fn-row-callback="myCallback"
+                                                class="table table-striped table-bordered table-hover" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Process Name</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade padding-10" id="tab2">
+                                    <div class="row no-space">
+                                        <fieldset>
+                                            <table id="tblInbox" my-table aa-data="TasksInbox" ao-column-defs="InboxColumnDefs" fn-row-callback="myCallback"
+                                                class="table table-striped table-bordered table-hover" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Process Name</th>
+                                                        <th>Summary </th>
+                                                        <th>Id </th>
+                                                        <th>Step </th>
+                                                        <th>Start date step</th>
+                                                        <th>Due date </th>
+                                                        <th>Status</th>
+                                                        <th>Author </th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade padding-10" id="tab3">
+                                    <div class="row no-space">
+                                        <fieldset>
+                                            <table id="tblInProgress" my-table aa-data="TasksInProgress" ao-column-defs="InProgressColumnDefs" fn-row-callback="myCallback"
+                                                class="table table-striped table-bordered table-hover" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Process Name</th>
+                                                        <th>Summary </th>
+                                                        <th>Id </th>
+                                                        <th>Step </th>
+                                                        <th>Start date step</th>
+                                                        <th>Status</th>
+                                                        <th>Author </th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade padding-10" id="tab4">
+                                    <div class="row no-space">
+                                        <fieldset>
+                                            <table id="tblCompleted" my-table aa-data="TasksCompleted" ao-column-defs="CompletedColumnDefs" fn-row-callback="myCallback"
+                                                class="table table-striped table-bordered table-hover" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Process Name</th>
+                                                        <th>Summary </th>
+                                                        <th>Id </th>
+                                                        <th>Start date </th>
+                                                        <th>End date</th>
+                                                        <th>Duration</th>
+                                                        <th>Status</th>
+                                                        <th>Author </th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                  <div class="tab-pane fade padding-10" id="tab5">
+                                    <div class="row no-space">
+                                        <fieldset>
+                                            <table id="tblReports" my-table aa-data="Reports" ao-column-defs="ReportColumnDefs" fn-row-callback="myCallback"
+                                                class="table table-striped table-bordered table-hover" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nome</th>
+                                                     
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div id="mensagem">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+</section>
+<!-- end widget grid -->

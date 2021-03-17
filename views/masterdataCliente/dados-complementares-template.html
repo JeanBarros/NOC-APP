@@ -1,0 +1,120 @@
+﻿<div class="panel-group" id="accordionDadosContabeis" ng-if="entity.ContaConciliatoria.Nome && entity.Status > 1">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordionDadosContabeis" href="#collapseDadosContabeis" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                    <i class="fa fa-list-alt"></i><span class="widget-icon" data-localize="labelDadosContabeis">Dados Contábeis</span>
+                </a>
+            </h4>
+        </div>
+        <div id="collapseDadosContabeis" class="panel-collapse collapse in padding-10">
+            <table class="table table-striped word-break">
+                <tbody>
+                    <tr>
+                        <td class="col-sm-6">
+                            <label class="control-label"><strong data-localize="labelContaConciliatoria">Conta Conciliatória</strong>: </label>
+                        </td>
+                        <td>
+                            <label>{{ entity.ContaConciliatoria.Nome }}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-6">
+                            <label class="control-label"><strong data-localize="labelGrupoClassificacaoContabil">Grupo Classificação Contábil</strong>: </label>
+                        </td>
+                        <td>
+                            <label>{{ entity.GrupoClassificacaoContabil.Nome }}</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br />
+<div class="panel-group" id="accordionDadosFiscais" ng-if="entity.ClassificacaoFiscal.Nome && entity.Status > 2">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordionDadosFiscais" href="#collapseDadosFiscais" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                    <i class="fa fa-list-alt"></i><span class="widget-icon" data-localize="labelDadosFiscais">Dados Fiscais</span>
+                </a>
+            </h4>
+        </div>
+        <div id="collapseDadosFiscais" class="panel-collapse collapse in padding-10">
+            <table class="table table-striped word-break">
+                <tbody>
+                    <tr>
+                        <td class="col-sm-6">
+                            <label class="control-label"><strong data-localize="labelClassificacaoFiscal">Classificação Fiscal</strong>: </label>
+                        </td>
+                        <td>
+                            <label>{{ entity.ClassificacaoFiscal.Nome }}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-6">
+                            <label class="control-label"><strong data-localize="labelSetorIndustrial">Setor Industrial</strong>: </label>
+                        </td>
+                        <td>
+                            <label>{{ entity.SetorIndustrial.Nome }}</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br />
+<div class="panel-group" id="accordionPassoFinanceiro" ng-if="entity.GrupoAdmTesouraria.Nome && entity.Status > 4">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordionPassoFinanceiro" href="#collapsePassoFinanceiro" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                    <i class="fa fa-list-alt"></i><span class="widget-icon" data-localize="labelPassoFinanceiro">Passo Financeiro</span>
+                </a>
+            </h4>
+        </div>
+        <div id="collapsePassoFinanceiro" class="panel-collapse collapse in padding-10">
+            <table class="table table-striped word-break">
+                <tbody>
+                    <tr>
+                        <td class="col-sm-6">
+                            <label class="control-label"><strong data-localize="labelGrupoAdmTesouraria">Grupo ADM Tesouraria</strong>: </label>
+                        </td>
+                        <td>
+                            <label>{{ entity.GrupoAdmTesouraria.Nome }}</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br />
+<div class="panel-group" id="accordionCadastroSAP" ng-if="entity.NumeroCliente && entity.Status == 6">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordionCadastroSAP" href="#collapseCadastroSAP" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                    <i class="fa fa-list-alt"></i><span class="widget-icon" data-localize="labelCadastroSap">Cadastro SAP</span>
+                </a>
+            </h4>
+        </div>
+        <div id="collapseCadastroSAP" class="panel-collapse collapse in padding-10">
+            <table class="table table-striped word-break">
+                <tbody>
+                    <tr>
+                        <td class="col-sm-6">
+                            <label class="control-label"><strong data-localize="labelNumeroCliente">Número Cliente</strong>: </label>
+                        </td>
+                        <td>
+                            <label>{{ entity.NumeroCliente }}</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

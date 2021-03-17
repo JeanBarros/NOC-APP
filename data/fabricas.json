@@ -1,0 +1,424 @@
+{
+    "Fabrica": [
+       {
+          "Id": "1",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "POUSO ALEGRE",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "2",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "SANTA CRUZ",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "3",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "EXTREMA",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "4",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "RECIFE LATAS",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "5",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "AGUAS CLARAS",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "6",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "BRASILIA",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "7",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "JACAREI",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "8",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "CUIABA",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "9",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "2",
+             "Nome": "PES$"
+          },
+          "Nome": "ARGENTINA",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "10",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "MANAUS",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "11",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "RECIFE TAMPAS",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "12",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "COMEX CORP EC",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "13",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "CENTRAL PEDIDOS EC",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "14",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "LOGÍSTICA CORP EC",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "15",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "SIMÕES FILHO",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "16",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "2",
+             "Nome": "PES$"
+          },
+          "Nome": "Armazem Peru – Yobel",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "17",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "TRÊS RIOS TAMPAS",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "18",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "2",
+             "Nome": "PES$"
+          },
+          "Nome": "Armazem Peru – LDP",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "19",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "TRÊS RIOS LATAS",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "20",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "COMERCIAL CHILE",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "21",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "COMERCIAL CORP EC",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "22",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "ONSITE CORP EC",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "23",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "COMERCIAL ARGENTINA",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "25",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "2",
+             "Nome": "PES$"
+          },
+          "Nome": "CHILE",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "26",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "BELEM",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "27",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "POUSO ALEGRE TAMPAS",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "28",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "2",
+             "Nome": "PES$"
+          },
+          "Nome": "PARAGUAI LATAS",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "29",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "2",
+             "Nome": "PES$"
+          },
+          "Nome": "PARAGUAI TAMPAS",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "30",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "COMERCIAL PARAGUAI",
+          "Tipo": {
+             "@nil": "true"
+          }
+       },
+       {
+          "Id": "31",
+          "Moeda": {
+             "Codigo": {
+                "@nil": "true"
+             },
+             "Id": "1",
+             "Nome": "R$"
+          },
+          "Nome": "JACAREI - Sleeve e Mini Linha",
+          "Tipo": {
+             "@nil": "true"
+          }
+       }
+    ]
+ }

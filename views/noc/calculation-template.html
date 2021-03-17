@@ -1,0 +1,91 @@
+﻿<table class="table table-striped">
+    <tbody>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelPrecoCompra"><strong>Preço de Compra (US$/ton):</strong></label></td>
+            <td class="valorCalculo">
+                <label>{{ entity.PrecoCompra | decimal }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelPrecoVenda"><strong>Preço de Venda (US$/ton):</strong></label></td>
+            <td class="valorCalculo">{{ entity.PrecoVenda | decimal }}
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelCoef"><strong>Coef. (Kg / m): </strong></label>
+            </td>
+            <td class="valorCalculo">
+                <label>{{ entity.Coeficiente | decimal:6 }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelQtdProdutosPerdidos"><strong>Qtd. Copos (Unid.) :</strong></label></td>
+            <td class="valorCalculo">
+                <label>{{ entity.QtdDefeitoDrenoLinha | decimal:0}} </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelKGs"><strong>Copos em KGs:</strong></label>
+            </td>
+            <td class="valorCalculo">
+                <label>{{ entity.KGs | decimal }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong>CPM:</strong></label>
+            </td>
+            <td class="valorCalculo">
+                <label>{{ entity.CPM | decimal }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelPerdasMetal"><strong>Custo Metal Perdido (US$):</strong></label>
+            </td>
+            <td class="valorCalculo">
+                <label>{{ entity.PerdasMetal | decimal }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelPerdasProducao"><strong>Custo de Produção (US$):</strong></label></td>
+            <td class="valorCalculo">
+                <label>{{ entity.PerdasProducao | decimal }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelCustosFerramentas"><strong>Custos Ferramentas (US$):</strong></label></td>
+            <td class="valorCalculo">
+                <label>{{ entity.ValorPerdaFerramenta | decimal }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelOutrosCustos"><strong>Outros Custos (US$):</strong></label></td>
+            <td class="valorCalculo">
+                <label>{{ entity.ValorPerdaOutrosCustos | decimal }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelPerdaTotal"><strong>Perda Total (US$):</strong></label></td>
+            <td class="valorCalculo">
+                <label>{{ entity.PerdaTotal | decimal }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelReembolsoToral"><strong>Reembolso Total (US$):</strong></label></td>
+            <td class="valorCalculo">
+                <label>{{ entity.ReembolsoTotal | decimal}} </label>
+            </td>
+        </tr>
+    </tbody>
+</table>

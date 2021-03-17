@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelCodigoProdutoSAP">Código do Produto SAP</label>
+        <input type="text" data-localize-error="validacaoCodigoProdutoSAP" data-localize="placeCodigoProdutoSAP" ng-model="entity.codigoProdutoSap" name="codigoProdutoSap" id="codigoProdutoSap" class="form-control" maxlength="50">
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelCodigoProdutoFornecedor">Código do Produto Fornecedor</label>
+        <label class="input" ng-class="{'state-error': nocFornecedorRegistrationForm.codigoProdutoFornecedor.$invalid && showValidation}">
+            <input type="text" data-localize="placeCodigoProdutoFornecedor" ng-model="entity.codigoProdutoFornecedor" name="codigoProdutoFornecedor" id="codigoProdutoFornecedor" class="form-control" maxlength="50" required>
+        </label>
+        <em class="invalid" ng-show="nocFornecedorRegistrationForm.codigoProdutoFornecedor.$invalid && showValidation"><span data-localize="validacaoCodigoProdutoFornecedor">Informe o código do produto fornecedor</span></em>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelNotaFiscal">Nota Fiscal</label>
+        <label class="input" ng-class="{'state-error': nocFornecedorRegistrationForm.notaFiscal.$invalid && showValidation}">
+            <input type="text" data-localize="placeNotaFiscal" ng-model="entity.notaFiscal" name="notaFiscal" id="notaFiscal" class="form-control" maxlength="50" required>
+        </label>
+        <em class="invalid" ng-show="nocFornecedorRegistrationForm.notaFiscal.$invalid && showValidation"><span data-localize="validacaoNotaFiscal"></span></em>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelDataOcorrencia">Data de Ocorrência</label>
+        <div class="input-group" ng-class="{'state-error': nocFornecedorRegistrationForm.dataOcorrencia.$invalid && showValidation}">
+            <input type="text" ng-class="{invalid: nocFornecedorRegistrationForm.dataOcorrencia.$invalid && showValidation}" ui-date ng-model="entity.dataOcorrencia" name="dataOcorrencia" id="dataOcorrencia" datepicker-popup="dd/MM/yyyy" is-open="exibirDatepickerDataOcorrenciaMatInd" datepicker-options="{ showWeeks: false }" show-button-bar="false" class="form-control" min-date="entity.dataFabricacao" required max-date="entity.Hoje">
+            <span class="input-group-addon" ng-click="exibirDatepicker($event, 'exibirDatepickerDataOcorrenciaMatInd')"><i class="fa fa-calendar"></i></span>
+        </div>
+        <em class="invalid" ng-show="nocFornecedorRegistrationForm.dataOcorrencia.$invalid && showValidation"><span data-localize="validacaoDataOcorrencia">Informe a data de ocorrência</span> </em>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelQuantidadeRetida">Qtde. Retida</label>
+        <label class="input" ng-class="{'state-error': nocFornecedorRegistrationForm.quantidadeRetida.$invalid && showValidation}">
+            <input type="text" data-localize="placeQuantidadeRetida" ng-model="entity.quantidadeRetida" name="quantidadeRetida" id="quantidadeRetida" class="form-control" maxlength="9" required numbers-only>
+        </label>
+        <em class="invalid" ng-show="nocFornecedorRegistrationForm.quantidadeRetida.$invalid && showValidation"><span data-localize="validacaoQuantidadeRetida">Informe qtde. retida</span> </em>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelUnidadeRetida">Unid. Retida</label>
+        <label class="input" ng-class="{'state-error': nocFornecedorRegistrationForm.unidadeMedidaRetida.$invalid && showValidation}">
+            <input type="text" data-localize="placeUnidadeRetida" ng-model="entity.unidadeMedidaRetida" name="unidadeMedidaRetida" id="unidadeMedidaRetida" class="form-control" maxlength="50" required>
+        </label>
+        <em class="invalid" ng-show="nocFornecedorRegistrationForm.unidadeMedidaRetida.$invalid && showValidation"><span data-localize="validacaoUnidadeRetida">Informe unid. retida</span> </em>
+    </div>
+</div>

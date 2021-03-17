@@ -1,0 +1,74 @@
+﻿<div class="modal fade" id="cadEquipe" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel" data-localize="tituloEquipeDoProjeto">Equipe do Projeto</h4>
+            </div>
+            <div class="modal-body smart-form client-form">
+                <fieldset>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelParticipante">Participante</label>
+                            <label class="label" ng-class="{'state-error': !entityEquipe.Participante && showValidationEquipe}">
+                                <select ng-model="entityEquipe.Participante" name="participanteEquipe" id="participanteEquipe" ng-options="p.Nome for p in participantes track by p.Id" disabled required class="form-control">
+                                    <option value="" selected="selected" data-localize="optionParticipante">Selecione o participante</option>
+                                </select>
+                            </label>
+                            <em class="invalid" ng-show="!entityEquipe.Participante && showValidationEquipe"><span data-localize="validacaoParticipante"></span></em>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelUnidadeDoParticipante">Unidade do Participante</label>
+                            <input type="text" class="form-control" value="{{ entityEquipe.Participante.Unidade }}" disabled />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row">
+                            <section class="col col-4">
+                                <label class="label" data-localize="labelMatricula">Matrícula</label>
+                                <label class="input">
+                                    {{ entityEquipe.Participante.Matricula }}
+                                </label>
+                            </section>
+                            <section class="col col-4">
+                                <label class="label" data-localize="labelDepartamento">Departamento</label>
+                                <label class="input">
+                                    {{ entityEquipe.Participante.Departamento }}
+                                </label>
+                            </section>
+                            <section class="col col-4">
+                                <label class="label" data-localize="labelCargo">Cargo</label>
+                                <label class="input">
+                                    {{ entityEquipe.Participante.Cargo }}
+                                </label>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelTurma">Turma</label>
+                            <label class="label" ng-class="{'state-error': !entityEquipe.Turma && showValidationEquipe}">
+                                <select ng-model="entityEquipe.Turma" name="turmaEquipe" id="turmaEquipe" ng-options="t.Nome for t in turmas track by t.Id" required class="form-control">
+                                    <option value="" selected="selected" data-localize="optionSelecioneATurma">Selecione a turma</option>
+                                </select>
+                            </label>
+                            <em class="invalid" ng-show="!entityEquipe.Turma && showValidationEquipe"><span data-localize="validacaoSelecioneATurma"></span></em>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="IncluirEquipe()">
+                    Salvar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

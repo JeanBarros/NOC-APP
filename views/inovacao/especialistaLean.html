@@ -1,0 +1,65 @@
+﻿<style type="text/css">
+    .smart-form fieldset {
+        padding-top: 0px !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i><span data-localize="labelInovacaoAprovacaoEspecialistaLean">Inovação - Aprovação do Especialista Lean</span>
+        </h1>
+    </div>
+</div>
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+    <div class="container">
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-1">
+                <div class="well no-padding">
+                    <form id="inovacaoApprovalForm" name="inovacaoApprovalForm" class="smart-form client-form" ng-submit="submit()" novalidate>
+                        <header>
+                            <span data-localize="labelEspecialistaLean">Especialista Lean</span>
+                        </header>
+                        <fieldset>
+                            <section>
+                                <div id="myTabContent" class="tab-content col-sm-12">
+                                    <ul class="nav nav-tabs pull-center in" id="myTab">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#tab1"><span class="hidden-mobile hidden-tablet" data-localize="labelProjeto">Projeto</span></a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#tab2"><span class="hidden-mobile hidden-tablet" data-localize="labelEspecialistaLean">Especialista Lean</span></a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-pane fade padding-10 no-padding-bottom active in" id="tab1">
+                                        <br />
+                                        <div ng-include="'views/inovacao/project-history-template.html'"></div>
+                                    </div>
+                                    <div class="tab-pane fade padding-10" id="tab2">
+                                        <div ng-include="'views/inovacao/project-approval-template.html'"></div>
+                                        <br>
+                                        <br>
+                                        <div class="col-sm-12">
+                                            <ul class="pager wizard no-margin">
+                                                <li class="next finish">
+                                                    <a href="javascript:void(0);" id="salvar" class="btn btn-lg txt-color-darken" ng-click="submit()"><span data-localize="liSalvar">Salvar</span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+</section>
+<!-- end widget grid -->

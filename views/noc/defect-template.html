@@ -1,0 +1,138 @@
+﻿<table class="table table-striped">
+    <tbody>
+        <tr>
+            <td>
+                <label class="control-label" data-localize="labelLote"><strong>Lote:</strong></label></td>
+            <td colspan="2">
+                <label>{{ entity.Lote }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label" data-localize="labelDetalhesProblema"><strong>Detalhes do Problema:</strong></label>
+            </td>
+            <td colspan="2">
+                <label>{{ entity.DetalhesProblema }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label" data-localize="labelPesoTotalBobina"><strong>Peso Total da Bobina (Kg):</strong></label></td>
+            <td colspan="2">
+                <label>{{ entity.PesoTotalBobina | decimal:3 }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label" data-localize="labelPesoReclamada"><strong>Peso Reclamado (Kg):</strong></label></td>
+            <td colspan="2">
+                <label>{{ entity.PesoReclamada | decimal:3 }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label" data-localize="labelQtdAmostrasEnviadasFornecedor"><strong>Qtd. Amostras Enviadas ao Fornecedor:</strong></label></td>
+            <td colspan="2">
+                <label>{{ entity.QtdAmostraEnviadaFornecedor | decimal:0 }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label" data-localize="labelRetornoIndicadorRetornoVenda"><strong>Indicador de Devolução ou Venda:</strong></label></td>
+            <td colspan="2">
+                <label>{{ entity.IndicadorDevolucaoVenda }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label" data-localize="labelGerouDrenoLinha"><strong>O defeito gerou dreno de linha:</strong></label></td>
+            <td colspan="2">
+                <label ng-if="entity.FlgGerouDrenoLinha" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.FlgGerouDrenoLinha" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label" data-localize="labelQtsLatasTampas"><strong>Quantos Copos e/ou Tampas:</strong></label></td>
+            <td colspan="2">
+                <label>{{ entity.QtdDefeitoDrenoLinha | decimal:0 }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label" data-localize="labelGerouPerdaProducao"><strong>O defeito gerou perda de produção:</strong></label></td>
+            <td colspan="2">
+                <label ng-if="entity.FlgGerouPerdaProducao" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.FlgGerouPerdaProducao" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label" data-localize="labelQtsLatasTampas"><strong>Quantos Copos e/ou Tampas:</strong></label></td>
+            <td colspan="2">
+                <label>{{ entity.QtdDefeitoPerdaProducao | decimal:0 }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label" data-localize="labelPerdaFerramenta"><strong>Houve perda de ferramenta? (APENAS EM CASO DE CRISE E ACORDADO COM O CORPORATIVO)</strong></label></td>
+            <td colspan="2">
+                <label ng-if="entity.FlgPerdaFerramenta" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.FlgPerdaFerramenta" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label" data-localize="labelValor"><strong>Valor:</strong></label></td>
+            <td colspan="2">
+                <label>{{ entity.ValorPerdaFerramenta | decimal }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label" data-localize="labelOutrasPerdasCustos"><strong>Houve outras perdas ou outros custos? (APENAS EM CASO DE CRISE E ACORDADO COM O CORPORATIVO)</strong></label></td>
+            <td colspan="2">
+                <label ng-if="entity.FlgPerdaOutrosCustos" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.FlgPerdaOutrosCustos" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label" data-localize="labelValor"><strong>Valor:</strong></label></td>
+            <td colspan="2">
+                <label>{{ entity.ValorPerdaOutrosCustos | decimal  }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label" data-localize="labelDetalhesOutrasPerdas"><strong>Detalhes de outras perdas:</strong></label></td>
+            <td colspan="2">
+                <label>{{ entity.DescricaoPerdaOutrosCustos }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label" data-localize="labelReteste"><strong>Houve reteste:</strong></label></td>
+            <td colspan="2">
+                <label ng-if="entity.FlgReteste" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.FlgReteste" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label" data-localize="labelAcompanhamentoFornecedor"><strong>Houve acompanhamento do fornecedor:</strong></label></td>
+            <td colspan="2">
+                <label ng-if="entity.FlgAcompanhamentoFornecedor" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.FlgAcompanhamentoFornecedor" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="control-label" data-localize="labelComentarioRexam"><strong>Comentários Adicionais da Rexam:</strong></label>
+            </td>
+            <td colspan="2">
+                <label>{{ entity.ComentariosRexam }} </label>
+            </td>
+        </tr>
+    </tbody>
+</table>

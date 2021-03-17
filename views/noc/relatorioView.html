@@ -1,0 +1,72 @@
+<script src="js/plugin/datatables/jquery.dataTables.min.js"></script>
+<script src="js/plugin/datatables/dataTables.bootstrap.min.js"></script>
+<script src="js/plugin/datatables/dataTables.tableTools.min.js"></script>
+<script src="js/plugin/datatable-responsive/datatables.responsive.min.js"></script>
+<style type="text/css">
+    .linkGrid {
+        -webkit-tap-highlight-color: rgba(169,3,41,.5);
+        color: #3276b1;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .input-group-addon {
+        height: 15px !important;
+    }
+
+    body.smart-style-2 {
+    background: #fff;
+    float: left!important;
+}
+    .page-footer {
+    position: inherit!important;
+    
+}
+</style>
+
+<div class="row">
+    <div class="well no-padding smart-form client-form">
+        <header>
+            Relatório de NOC Metal
+        </header>
+        
+     
+        <div class="row no-space">
+
+            <fieldset>
+                <table id="tblRelatorio" my-table aa-data="NocMetalRelatorio" ao-column-defs="columnDefs" fn-row-callback="myCallback"
+                    class="table table-striped table-bordered table-hover" width="100%">
+                    <thead>
+                        <tr>
+                            <th>NOC</th>
+                            <th>PLANTA</th>
+                            <th>FORNECEDOR</th>
+                            <th>DATA OCORRENCIA</th>
+                            <th>DATA ABERTURA</th>
+                            <th>DATA ENCERRAMENTO</th>
+                            <th>DURAÇÃO TOTAL</th>
+                            <th>STATUS</th>
+                            <th>PARECER</th>
+                            <th>TIPO METAL</th>
+                            <th>CODIGO METAL</th>
+                            <th>LOTE</th>
+                            <th>TIPO PROBLEMA</th>
+                            <th>CAUSA_RAIZ</th>
+                            <th>CARTÃO HFI</th>
+                            <th>USUARIO </th>
+                            <th>PESO RECLAMADO</th>
+                            <th>DRENO DE LINHA</th>
+                            <th>CUSTO METAL PERDIDO</th>
+                            <th>CUSTO PRODUÇÃO</th>
+                            <th>LME</th>
+                            <th>PREÇO COMPRA</th>
+                            <th>CPM</th>
+                            <th>COEFICIENTE</th>
+                            <th>PERDA TOTAL</th>
+                        </tr>
+                    </thead>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+</div>

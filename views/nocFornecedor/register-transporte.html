@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="row">
+        <section class="col col-6">
+            <label class="label" data-localize="labelDataOcorrencia">Data de Ocorrência</label>
+            <div class="input-group" ng-class="{'state-error': nocFornecedorRegistrationForm.dataOcorrencia.$invalid && showValidation}">
+                <input type="text" ng-class="{invalid: nocFornecedorRegistrationForm.dataOcorrencia.$invalid && showValidation}" ui-date ng-model="entity.dataOcorrencia" name="dataOcorrencia" id="dataOcorrencia" datepicker-popup="dd/MM/yyyy" is-open="exibirDatepickerDataOcorrenciaTransp" datepicker-options="{ showWeeks: false }" show-button-bar="false" class="form-control" min-date="entity.dataFabricacao" required max-date="entity.Hoje">
+                <span class="input-group-addon" ng-click="exibirDatepicker($event, 'exibirDatepickerDataOcorrenciaTransp')"><i class="fa fa-calendar"></i></span>
+            </div>
+            <em class="invalid" ng-show="nocFornecedorRegistrationForm.dataOcorrencia.$invalid && showValidation"><span data-localize="validacaoDataOcorrencia">Informe a data de ocorrência</span> </em>
+        </section>
+        <section class="col col-6">
+            <div class="form-group">
+                <label class="label" data-localize="labelHoraDeOcorrencia">Hora de Ocorrência</label>
+                <input type="text" ui-hour ng-model="entity.horaOcorrencia" name="horaOcorrencia" id="horaOcorrencia" class="form-control">
+            </div>
+        </section>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelPlacaVeiculo">Placa Veículo</label>
+        <label class="label" ng-class="{'state-error': nocFornecedorRegistrationForm.placaVeiculo.$invalid && showValidation}">
+            <input type="text" data-localize="placePlacaVeiculo" ng-model="entity.placaVeiculo" name="placaVeiculo" id="placaVeiculo" maxlength="10" class="form-control">
+        </label>
+        <em class="invalid" ng-show="nocFornecedorRegistrationForm.placaVeiculo.$invalid && showValidation"><span data-localize="validacaoPlacaVeiculo">Informe a placa veículo</span> </em>
+    </div>
+</div>

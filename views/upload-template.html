@@ -1,0 +1,32 @@
+<section>
+    <legend>
+        <label data-localize="labelUploadArquivos">Upload de Arquivos</label></legend>
+    <div style="margin: 10px 0 0 15px;">
+        <div class="row">
+            <div class="form-group">
+                <input type="file" ng-model-instant multiple onchange="angular.element(this).scope().setFiles(this)" />
+            </div>
+        </div>
+        <div class="row">
+          <!--  <div ng-show="UploadMultiple" class="dropbox" dropbox ng-class="dropClass"><span data-localize="placeSolteOsArquivosAqui">{{dropText}}</span></div>-->
+            <div ng-show="$parent.files.length">
+                <div ng-repeat="f in $parent.files.slice(0) track by $index">
+                    <div ng-if="f.tipo == tipodocumento">
+                        <span>{{ f.file.webkitRelativePath || f.file.name }}</span>
+                        (<span ng-switch="file.size > 1024*1024">
+                            <span ng-switch-when="true">{{ f.file.size / 1024 / 1024 | number:2 }} MB</span>
+                            <span ng-switch-default>{{ f.file.size / 1024 | number:2 }} kB</span>
+                        </span>)
+                        <span class="remove" ng-click="removeFile($index)"><i class="fa fa-trash-o fa-lg"></i></span>
+                    </div>
+                </div>
+                <div ng-show="$parent.progressVisible">
+                    <div class="percent">{{$parent.progress}}%</div>
+                    <div class="progress-bar">
+                        <div class="uploaded" ng-style="{'width': $parent.progress+'%'}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

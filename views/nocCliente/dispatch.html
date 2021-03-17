@@ -1,0 +1,101 @@
+﻿<script src="js/plugin/fuelux/wizard/wizard.min.js"></script>
+
+<style type="text/css">
+    .smart-form fieldset {
+        padding-top: 0px !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i>Noc Cliente - <span data-localize="labelDispatch">Dispatch</span>
+        </h1>
+    </div>
+</div>
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+    <div class="container">
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="well no-padding">
+                    <form id="nocClienteDispatchForm" name="nocClienteDispatchForm" class="smart-form client-form" ng-submit="submit()" novalidate>
+                        <header>
+                            <span data-localize="labelDispatch">Dispatch</span>
+                        </header>
+                        <fieldset>
+                            <section>
+                                <div id="myTabContent" class="tab-content col-sm-12">
+                                    <ul class="nav nav-tabs pull-center in" id="myTab">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#tabA"><span class="hidden-mobile hidden-tablet" data-localize="labelNocCliente">Noc Cliente</span></a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#tabB"><span class="hidden-mobile hidden-tablet" data-localize="labelResposta">Resposta</span></a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#tabC"><span class="hidden-mobile hidden-tablet" data-localize="labelDispatch">Dispatch</span></a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-pane fade padding-10 no-padding-bottom active in" id="tabA">
+                                        <div ng-include="'views/nocCliente/history-template.html'">
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade padding-10" id="tabB">
+                                        <div ng-include="'views/nocCliente/resposta-template.html'">
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade padding-10" id="tabC">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelQuantidadeDevolvida">Quantidade devolvida</label>
+                                                <label class="label" ng-class="{'state-error': nocClienteDispatchForm.quantidadeDevolvida.$invalid && showValidation}">
+                                                    <input type="text" ng-model="entityResposta.QuantidadeDevolvida" maxlength="9" data-localize="placeQuantidadeDevolvida" name="quantidadeDevolvida" id="quantidadeDevolvida" required numbers-only class="form-control">
+                                                </label>
+                                                <em class="invalid" ng-show="nocClienteDispatchForm.quantidadeDevolvida.$invalid && showValidation"><span data-localize="validacaoQuantidadeDevolvida"></span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelDataChegadaDoLoteDevoldidoAFabrica">Data chegada do lote devolvido à fábrica</label>
+                                                <div class="input-group" ng-class="{'state-error': nocClienteDispatchForm.dataChegadaDoLote.$invalid && showValidation}">
+                                                    <input type="text" ng-class="{invalid: nocClienteDispatchForm.dataChegadaDoLote.$invalid && showValidation}" ui-date ng-model="entityResposta.DataChegadaDoLote" name="dataChegadaDoLote" id="dataChegadaDoLote" datepicker-popup="dd/MM/yyyy" is-open="exibirDatepickerDataChegadaDoLote" datepicker-options="{ showWeeks: false }" show-button-bar="false" class="form-control" required max-date="hoje">
+                                                    <span class="input-group-addon" ng-click="exibirDatepicker($event, 'exibirDatepickerDataChegadaDoLote')"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                                <em class="invalid" ng-show="nocClienteDispatchForm.dataChegadaDoLote.$invalid && showValidation"><span data-localize="validacaoDataChegadaDoLoteDevoldidoAFabrica"></span> </em>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelValorDoFrete">Valor do Frete</label>
+                                                <label class="label" ng-class="{'state-error': nocClienteDispatchForm.valorDoFrete.$invalid && showValidation}">
+                                                    <input type="text" ng-model="entityResposta.ValorDoFrete" maxlength="13" data-localize="placeValorDoFrete" name="valorDoFrete" id="valorDoFrete" required number-decimal class="form-control">
+                                                </label>
+                                                <em class="invalid" ng-show="nocClienteDispatchForm.valorDoFrete.$invalid && showValidation"><span data-localize="validacaoValorDoFrete"></span></em>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="col-sm-12">
+                                            <ul class="pager wizard no-margin">
+                                                <li class="next finish">
+                                                    <a href="javascript:void(0);" id="salvarWizard" class="btn btn-lg txt-color-darken" ng-click="submit()"><span data-localize="liSalvar">Enviar</span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+</section>
+<!-- end widget grid -->

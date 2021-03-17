@@ -1,0 +1,141 @@
+﻿<style type="text/css">
+    .smart-form fieldset {
+        padding-top: 0px !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i>Masterdata - <span data-localize="labelFiscal">Fiscal</span>
+        </h1>
+    </div>
+</div>
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+    <div class="container">
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-1">
+                <div class="well no-padding">
+                    <form id="masterdataMaterialFiscalForm" name="masterdataMaterialFiscalForm" class="smart-form client-form" ng-submit="submit()" novalidate>
+                        <header>
+                            <span data-localize="labelFiscal">Fiscal</span>
+                        </header>
+                        <fieldset>
+                            <section>
+                                <div class="row" ng-if="entity.PedidoCorrecao">
+                                    <div class="alert adjusted alert-info fade in" style="margin: 10px;">
+                                        <span><i class="fa-fw fa-lg fa fa-info"></i>
+                                            <label data-localize="labelPedidoCorrecao" style="font-weight: bold;">Pedido de Correção</label>
+                                        </span>
+                                        <br />
+                                        <span>{{entity.PedidoCorrecao}}</span>
+                                    </div>
+                                </div>
+                            </section>
+                            <section>
+                                <div id="myTabContent" class="tab-content col-sm-12">
+                                    <ul class="nav nav-tabs pull-center in" id="myTab">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#tab1"><span class="hidden-mobile hidden-tablet" data-localize="labelMaterial">Material</span></a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#tab2"><span class="hidden-mobile hidden-tablet" data-localize="labelFiscal">Fiscal</span></a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-pane fade padding-10 no-padding-bottom active in" id="tab1">
+                                        <div ng-include="'views/masterdataMaterial/material-template.html'">
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade padding-10" id="tab2">
+                                        <div class="row">
+                                            <label class="label" data-localize="labelAprovacao">Aprovação</label>
+                                            <div class="inline-group">
+                                                <label class="radio" ng-class="{'state-error': entity.Aprovar == undefined && showValidation}">
+                                                    <input type="radio" ng-model="entity.Aprovar" name="aprovar" value="true"><i></i><span data-localize="labelAprovar"> Aprovar </span>
+                                                </label>
+                                                <label class="radio" ng-class="{'state-error': entity.Aprovar == undefined && showValidation}">
+                                                    <input type="radio" ng-model="entity.Aprovar" name="aprovar" value="false"><i></i><span data-localize="labelSolicitarCorrecao"> Solicitar Correção </span>
+                                                </label>
+                                                <em class="invalid" ng-show="entity.Aprovar == undefined && showValidation"><span data-localize="validacaoInformeSeDesejaAprovar">Informe se deseja aprovar</span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-show="entity.Aprovar == 'true'">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelCategoriaCFOP">Categoria CFOP</label>
+                                                <label class="label" ng-class="{'state-error': masterdataMaterialFiscalForm.categoriaCfop.$invalid && showValidation && !devolver}">
+                                                    <select ng-model="resposta.CategoriaCfop" name="categoriaCfop" id="categoriaCfop" ng-options="l.Nome for l in categoriasCfop track by l.Id" required class="form-control">
+                                                        <option value="" selected="selected" data-localize="optionSelecioneCategoriaCFOP">Selecione a categoria CFOP</option>
+                                                    </select>
+                                                </label>
+                                                <em class="invalid" ng-show="masterdataMaterialFiscalForm.categoriaCfop.$invalid && showValidation && !devolver"><span data-localize="validacaoCategoriaCFOP"> Informe a categoria CFOP</span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-show="entity.Aprovar == 'true'">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelClassificacaoFiscal">Classificação Fiscal</label>
+                                                <label class="label" ng-class="{'state-error': masterdataMaterialFiscalForm.classificacaoFiscal.$invalid && showValidation && !devolver}">
+                                                    <select ng-model="resposta.ClassificacaoFiscal" name="classificacaoFiscal" id="classificacaoFiscal" ng-options="c.Nome for c in classificacoesFiscais track by c.Id" required class="form-control">
+                                                        <option value="" selected="selected" data-localize="optionSelecioneClassificacaoFiscal">Selecione a classificação fiscal</option>
+                                                    </select>
+                                                </label>
+                                                <em class="invalid" ng-show="masterdataMaterialFiscalForm.classificacaoFiscal.$invalid && showValidation && !devolver"><span data-localize="validacaoSelecioneClassificacaoFiscal">Informe a classificação fiscal</span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-show="entity.Aprovar == 'true'">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelUtilizacaoDoMaterial">Utilização do Material</label>
+                                                <label class="label" ng-class="{'state-error': masterdataMaterialFiscalForm.utilizacaoDoMaterial.$invalid && showValidation && !devolver}">
+                                                    <select ng-model="resposta.UtilizacaoDoMaterial" name="utilizacaoDoMaterial" id="utilizacaoDoMaterial" ng-options="u.Nome for u in utilizacoesDoMaterial track by u.Id" required class="form-control">
+                                                        <option value="" selected="selected" data-localize="placeUtilizacaoDoMaterial">Selecione a utilização do material</option>
+                                                    </select>
+                                                </label>
+                                                <em class="invalid" ng-show="masterdataMaterialFiscalForm.utilizacaoDoMaterial.$invalid && showValidation && !devolver"><span data-localize="validacaoSelecioneClassificacaoFiscal">Informe a utilização do material</span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-show="entity.Aprovar == 'false'">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelPedidoCorrecao">Pedido de Correção</label>
+                                                <label class="input" ng-class="{'state-error': masterdataMaterialFiscalForm.pedidoDeCorrecao.$invalid && showValidation && devolver}">
+                                                    <textarea type="text" ng-model="resposta.PedidoCorrecao" data-localize="placePedidoCorrecao" rows="3" name="pedidoDeCorrecao" id="pedidoDeCorrecao" required class="form-control"></textarea>
+                                                </label>
+                                                <em class="invalid" ng-show="masterdataMaterialFiscalForm.pedidoDeCorrecao.$invalid && showValidation && devolver"><span data-localize="validacaoPedidoCorrecao">Informe o pedido de correção</span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-show="entity.Aprovar == 'false'">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelDevolverPara">Devolver para</label>
+                                                <label class="label" ng-class="{'state-error': !resposta.DevolverPara && showValidation && devolver}">
+                                                    <select ng-model="resposta.DevolverPara" name="devolverPara" id="devolverPara" required class="form-control">
+                                                        <option ng-if="entity.Etapas.indexOf(0) > -1" value="0" selected="selected" data-localize="optionSolicitante">Solicitante</option>
+                                                        <option ng-if="entity.Etapas.indexOf(1) > -1" value="1" data-localize="optionSuprimentos">Suprimentos</option>
+                                                    </select>
+                                                </label>
+                                                <em class="invalid" ng-show="!resposta.DevolverPara && showValidation && devolver"><span data-localize="validacaoInformeAEtapaParaQualDesejaDevolver">Informe a etapa para qual deseja devolver</span></em>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="col-sm-12">
+                                        <ul class="pager wizard no-margin">
+                                            <li class="next finish">
+                                                <a href="javascript:void(0);" id="salvar" class="btn btn-lg txt-color-darken" ng-click="submit(entity.Aprovar == 'false')"><span data-localize="liSalvar">Enviar</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                            </section>
+                        </fieldset>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+</section>
+<!-- end widget grid -->

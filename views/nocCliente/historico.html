@@ -1,0 +1,456 @@
+﻿<style type="text/css">
+    .smart-form fieldset {
+        padding-top: 0px !important;
+    }
+</style>
+
+<script src="js/plugin/fileSaver/FileSaver.js"></script>
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i><span data-localize="labelNocCliente">NOC Cliente</span>
+        </h1>
+    </div>
+</div>
+<!-- widget grid -->
+<section id="widget-grid" class="">
+    <div class="container">
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="well no-padding">
+                    <form class="smart-form client-form">
+                        <header>
+                            <span data-localize="labelHistorico">Histórico</span>
+                        </header>
+                        <fieldset>
+                            <section>
+                                <div class="alert adjusted alert-info fade in" style="margin: 15px;">
+                                    <i class="fa-fw fa-lg fa fa-info"></i>
+                                    <span data-localize="labelAguardandoCorrecaoCadastro" ng-if="entity.Status == 0">Aguardando correção no cadastro</span>
+                                    <span data-localize="labelAguardandoResposta" ng-if="entity.Status == 1">Aguardando resposta</span>
+                                    <span data-localize="labelAguardandoDispatch" ng-if="entity.Status == 2">Aguardando dispatch</span>
+                                    <span data-localize="labelAguardandoAprovacao" ng-if="entity.Status == 3">Aguardando aprovação</span>
+                                    <span data-localize="labelConcluida" ng-if="entity.Status == 4">Concluída</span>
+                                    <span data-localize="labelCancelada" ng-if="entity.Status == 5">Cancelada</span>
+                                    <span data-localize="labelAprovado" ng-if="entity.Status == 6">Aprovado</span>
+                                    <span data-localize="labelReprovado" ng-if="entity.Status == 7">Reprovado</span>
+                                </div>
+                            </section>
+                            <section>
+                                <div id="myTabContent" class="tab-content col-sm-12">
+                                    <ul class="nav nav-tabs pull-center in" id="myTab">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#tabA" id="htabA"><span class="hidden-mobile hidden-tablet" data-localize="labelNocCliente">Noc Cliente</span></a>
+                                        </li>
+                                        <li class="" ng-if="entity.Status > 1">
+                                            <a data-toggle="tab" href="#tabB" id="htabB"><span class="hidden-mobile hidden-tablet" data-localize="labelResposta">Resposta</span></a>
+                                        </li>
+                                        <li class="" ng-if="entity.Status > 2">
+                                            <a data-toggle="tab" href="#tabC" id="htabC"><span class="hidden-mobile hidden-tablet" data-localize="labelDispatch">Dispatch</span></a>
+                                        </li>
+                                        <!--<li class="" ng-if="entity.Status > 3">
+                                            <a data-toggle="tab" href="#tabD" id="htabD"><span class="hidden-mobile hidden-tablet" data-localize="">Approver</span></a>
+                                        </li>-->
+
+                                    </ul>
+
+                                    <div class="tab-pane fade padding-10 no-padding-bottom active in" id="tabA">
+                                        <div ng-include="'views/nocCliente/history-template.html'">
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade padding-10" id="tabB">
+                                        <div ng-include="'views/nocCliente/resposta-template.html'">
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade padding-10" id="tabC">
+                                        <table class="table table-striped word-break">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="col-sm-6">
+                                                        <label class="control-label"><strong data-localize="labelQuantidadeDevolvida">Quantidade devolvida</strong>: </label>
+                                                    </td>
+                                                    <td>
+                                                        <label>{{ entity.QuantidadeDevolvida }}</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-sm-6">
+                                                        <label class="control-label"><strong data-localize="labelDataChegadaDoLoteDevoldidoAFabrica">Data chegada do lote devolvido à fábrica</strong>: </label>
+                                                    </td>
+                                                    <td>
+                                                        <label>{{ entity.DataChegadaDoLote | date:'dd/MM/yyyy' }}</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-sm-6">
+                                                        <label class="control-label"><strong data-localize="labelValorDoFrete">Valor do Frete:</strong>: </label>
+                                                    </td>
+                                                    <td>
+                                                        <label>{{ entity.ValorDoFrete | decimal }}</label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane fade padding-10" id="tabD">
+                                    </div>
+                                </div>
+                            </section>
+                            <div class="col-sm-12">
+                                <ul class="pager wizard no-margin">
+                                    <li class="next finish">
+                                        <a id="excel" class="btn btn-lg txt-color-darken" ng-click="exportData()"><span data-localize="liExportarExcel">Exportar Excel</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+</section>
+
+
+<!-- end widget grid -->
+<!--data:image/png;base64,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-->
+<div style="display: none" id="exportar">
+    <meta charset="utf-8">
+    <div style="display: none" id="Div1">
+        <meta charset="utf-8">
+        <div style="perspective-origin: 783.5px 594.5px; transform-origin: 783.5px 594.5px; font: normal normal normal normal 16px / normal 'Times New Roman';">
+            <table>
+                <tr>
+                    <td rowspan="8"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td colspan="9">
+                        <table style="perspective-origin: 783.5px 31.5px; transform-origin: 783.5px 31.5px; border-spacing: 0px 0px; font: normal normal bold normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                            <tbody style="perspective-origin: 783.5px 31.5px; transform-origin: 783.5px 31.5px; border: 0px none rgb(128, 128, 128); font: normal normal bold normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                <tr style="vertical-align: middle; perspective-origin: 783.5px 8.5px; transform-origin: 783.5px 8.5px; border: 0px none rgb(128, 128, 128); font: normal normal bold normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" width="1000" rowspan="4" style="width: 1000px; text-align: center; vertical-align: middle; perspective-origin: 101.5px 31.5px; transform-origin: 101.5px 31.5px; border-top: 2px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 2px solid rgb(0, 0, 0); border-left: 2px solid rgb(0, 0, 0); font: normal normal bold normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 10px 0px 6px;">
+                                        <img src="http://erexam.rexam.com/img/excel/Rexam.png" alt="Alternate Text" style="text-align: center; perspective-origin: 75px 15.6094px; transform-origin: 75px 15.6094px; font: normal normal bold normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;" />
+                                    </td>
+                                    <td bgcolor="#BFBFBF" rowspan="4" style="text-align: center; vertical-align: middle; perspective-origin: 49px 31.5px; transform-origin: 49px 31.5px; background: rgb(191, 191, 191) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 2px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 2px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 26px / normal Futura, 'Trebuchet MS', Arial, sans-serif; font-size: 26px">&nbsp      FO      &nbsp
+                                    </td>
+                                    <td align="left" colspan="4" rowspan="4" style="text-align: center; vertical-align: middle; perspective-origin: 218px 31.5px; transform-origin: 218px 31.5px; border-top: 2px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 2px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 26px / normal Futura, 'Trebuchet MS', Arial, sans-serif; font-size: 26px">
+                                        <span data-localize="excelFormulario">FORMULÁRIO</span>
+                                    </td>
+                                    <td align="left" style="border-top: 2px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0);"><strong>Nº: </strong>FO QUA 010-A</td>
+                                    <td align="left" style="text-align: center; vertical-align: middle; perspective-origin: 109px 8.5px; transform-origin: 109px 8.5px; border-top: 2px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 0px 20px;">X
+                                    </td>
+                                    <td align="left" style="vertical-align: middle; perspective-origin: 306px 8.5px; transform-origin: 306px 8.5px; border-top: 2px solid rgb(0, 0, 0); border-right: 2px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                        <span data-localize="excelQualidade">Qualidade</span>
+                                    </td>
+                                </tr>
+                                <tr style="vertical-align: middle; perspective-origin: 783.5px 7.5px; transform-origin: 783.5px 7.5px; border: 0px none rgb(128, 128, 128); font: normal normal bold normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" style="border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0);"><strong>Rev.: </strong>02</td>
+                                    <td align="left" style="text-align: center; vertical-align: middle; perspective-origin: 109px 7.5px; transform-origin: 109px 7.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 0px 20px;">X
+                                    </td>
+                                    <td align="left" style="vertical-align: middle; perspective-origin: 306px 7.5px; transform-origin: 306px 7.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 2px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                        <span data-localize="excelSaudeSeguranca">Saúde e Segurança</span>
+                                    </td>
+                                </tr>
+                                <tr style="vertical-align: middle; perspective-origin: 783.5px 7.5px; transform-origin: 783.5px 7.5px; border: 0px none rgb(128, 128, 128); font: normal normal bold normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" style="border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0);"><strong>Data: </strong>29/02/2016</td>
+                                    <td align="left" style="text-align: center; vertical-align: middle; perspective-origin: 109px 7.5px; transform-origin: 109px 7.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 0px 20px;">X
+                                    </td>
+                                    <td align="left" style="vertical-align: middle; perspective-origin: 306px 7.5px; transform-origin: 306px 7.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 2px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                        <span data-localize="excelMeioAmbiente">Meio Ambiente</span>
+                                    </td>
+                                </tr>
+                                <tr style="vertical-align: middle; perspective-origin: 783.5px 8px; transform-origin: 783.5px 8px; border: 0px none rgb(128, 128, 128); font: normal normal bold normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td style="border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 2px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0);"></td>
+                                    <td align="left" style="text-align: center; vertical-align: middle; perspective-origin: 109px 8px; transform-origin: 109px 8px; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 2px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 0px 20px;">X
+                                    </td>
+                                    <td align="left" style="vertical-align: middle; perspective-origin: 306px 8px; transform-origin: 306px 8px; border-top: 0px solid rgb(0, 0, 0); border-right: 2px solid rgb(0, 0, 0); border-bottom: 2px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                        <span data-localize="excelSegurancaAlimentos">Segurança de Alimentos</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="height: 10px; perspective-origin: 783.5px 5px; transform-origin: 783.5px 5px; font: normal normal normal normal 16px / normal 'Times New Roman';">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="9">
+                        <table style="height: 48px; perspective-origin: 783.5px 26px; transform-origin: 783.5px 26px; border: 2px solid rgb(0, 0, 0); border-spacing: 2px 2px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                            <tbody style="height: 48px; perspective-origin: 781.5px 24px; transform-origin: 781.5px 24px; border-spacing: 2px 2px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                <tr style="height: 21px; vertical-align: middle; perspective-origin: 781.5px 10.5px; transform-origin: 781.5px 10.5px; border-spacing: 2px 2px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" style="font-size: 12px; height: 19px; vertical-align: middle; perspective-origin: 779.5px 10.5px; transform-origin: 779.5px 10.5px; border-spacing: 2px 2px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"><span data-localize="excelTitulo">TÍTULO</span>
+                                    </td>
+                                </tr>
+                                <tr style="height: 21px; vertical-align: middle; perspective-origin: 781.5px 10.5px; transform-origin: 781.5px 10.5px; border-spacing: 2px 2px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td rowspan="2" align="left" colspan="9" style="font-weight: bold; font-size: 19px; height: 19px; text-align: center; vertical-align: middle; perspective-origin: 779.5px 10.5px; transform-origin: 779.5px 10.5px; border-spacing: 2px 2px; font: normal normal bold normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelTituloAnexo">ANEXO - AÇÃO CORRETIVA E PREVENTIVA (RESPOSTA DE RECLAMAÇÃO DE CLIENTE)</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="height: 10px; perspective-origin: 783.5px 5px; transform-origin: 783.5px 5px; font: normal normal normal normal 16px / normal 'Times New Roman';">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <table style="height: 497px; perspective-origin: 783.5px 250.5px; transform-origin: 783.5px 250.5px; border: 2px solid rgb(0, 0, 0); border-spacing: 0px 0px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                            <thead style="height: 19px; perspective-origin: 781.5px 9.5px; transform-origin: 781.5px 9.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                <tr style="height: 19px; vertical-align: middle; perspective-origin: 781.5px 9.5px; transform-origin: 781.5px 9.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <th colspan="9" bgcolor="#DCE6F0" style="height: 16px; vertical-align: middle; perspective-origin: 781.5px 9.5px; transform-origin: 781.5px 9.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 14px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelDadosDescricao">00 - DADOS E DESCRIÇÃO DA OCORRÊNCIA (Reclamação de Cliente)</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody style="height: 478px; perspective-origin: 781.5px 239px; transform-origin: 781.5px 239px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                <tr style="height: 43px; vertical-align: middle; perspective-origin: 781.5px 21.5px; transform-origin: 781.5px 21.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 126.5px 21.5px; transform-origin: 126.5px 21.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"><span data-localize="labelNocCliente">Cliente</span>:
+                                    </td>
+                                    <td align="left" colspan="4" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21.5px; transform-origin: 276.5px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ entity.Cliente.Nome }}
+                                    </td>
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 102px 21.5px; transform-origin: 102px 21.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"><span data-localize="labelFabrica">Planta</span>:
+                                    </td>
+                                    <td align="left" colspan="3" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21.5px; transform-origin: 276.5px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ entity.Fabrica.Nome }}
+                                    </td>
+                                </tr>
+                                <tr style="height: 43px; vertical-align: middle; perspective-origin: 781.5px 21.5px; transform-origin: 781.5px 21.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 126.5px 21.5px; transform-origin: 126.5px 21.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"><span data-localize="labelNumeroDoDocumento">Nº Doc. Cliente</span>: 
+                                    </td>
+                                    <td align="left" colspan="4" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21.5px; transform-origin: 276.5px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ entity.TipoDeDocumento.Nome }} - {{ entity.NumeroDoDocumento }}
+                                    </td>
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 102px 21.5px; transform-origin: 102px 21.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">NOC:
+                                    </td>
+                                    <td align="left" colspan="3" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21.5px; transform-origin: 276.5px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ entity.IdExterno }}
+                                    </td>
+                                </tr>
+                                <tr style="height: 43px; vertical-align: middle; perspective-origin: 781.5px 21.5px; transform-origin: 781.5px 21.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 126.5px 21.5px; transform-origin: 126.5px 21.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelDefeitoReclamado">Defeito Reclamado:</span>
+                                    </td>
+                                    <td align="left" colspan="4" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21.5px; transform-origin: 276.5px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ entity.Defeito.Nome }}
+                                    </td>
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 102px 21.5px; transform-origin: 102px 21.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelCodLataTampa">Cód. Lata-Tampa (nº lote):</span>
+                                    </td>
+                                    <td align="left" colspan="3" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21.5px; transform-origin: 276.5px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ entity.PrensaMatrizELote }}
+                                    </td>
+                                </tr>
+                                <tr style="height: 43px; vertical-align: middle; perspective-origin: 781.5px 21.5px; transform-origin: 781.5px 21.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 126.5px 21.5px; transform-origin: 126.5px 21.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelDataOcorrencia">Data da Ocorrência:</span>
+                                    </td>
+                                    <td align="left" colspan="4" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21.5px; transform-origin: 276.5px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ entity.DataOcorrencia | date:'dd/MM/yyyy' }}
+                                    </td>
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 102px 21.5px; transform-origin: 102px 21.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelDataFabricacao">Data Fabricação:</span>
+                                    </td>
+                                    <td align="left" colspan="3" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21.5px; transform-origin: 276.5px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ entity.DataFabricacao | date:'dd/MM/yyyy' }}
+                                    </td>
+                                </tr>
+                                <tr style="height: 43px; vertical-align: middle; perspective-origin: 781.5px 21.5px; transform-origin: 781.5px 21.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 126.5px 21.5px; transform-origin: 126.5px 21.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelNotaFiscal">Nota Fiscal:</span>
+                                    </td>
+                                    <td align="left" colspan="4" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21.5px; transform-origin: 276.5px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ entity.NotaFiscal }}
+                                    </td>
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 102px 21.5px; transform-origin: 102px 21.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelQuantidadeReclamadaRetida">Qtde Reclamada - Retida:</span>
+                                    </td>
+                                    <td align="left" colspan="3" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21.5px; transform-origin: 276.5px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ entity.QuantidadeRetida | decimal }}
+                                    </td>
+                                </tr>
+                                <tr style="height: 103px; vertical-align: middle; perspective-origin: 781.5px 51.5px; transform-origin: 781.5px 51.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 100px; vertical-align: middle; perspective-origin: 126.5px 51.5px; transform-origin: 126.5px 51.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelDescricaoDesvio">Descrição do desvio relatado pelo cliente:</span>
+                                    </td>
+                                    <td align="left" colspan="8" style="height: 100px; vertical-align: middle; perspective-origin: 655px 51.5px; transform-origin: 655px 51.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ entity.ComentariosDoCliente }}
+                                    </td>
+                                </tr>
+                                <tr style="height: 43px; vertical-align: middle; perspective-origin: 781.5px 21.5px; transform-origin: 781.5px 21.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 126.5px 21.5px; transform-origin: 126.5px 21.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelTraducaoFato">Tradução do fato: (constatação após atendimento Rexam)</span>
+                                    </td>
+                                    <td align="left" colspan="8" style="height: 40px; vertical-align: middle; perspective-origin: 655px 21.5px; transform-origin: 655px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ !entity.Resposta.Rascunho ? entity.Resposta.Fato : '' }}
+                                    </td>
+                                </tr>
+                                <tr style="height: 43px; vertical-align: middle; perspective-origin: 781.5px 21.5px; transform-origin: 781.5px 21.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 126.5px 21.5px; transform-origin: 126.5px 21.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelNotasRelevantes">Notas Relevantes: (máquina, área, processo, complemento da origem da falha, etc)</span>
+                                    </td>
+                                    <td align="left" colspan="8" style="height: 40px; vertical-align: middle; perspective-origin: 655px 21.5px; transform-origin: 655px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ !entity.Resposta.Rascunho ? entity.Resposta.NotaRelevante : '' }}
+                                    </td>
+                                </tr>
+                                <tr style="height: 42px; vertical-align: middle; perspective-origin: 781.5px 21px; transform-origin: 781.5px 21px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 126.5px 21px; transform-origin: 126.5px 21px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 0px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelPreenchidoPor">Preenchido por:</span>
+                                    </td>
+                                    <td align="left" colspan="4" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21px; transform-origin: 276.5px 21px; border: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ entity.NomeUsuarioResposta }}
+                                    </td>
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 102px 21px; transform-origin: 102px 21px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 0px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelDataPreenchidoPor">Data:</span>
+                                    </td>
+                                    <td align="left" colspan="3" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21px; transform-origin: 276.5px 21px; border: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ !entity.Resposta.Rascunho ? (entity.DataResposta | date:'dd/MM/yyyy') : '' }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="height: 10px; perspective-origin: 783.5px 5px; transform-origin: 783.5px 5px; font: normal normal normal normal 16px / normal 'Times New Roman';">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <table style="height: 112px; perspective-origin: 783.5px 58px; transform-origin: 783.5px 58px; border: 2px solid rgb(0, 0, 0); border-spacing: 0px 0px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                            <thead style="height: 19px; perspective-origin: 781.5px 9.5px; transform-origin: 781.5px 9.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                <tr style="height: 19px; vertical-align: middle; perspective-origin: 781.5px 9.5px; transform-origin: 781.5px 9.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <th colspan="9" bgcolor="#DCE6F0" style="height: 16px; vertical-align: middle; perspective-origin: 781.5px 9.5px; transform-origin: 781.5px 9.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 14px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelAcaoContencaoDeteccao">01 - AÇÃO DE CONTENÇÃO E DETECÇÃO</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody style="height: 93px; perspective-origin: 781.5px 46.5px; transform-origin: 781.5px 46.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                <tr style="height: 43px; vertical-align: middle; perspective-origin: 781.5px 21.5px; transform-origin: 781.5px 21.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 126.5px 21.5px; transform-origin: 126.5px 21.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelAcaoContencao">Ação de Contenção:</span>
+                                    </td>
+                                    <td align="left" colspan="8" style="height: 40px; vertical-align: middle; perspective-origin: 655px 21.5px; transform-origin: 655px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{!entity.Resposta.Rascunho ? entity.Resposta.Contencao : '' }}
+                                    </td>
+                                </tr>
+                                <tr style="height: 42px; vertical-align: middle; perspective-origin: 781.5px 21px; transform-origin: 781.5px 21px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 126.5px 21px; transform-origin: 126.5px 21px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 0px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelAcaoDeteccao">Ação de Detecção:</span>
+                                    </td>
+                                    <td align="left" colspan="8" style="height: 40px; vertical-align: middle; perspective-origin: 655px 21px; transform-origin: 655px 21px; border: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{!entity.Resposta.Rascunho ? entity.Resposta.AcaoDeDeteccao : '' }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="height: 10px; perspective-origin: 783.5px 5px; transform-origin: 783.5px 5px; font: normal normal normal normal 16px / normal 'Times New Roman';">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <table style="height: 209px; perspective-origin: 783.5px 106.5px; transform-origin: 783.5px 106.5px; border: 2px solid rgb(0, 0, 0); border-spacing: 0px 0px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                            <thead style="height: 38px; perspective-origin: 781.5px 19px; transform-origin: 781.5px 19px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                <tr style="height: 19px; vertical-align: middle; perspective-origin: 781.5px 9.5px; transform-origin: 781.5px 9.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <th colspan="9" bgcolor="#DCE6F0" style="height: 16px; vertical-align: middle; perspective-origin: 781.5px 9.5px; transform-origin: 781.5px 9.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 14px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelConfirmacaoCausas">02 - CONFIRMAÇÃO DAS CAUSAS REAIS/POTENCIAIS E DEFINIÇÃO DE AÇÕES</span>
+                                    </th>
+                                </tr>
+                                <tr style="height: 19px; vertical-align: middle; perspective-origin: 781.5px 9.5px; transform-origin: 781.5px 9.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <th bgcolor="#DCE6F0" colspan="2" style="height: 16px; vertical-align: middle; perspective-origin: 126.5px 9.5px; transform-origin: 126.5px 9.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 14px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"><span data-localize="labelCausa">CAUSA:</span>
+                                        </th>
+                                    <th bgcolor="#DCE6F0" colspan="3" style="height: 16px; vertical-align: middle; perspective-origin: 256px 9.5px; transform-origin: 256px 9.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 14px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelConfirmacaoAcao">AÇÃO:</span>
+                                    </th>
+                                    <th bgcolor="#DCE6F0" colspan="2" style="height: 16px; vertical-align: middle; perspective-origin: 102px 9.5px; transform-origin: 102px 9.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 14px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelConfirmacaoResponsavel">RESPONSÁVEL:</span>
+                                    </th>
+                                    <th colspan="2" bgcolor="#DCE6F0" style="height: 16px; vertical-align: middle; perspective-origin: 297px 9.5px; transform-origin: 297px 9.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 14px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelConfirmacaoPrazo">PRAZO:</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody style="height: 171px; perspective-origin: 781.5px 85.5px; transform-origin: 781.5px 85.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                <tr ng-if="!entity.Resposta.Rascunho" ng-repeat="a in entity.Resposta.PlanoDeAcao" style="height: 43px; vertical-align: middle; perspective-origin: 781.5px 21.5px; transform-origin: 781.5px 21.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" colspan="2" style="height: 40px; vertical-align: middle; perspective-origin: 126.5px 21.5px; transform-origin: 126.5px 21.5px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ a.Causas }}</td>
+                                    <td align="left" colspan="3" style="height: 40px; vertical-align: middle; perspective-origin: 256px 21.5px; transform-origin: 256px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ a.AcaoCorrespondente }}</td>
+                                    <td align="left" colspan="2" style="height: 40px; vertical-align: middle; perspective-origin: 102px 21.5px; transform-origin: 102px 21.5px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ a.Responsavel }}</td>
+                                    <td align="left" colspan="2" style="height: 40px; vertical-align: middle; perspective-origin: 297px 21.5px; transform-origin: 297px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ a.PrazoDeExecucao | date:'dd/MM/yyyy' }}</td>
+                                </tr>
+                                <tr ng-if="entity.Resposta.Rascunho || !entity.Resposta.PlanoDeAcao.length" style="height: 43px; vertical-align: middle; perspective-origin: 781.5px 21.5px; transform-origin: 781.5px 21.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" colspan="2" style="height: 40px; vertical-align: middle; perspective-origin: 126.5px 21.5px; transform-origin: 126.5px 21.5px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"></td>
+                                    <td align="left" colspan="3" style="height: 40px; vertical-align: middle; perspective-origin: 256px 21.5px; transform-origin: 256px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"></td>
+                                    <td align="left" colspan="2" style="height: 40px; vertical-align: middle; perspective-origin: 102px 21.5px; transform-origin: 102px 21.5px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"></td>
+                                    <td align="left" colspan="2" style="height: 40px; vertical-align: middle; perspective-origin: 297px 21.5px; transform-origin: 297px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"></td>
+                                </tr>
+                                <tr ng-if="entity.Resposta.Rascunho || !entity.Resposta.PlanoDeAcao.length" style="height: 43px; vertical-align: middle; perspective-origin: 781.5px 21.5px; transform-origin: 781.5px 21.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" colspan="2" style="height: 40px; vertical-align: middle; perspective-origin: 126.5px 21.5px; transform-origin: 126.5px 21.5px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"></td>
+                                    <td align="left" colspan="3" style="height: 40px; vertical-align: middle; perspective-origin: 256px 21.5px; transform-origin: 256px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"></td>
+                                    <td align="left" colspan="2" style="height: 40px; vertical-align: middle; perspective-origin: 102px 21.5px; transform-origin: 102px 21.5px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"></td>
+                                    <td align="left" colspan="2" style="height: 40px; vertical-align: middle; perspective-origin: 297px 21.5px; transform-origin: 297px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"></td>
+                                </tr>
+                                <tr ng-if="entity.Resposta.Rascunho || !entity.Resposta.PlanoDeAcao.length" style="height: 43px; vertical-align: middle; perspective-origin: 781.5px 21.5px; transform-origin: 781.5px 21.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" colspan="2" style="height: 40px; vertical-align: middle; perspective-origin: 126.5px 21.5px; transform-origin: 126.5px 21.5px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"></td>
+                                    <td align="left" colspan="3" style="height: 40px; vertical-align: middle; perspective-origin: 256px 21.5px; transform-origin: 256px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"></td>
+                                    <td align="left" colspan="2" style="height: 40px; vertical-align: middle; perspective-origin: 102px 21.5px; transform-origin: 102px 21.5px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"></td>
+                                    <td align="left" colspan="2" style="height: 40px; vertical-align: middle; perspective-origin: 297px 21.5px; transform-origin: 297px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="height: 10px; perspective-origin: 783.5px 5px; transform-origin: 783.5px 5px; font: normal normal normal normal 16px / normal 'Times New Roman';">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <table style="height: 190px; perspective-origin: 783.5px 97px; transform-origin: 783.5px 97px; border: 2px solid rgb(0, 0, 0); border-spacing: 0px 0px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                            <thead style="height: 19px; perspective-origin: 781.5px 9.5px; transform-origin: 781.5px 9.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                <tr style="height: 19px; vertical-align: middle; perspective-origin: 781.5px 9.5px; transform-origin: 781.5px 9.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <th colspan="9" bgcolor="#DCE6F0" style="height: 16px; vertical-align: middle; perspective-origin: 781.5px 9.5px; transform-origin: 781.5px 9.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 14px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelConclusao">03 - CONCLUSÃO</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody style="height: 171px; perspective-origin: 781.5px 85.5px; transform-origin: 781.5px 85.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                <tr style="height: 43px; vertical-align: middle; perspective-origin: 781.5px 21.5px; transform-origin: 781.5px 21.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 126.5px 21.5px; transform-origin: 126.5px 21.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelConclusaoParecerProcedencia">PARECER: (PROCEDÊNCIA)</span>
+                                    </td>
+                                    <td align="left" colspan="8" style="height: 40px; vertical-align: middle; perspective-origin: 655px 21.5px; transform-origin: 655px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ !entity.Resposta.Rascunho ? entity.Resposta.Parecer.Nome : '' }}</td>
+                                </tr>
+                                <tr style="height: 43px; vertical-align: middle; perspective-origin: 781.5px 21.5px; transform-origin: 781.5px 21.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 126.5px 21.5px; transform-origin: 126.5px 21.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelConclusaoComentarios">COMENTÁRIOS:</span>
+                                    </td>
+                                    <td align="left" colspan="8" style="height: 40px; vertical-align: middle; perspective-origin: 655px 21.5px; transform-origin: 655px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ !entity.Resposta.Rascunho ? entity.Resposta.Conclusao : '' }}</td>
+                                </tr>
+                                <tr style="height: 43px; vertical-align: middle; perspective-origin: 781.5px 21.5px; transform-origin: 781.5px 21.5px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 126.5px 21.5px; transform-origin: 126.5px 21.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelConclusaoRessarcimento">RESSARCIMENTO? (S/N)</span>
+                                    </td>
+                                    <td align="left" colspan="4" ng-if="!entity.Resposta.Rascunho && entity.Resposta.Ressarcimento" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21.5px; transform-origin: 276.5px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">Sim</td>
+                                    <td align="left" colspan="4" ng-if="!entity.Resposta.Rascunho && !entity.Resposta.Ressarcimento" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21.5px; transform-origin: 276.5px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">Não</td>
+                                    <td align="left" colspan="4" ng-if="entity.Resposta.Rascunho" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21.5px; transform-origin: 276.5px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"></td>
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 102px 21.5px; transform-origin: 102px 21.5px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelConclusaoQuantidadeAutorizadaRessarcimento">Qtde. autorizada a ser ressarcida:</span>
+                                    </td>
+                                    <td align="left" ng-if="!entity.Resposta.Rascunho && entity.Resposta.QuantidadeRessarcidaEmLata" colspan="3" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21.5px; transform-origin: 276.5px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ entity.Resposta.QuantidadeRessarcidaEmLata }}</td>
+                                    <td align="left" ng-if="!entity.Resposta.Rascunho && entity.Resposta.QuantidadeRessarcidaEmTampa" colspan="3" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21.5px; transform-origin: 276.5px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ entity.Resposta.QuantidadeRessarcidaEmTampa }}</td>
+                                    <td align="left" ng-if="entity.Resposta.Rascunho || (!entity.Resposta.QuantidadeRessarcidaEmLata && !entity.Resposta.QuantidadeRessarcidaEmTampa)" colspan="3" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21.5px; transform-origin: 276.5px 21.5px; border-top: 0px solid rgb(0, 0, 0); border-right: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"></td>
+                                </tr>
+                                <tr style="height: 42px; vertical-align: middle; perspective-origin: 781.5px 21px; transform-origin: 781.5px 21px; font: normal normal normal normal 16px / normal Futura, 'Trebuchet MS', Arial, sans-serif;">
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 126.5px 21px; transform-origin: 126.5px 21px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 0px solid rgb(0, 0, 0); border-left: 0px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelConclusaoDevolucao">DEVOLUÇÃO? (S/N)</span>
+                                    </td>
+                                    <td align="left" colspan="4" ng-if="!entity.Resposta.Rascunho && entity.Resposta.Devolucao" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21px; transform-origin: 276.5px 21px; border: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">Sim</td>
+                                    <td align="left" colspan="4" ng-if="!entity.Resposta.Rascunho && !entity.Resposta.Devolucao" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21px; transform-origin: 276.5px 21px; border: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">Não</td>
+                                    <td align="left" colspan="4" ng-if="entity.Resposta.Rascunho" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21px; transform-origin: 276.5px 21px; border: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"></td>
+                                    <td align="left" bgcolor="#DCE6F0" style="height: 40px; vertical-align: middle; perspective-origin: 102px 21px; transform-origin: 102px 21px; background: rgb(220, 230, 240) none repeat scroll 0% 0% / auto padding-box border-box; border-top: 0px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 0px solid rgb(0, 0, 0); border-left: 1px solid rgb(0, 0, 0); font: normal normal bold normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">
+                                        <span data-localize="excelConclusaoQuantidadeAutorizadaDevolvida">Qtde. autorizada a ser devolvida:</span>
+                                    </td>
+                                    <td align="left" colspan="3" ng-if="!entity.Resposta.Rascunho && entity.Resposta.Devolucao" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21px; transform-origin: 276.5px 21px; border: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;">{{ entity.Resposta.QuantidadeAutorizadaADevolver }}</td>
+                                    <td align="left" colspan="3" ng-if="entity.Resposta.Rascunho || (!entity.Resposta.Rascunho && !entity.Resposta.Devolucao)" style="height: 40px; vertical-align: middle; perspective-origin: 276.5px 21px; transform-origin: 276.5px 21px; border: 0px solid rgb(0, 0, 0); font: normal normal normal normal 12px / normal Futura, 'Trebuchet MS', Arial, sans-serif; padding: 1px;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

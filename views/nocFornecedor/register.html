@@ -1,0 +1,199 @@
+<style type="text/css">
+    .smart-form fieldset {
+        padding-top: 0px!important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i>NOC <span data-localize="labelFornecedorCadastro">Fornecedor Cadastro </span></h1>
+    </div>
+</div>
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+    <div class="container">
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="well no-padding">
+                    <form id="nocFornecedorRegistrationForm" name="nocFornecedorRegistrationForm" class="smart-form client-form" ng-submit="submit()" novalidate>
+                        <header>
+                            <span data-localize="labelCriacaoNocFornecedor">Criação de NOC Fornecedor</span>
+                        </header>
+                        <fieldset>
+                            <section>
+                                <div class="tab-pane active">
+                                    <fieldset>
+                                        <div class="row ">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelCategoria">Categoria</label>
+                                                <label class="label" ng-class="{'state-error': nocFornecedorRegistrationForm.categoria.$invalid && showValidation}">
+                                                    <select ng-model="entity.categoria" name="categoria" id="categoria" required class="form-control">
+                                                        <option value="" selected="selected" data-localize="optionSelecioneCategoria">Selecione a categoria</option>
+                                                        <option value="0" data-localize="optionCategoriaMaterialDireto">Material Direto</option>
+                                                        <option value="1" data-localize="optionCategoriaMaterialIndireto">Material Indireto</option>
+                                                        <option value="2" data-localize="optionCategoriaServicos">Serviços</option>
+                                                        <option value="3" data-localize="optionCategoriaTransporte">Frete/Movimentação Interna</option>
+                                                    </select>
+                                                </label>
+                                                <em class="invalid" ng-show="nocFornecedorRegistrationForm.categoria.$invalid && showValidation"><span data-localize="validacaoCategoria"></span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelPlanta">Planta</label>
+                                                <label class="label" ng-class="{'state-error': nocFornecedorRegistrationForm.planta.$invalid && showValidation}">
+                                                    <select ng-model="entity.planta" name="planta" id="planta" ng-options="p.Nome for p in plantas" required class="form-control">
+                                                        <option value="" selected="selected" data-localize="optionSelecionePlanta">Selecione a planta</option>
+                                                    </select>
+                                                </label>
+                                                <em class="invalid" ng-show="nocFornecedorRegistrationForm.planta.$invalid && showValidation"><span data-localize="validacaoPlanta"></span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelFornecedor">Fornecedor</label>
+                                                <label class="label" ng-class="{'state-error': nocFornecedorRegistrationForm.fornecedor.$invalid && showValidation}">
+                                                    <select class="form-control" ng-model="entity.fornecedor" name="fornecedor" id="fornecedor" ng-options="f.RazaoSocial for f in fornecedores | orderBy:'RazaoSocial' " required disabled>
+                                                        <option value="" selected="selected" data-localize="optionSelecioneFornecedor">Selecione o fornecedor</option>
+                                                    </select>
+                                                </label>
+                                                <em class="invalid" ng-show="nocFornecedorRegistrationForm.fornecedor.$invalid && showValidation"><span data-localize="validacaoFornecedor"></span></em>
+                                                <em class="invalid" ng-show="nocFornecedorRegistrationForm.categoria.$valid && fornecedores.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelMoeda">Moeda</label>
+                                                <label class="label" ng-class="{'state-error': nocFornecedorRegistrationForm.moeda.$invalid && showValidation}">
+                                                    <select ng-model="entity.moeda" name="moeda" id="moeda" ng-options="m.Nome for m in moedas" required class="form-control">
+                                                        <option value="" selected="selected" data-localize="optionSelecioneMoeda">Selecione a moeda</option>
+                                                    </select>
+                                                </label>
+                                                <em class="invalid" ng-show="nocFornecedorRegistrationForm.moeda.$invalid && showValidation"><span data-localize="validacaoMoeda"></span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelSeveridade">Severidade</label>
+                                                <label class="label" ng-class="{'state-error': nocFornecedorRegistrationForm.severidade.$invalid && showValidation}">
+                                                    <select ng-model="entity.severidade" name="severidade" id="severidade" ng-options="s.Nome for s in severidades" required class="form-control">
+                                                        <option value="" selected="selected" data-localize="optionSelecioneSeveridade">Selecione a severidade</option>
+                                                    </select>
+                                                </label>
+                                                <em class="invalid" ng-show="nocFornecedorRegistrationForm.severidade.$invalid && showValidation"><span data-localize="validacaoSeveridade"></span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelClasse">Classe</label>
+                                                <label class="label" ng-class="{'state-error': nocFornecedorRegistrationForm.classe.$invalid && showValidation}">
+                                                    <select ng-model="entity.classedefeito" name="classe" id="classe" ng-options="c.Nome for c in classes" required disabled class="form-control">
+                                                        <option value="" selected="selected" data-localize="optionSelecioneClasse">Selecione a classe</option>
+                                                    </select>
+                                                </label>
+                                                <em class="invalid" ng-show="nocFornecedorRegistrationForm.classe.$invalid && showValidation"><span data-localize="validacaoClasse"></span></em>
+                                                <em class="invalid" ng-show="nocFornecedorRegistrationForm.categoria.$valid && classes.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelTituloDefeito">Defeito</label>
+                                                <label class="label" ng-class="{'state-error': nocFornecedorRegistrationForm.classe.$invalid && showValidation}">
+                                                    <select ng-model="entity.defeito" name="defeito" id="defeito" ng-options="d.Nome for d in defeitos" required disabled class="form-control">
+                                                        <option value="" selected="selected" data-localize="optionSelecioneDefeito">Selecione a defeito</option>
+                                                    </select>
+                                                </label>
+                                                <em class="invalid" ng-show="nocFornecedorRegistrationForm.defeito.$invalid && showValidation"><span data-localize="validacaoDefeito"></span></em>
+                                                <em class="invalid" ng-show="nocFornecedorRegistrationForm.classe.$valid && defeitos.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+                                            </div>
+                                        </div>
+
+                                        <div ng-include="'views/nocFornecedor/register-material-direto.html'" ng-if="entity.categoria == 0">
+                                        </div>
+                                        <div ng-include="'views/nocFornecedor/register-material-indireto.html'" ng-if="entity.categoria == 1">
+                                        </div>
+                                        <div ng-include="'views/nocFornecedor/register-servico.html'" ng-if="entity.categoria == 2">
+                                        </div>
+                                        <div ng-include="'views/nocFornecedor/register-transporte.html'" ng-if="entity.categoria == 3">
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelRessarcimento">Ressarcimento?</label>
+                                                <div class="inline-group">
+                                                    <label class="label">
+                                                        <label class="radio" ng-class="{'state-error': nocFornecedorRegistrationForm.ressarcimento.$invalid && showValidation}">
+                                                            <input type="radio" ng-model="entity.FlgRessarcimento" name="ressarcimento" value="true" required ng-change="Ressarcimento(entity.FlgRessarcimento)"><i></i><span data-localize="labelSim"> Sim </span>
+                                                        </label>
+                                                        <label class="radio" ng-class="{'state-error': nocFornecedorRegistrationForm.ressarcimento.$invalid && showValidation}">
+                                                            <input type="radio" ng-model="entity.FlgRessarcimento" name="ressarcimento" value="false" required ng-change="Ressarcimento(entity.FlgRessarcimento)"><i></i><span data-localize="labelNao"> Não </span>
+                                                        </label>
+                                                    </label>
+                                                    <em class="invalid" ng-show="nocFornecedorRegistrationForm.ressarcimento.$invalid && showValidation"><span data-localize="validacaoRessarcimento">Possui Ressarcimento?</span></em>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <section class="col col-6">
+                                                    <label class="label" data-localize="labelCustosDespesas">Custos/despesas</label>
+                                                    <label class="input" ng-class="{'state-error': nocFornecedorRegistrationForm.valorCustosDespesas.$invalid && showValidation}">
+                                                        <input type="text" ng-required="entity.FlgRessarcimento == 'true'" ng-model="entity.valorCustosDespesas" data-localize="placeCustoDespesas" name="valorCustosDespesas" id="valorCustosDespesas" class="form-control" maxlength="10" disabled number-decimal>
+                                                    </label>
+                                                    <em class="invalid" ng-show="nocFornecedorRegistrationForm.valorCustosDespesas.$invalid && showValidation"><span data-localize="validacaoCustosDespesas"></span></em>
+                                                </section>
+                                                <section class="col col-6">
+                                                    <label class="label" data-localize="labelObservacao">Observação</label>
+                                                    <label class="textarea" ng-class="{'state-error': nocFornecedorRegistrationForm.observacao.$invalid && showValidation}">
+                                                        <textarea ng-required="entity.FlgRessarcimento == 'true'" ng-model="entity.observacao" name="observacao" id="observacao" data-localize="placeObservacao" rows="3" class="form-control" maxlength="500" disabled></textarea>
+                                                    </label>
+                                                    <em class="invalid" ng-show="nocFornecedorRegistrationForm.observacao.$invalid && showValidation"><span data-localize="placeObservacao"></span></em>
+                                                </section>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelComentariosDaOcorrencia">Comentários da Ocorrência</label>
+                                                <label class="textarea" ng-class="{'state-error': nocFornecedorRegistrationForm.comentariosDaOcorrencia.$invalid && showValidation}">
+                                                    <textarea ng-model="entity.comentariosrexam" name="comentariosDaOcorrencia" id="comentariosDaOcorrencia" data-localize="placeComentariosDaOcorrencia" rows="3" class="form-control" maxlength="4000" required></textarea>
+                                                </label>
+                                                <em class="invalid" ng-show="nocFornecedorRegistrationForm.comentariosDaOcorrencia.$invalid && showValidation"><span data-localize="placeComentariosDaOcorrencia"></span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelParecerPrevio">Parecer Prévio Rexam</label>
+                                                <textarea ng-model="entity.parecerrexam" name="parecerRexam" id="parecerRexam" data-localize="placeParecerPrevio" rows="3" maxlength="500" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    <file-upload></file-upload>
+
+                                    <br>
+                                    <br>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <ul class="pager wizard no-margin">
+                                        <li class="next finish">
+                                            <a href="javascript:void(0);" id="salvar" class="btn btn-lg txt-color-darken" ng-click="submit()"><span data-localize="liSalvar">Enviar</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </section>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+
+</section>
+
+<!-- end widget grid -->

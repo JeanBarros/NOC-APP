@@ -1,0 +1,100 @@
+﻿<style type="text/css">
+    .smart-form fieldset {
+        padding-top: 0px !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i><span data-localize="labelInovacaoAprovacaoLiderLean">Inovação - Aprovação do Líder Lean</span>
+        </h1>
+    </div>
+</div>
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+    <div class="container">
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-1">
+                <div class="well no-padding">
+                    <form id="inovacaoliderLeanForm" name="inovacaoliderLeanForm" class="smart-form client-form" ng-submit="submit()" novalidate>
+                        <header>
+                            <span data-localize="labelLiderLean">Líder Lean</span>
+                        </header>
+                        <fieldset>
+                            <section>
+                                <div class="row" ng-if="entity.MotivoDaCorrecao">
+                                    <div class="alert adjusted alert-info fade in" style="margin: 10px;">
+                                        <span><i class="fa-fw fa-lg fa fa-info"></i>
+                                            <label data-localize="labelMotivoCorrecao" style="font-weight: bold;">Motivo de Correção</label>
+                                        </span>
+                                        <br />
+                                        <span>{{entity.MotivoDaCorrecao}}</span>
+                                    </div>
+                                </div>
+                            </section>
+                            <section>
+                                <div id="myTabContent" class="tab-content col-sm-12">
+                                    <ul class="nav nav-tabs pull-center in" id="myTab">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#tabLean1" id="htabLean1"><span class="hidden-mobile hidden-tablet" data-localize="labelProjeto">Projeto</span></a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#tabLean2" id="htabLean2"><span class="hidden-mobile hidden-tablet" data-localize="labelLiderLean">Líder Lean</span></a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-pane fade padding-10 no-padding-bottom active in" id="tabLean1">
+                                        <br />
+                                        <div class="row">
+                                            <inovacao-include src="views/inovacao/project-edition-template.html"></inovacao-include>
+                                        </div>
+
+                                    </div>
+                                    <div class="tab-pane fade padding-10" id="tabLean2">
+                                        <div class="row">
+                                            <label class="label" data-localize="labelAprovar">Aprovar</label>
+                                            <div class="inline-group">
+                                                <label class="radio" ng-class="{'state-error': inovacaoliderLeanForm.aprovar.$invalid && showValidation}">
+                                                    <input type="radio" ng-model="entity.Aprovar" name="aprovar" value="true" required><i></i><span data-localize="labelSim"> Sim </span>
+                                                </label>
+                                                <label class="radio" ng-class="{'state-error': inovacaoliderLeanForm.aprovar.$invalid && showValidation}">
+                                                    <input type="radio" ng-model="entity.Aprovar" name="aprovar" value="false" required><i></i><span data-localize="labelNao"> Não </span>
+                                                </label>
+                                                <em class="invalid" ng-show="inovacaoliderLeanForm.aprovar.$invalid && showValidation"><span data-localize="validacaoInformeSeDesejaAprovar">Informe se deseja aprovar</span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-if="entity.Aprovar == 'false'">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelJustificativaReprovacao">Justificativa de Reprovação</label>
+                                                <label class="input" ng-class="{'state-error': inovacaoliderLeanForm.justificativaDaReprovacao.$invalid && showValidation}">
+                                                    <input type="text" ng-model="entity.JustificativaDaReprovacao" maxlength="200" data-localize="placeInformeJustificativaDeReprovacao" name="justificativaDaReprovacao" id="justificativaDaReprovacao" ng-required="entity.Aprovar == 'false'" class="form-control">
+                                                </label>
+                                                <em class="invalid" ng-show="inovacaoliderLeanForm.justificativaDaReprovacao.$invalid && showValidation"><span data-localize="validacaoInformeJustificativaDeReprovacao"></span></em>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="col-sm-12">
+                                            <ul class="pager wizard no-margin">
+                                                <li class="next finish">
+                                                    <a href="javascript:void(0);" id="salvar" class="btn btn-lg txt-color-darken" ng-click="submit()"><span data-localize="liSalvar">Salvar</span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+</section>
+<!-- end widget grid -->
+<div ng-include="'views/inovacao/equipe-projeto-template.html'"></div>

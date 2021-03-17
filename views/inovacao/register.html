@@ -1,0 +1,35 @@
+<script src="js/plugin/fuelux/wizard/wizard.min.js"></script>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i><span data-localize="labelInovacaoCadastro">Inovação - Cadastro</span>
+        </h1>
+    </div>
+</div>
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+    <div class="container">
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="well no-padding">
+                    <div class="smart-form client-form">
+                        <header>
+                            <span data-localize="labelCriacaoDeProjetoInovacao">Criação de Projeto Inovação</span>
+                        </header>
+                        <fieldset>
+                            <section>
+                                <inovacao-include src="views/inovacao/project-edition-template.html"></inovacao-include>
+                            </section>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end widget grid -->
+<div ng-include="'views/inovacao/equipe-projeto-template.html'"></div>

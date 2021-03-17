@@ -1,0 +1,197 @@
+﻿<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelModeloMaterial">Modelo de Material</label>
+        <div class="inline-group">
+            <label class="radio">
+                <input type="radio" ng-model="entity.FlgModeloMaterial" name="modeloMaterial" value="true"><i></i><span data-localize="labelSim"> Sim </span>
+            </label>
+            <label class="radio">
+                <input type="radio" ng-model="entity.FlgModeloMaterial" name="modeloMaterial" value="false"><i></i><span data-localize="labelNao"> Não </span>
+            </label>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelCodigoDoMaterialNoSAP">Código do Material no SAP</label>
+        <label class="input" ng-class="{'state-error': masterdataMaterialRegistrationForm.codigoMaterialSap.$invalid && showValidation}">
+            <input type="text" ng-model="entity.CodigoModeloMaterialSap" data-localize="placeCodigoDoMaterialNoSAP" maxlength="20" name="codigoMaterialSap" id="codigoMaterialSap" ng-required="entity.FlgModeloMaterial == 'true'" disabled class="form-control">
+        </label>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.codigoMaterialSap.$invalid && showValidation"><span data-localize="validacaoCodigoDoMaterialNoSAP"></span></em>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelPlanta">Planta</label>
+        <label class="label" ng-class="{'state-error': masterdataMaterialRegistrationForm.planta.$invalid && showValidation}">
+            <select ng-model="entity.Planta" name="planta" id="planta" ng-options="p.Nome for p in plantas track by p.Id" required class="form-control">
+                <option value="" selected="selected" data-localize="optionSelecioneAPlanta">Selecione a planta</option>
+            </select>
+        </label>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.planta.$invalid && showValidation"><span data-localize="validacaoPlanta"></span></em>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelDeposito">Depósito</label>
+        <label class="label" ng-class="{'state-error': masterdataMaterialRegistrationForm.deposito.$invalid && showValidation}">
+            <select ng-model="entity.Deposito" name="deposito" id="deposito" ng-options="d.Nome for d in depositos track by d.Id" ng-required="entity.FlgModeloMaterial == 'false'" disabled class="form-control">
+                <option value="" selected="selected" data-localize="optionDeposito">Selecione o depósito</option>
+            </select>
+        </label>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.deposito.$invalid && showValidation"><span data-localize="validacaoDeposito"></span></em>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.tipoMaterial.$valid && masterdataMaterialRegistrationForm.planta.$valid && depositos.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelDescricaoCurta">Descrição Curta</label>
+        <label class="input" ng-class="{'state-error': masterdataMaterialRegistrationForm.descricaoCurta.$invalid && showValidation}">
+            <input type="text" ng-model="entity.DescricaoCurta" data-localize="placeDescricaoCurta" maxlength="40" name="descricaoCurta" id="descricaoCurta" required class="form-control">
+        </label>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.descricaoCurta.$invalid && showValidation"><span data-localize="validacaoDescricaoCurta"></span></em>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelUnidadeMedida">Unidade de Medida</label>
+        <label class="label" ng-class="{'state-error': masterdataMaterialRegistrationForm.unidadeMedida.$invalid && showValidation}">
+            <select ng-model="entity.UnidadeMedida" name="unidadeMedida" id="unidadeMedida" ng-options="u.Nome for u in unidadesMedida track by u.Id" ng-required="entity.FlgModeloMaterial == 'false'" class="form-control">
+                <option value="" selected="selected" data-localize="placeInformeUnidadeMedida">Selecione a unidade de medida</option>
+            </select>
+        </label>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.unidadeMedida.$invalid && showValidation"><span data-localize="validacaoUnidadeMedida"></span></em>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.tipoMaterial.$valid && unidadesMedida.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelGrupoMercadoria">Grupo de Mercadoria</label>
+        <label class="label" ng-class="{'state-error': masterdataMaterialRegistrationForm.grupoMercadoria.$invalid && showValidation}">
+            <select ng-model="entity.GrupoMercadoria" name="grupoMercadoria" id="grupoMercadoria" ng-options="g.Nome for g in gruposMercadoria track by g.Id" ng-required="entity.FlgModeloMaterial == 'false'" class="form-control">
+                <option value="" selected="selected" data-localize="optionGrupoMercadoria">Selecione o grupo de mercadoria</option>
+            </select>
+        </label>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.grupoMercadoria.$invalid && showValidation"><span data-localize="validacaoGrupoMercadoria"></span></em>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.tipoMaterial.$valid && gruposMercadoria.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelLabEsc">Lab./escr.</label>
+        <label class="label" ng-class="{'state-error': masterdataMaterialRegistrationForm.labEsc.$invalid && showValidation}">
+            <select ng-model="entity.LabEsc" name="labEsc" id="labEsc" ng-options="l.Nome for l in labsEsc track by l.Id" ng-required="entity.FlgModeloMaterial == 'false'" class="form-control">
+                <option value="" selected="selected" data-localize="optionLabEsc">Selecione o Lab./escr.</option>
+            </select>
+        </label>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.labEsc.$invalid && showValidation"><span data-localize="validacaoLabEsc"></span></em>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.tipoMaterial.$valid && labsEsc.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelDescricaoLonga">Descrição Longa</label>
+        <label class="label" ng-class="{'state-error': masterdataMaterialRegistrationForm.descricaoLonga.$invalid && showValidation}">
+            <textarea ng-model="entity.DescricaoLonga" name="descricaoLonga" id="descricaoLonga" rows="6" maxlength="600" data-localize="placeDescricaoLonga" class="form-control" required></textarea>
+        </label>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.descricaoLonga.$invalid && showValidation"><span data-localize="validacaoDescricaoLonga"></span></em>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelOrigemMaterial">Origem Material</label>
+        <label class="label" ng-class="{'state-error': masterdataMaterialRegistrationForm.origemMaterial.$invalid && showValidation}">
+            <select ng-model="entity.OrigemMaterial" name="origemMaterial" id="origemMaterial" ng-options="o.Nome for o in origensMaterial track by o.Id" ng-required="entity.FlgModeloMaterial == 'false'" class="form-control">
+                <option value="" selected="selected" data-localize="optionOrigemMaterial">Selecione a origem material</option>
+            </select>
+        </label>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.origemMaterial.$invalid && showValidation"><span data-localize="validacaoOrigemMaterial"></span></em>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.tipoMaterial.$valid && origensMaterial.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelCentroDeLucro">Centro de Lucro</label>
+        <label class="label" ng-class="{'state-error': masterdataMaterialRegistrationForm.centroLucro.$invalid && showValidation}">
+            <select ng-model="entity.CentroLucro" name="centroLucro" id="centroLucro" ng-options="c.Nome for c in centrosLucro track by c.Id" ng-required="entity.FlgModeloMaterial == 'false'" class="form-control">
+                <option value="" selected="selected" data-localize="optionCentroDeLucro">Selecione o centro de lucro</option>
+            </select>
+        </label>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.centroLucro.$invalid && showValidation"><span data-localize="validacaCentroDeLucro"></span></em>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.tipoMaterial.$valid && centrosLucro.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelCentroDeProducao">Depósito de Produção</label>
+        <label class="label" ng-class="{'state-error': masterdataMaterialRegistrationForm.depositoProducao.$invalid && showValidation}">
+            <select ng-model="entity.DepositoProducao" name="depositoProducao" id="depositoProducao" ng-options="d.Nome for d in depositosProducao track by d.Id" ng-required="entity.FlgModeloMaterial == 'false'" class="form-control">
+                <option value="" selected="selected" data-localize="optionCentroDeProducao">Selecione o depósito de produção</option>
+            </select>
+        </label>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.depositoProducao.$invalid && showValidation"><span data-localize="validacaoCentroDeProducao"></span></em>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.tipoMaterial.$valid && depositosProducao.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelEstoqueMinimo">Estoque Mínimo</label>
+        <label class="input" ng-class="{'state-error': masterdataMaterialRegistrationForm.estoqueMinimo.$invalid && showValidation}">
+            <input type="text" ng-model="entity.EstoqueMinimo" data-localize="placeEstoqueMinimo" maxlength="9" name="estoqueMinimo" id="estoqueMinimo" ng-required="entity.FlgModeloMaterial == 'false'" class="form-control" number-decimal>
+        </label>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.estoqueMinimo.$invalid && showValidation"><span data-localize="validacaoEstoqueMinimo"></span></em>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelEstoqueMaximo">Estoque Máximo</label>
+        <label class="input" ng-class="{'state-error': masterdataMaterialRegistrationForm.estoqueMaximo.$invalid && showValidation}">
+            <input type="text" ng-model="entity.EstoqueMaximo" data-localize="placeEstoqueMaximo" maxlength="9" name="estoqueMaximo" id="estoqueMaximo" ng-required="entity.FlgModeloMaterial == 'false'" class="form-control" number-decimal>
+        </label>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.estoqueMaximo.$invalid && showValidation"><span data-localize="validacaoEstoqueMaximo"></span></em>
+    </div>
+</div>
+<!--<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="labelGrupoMRP">Grupo MRP</label>
+        <label class="label" ng-class="{'state-error': masterdataMaterialRegistrationForm.grupoMrp.$invalid && showValidation}">
+            <select ng-model="entity.GrupoMrp" name="grupoMrp" id="grupoMrp" ng-options="g.Nome for g in gruposMrp track by g.Id" ng-required="entity.FlgModeloMaterial == 'false'" class="form-control">
+                <option value="" selected="selected" data-localize="optionGrupoMRP">Selecione o grupo MRP</option>
+            </select>
+        </label>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.grupoMrp.$invalid && showValidation"><span data-localize="validacaoGrupoMRP"></span></em>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="placeTipoMRP">Tipo MRP</label>
+        <label class="label" ng-class="{'state-error': masterdataMaterialRegistrationForm.tipoMrp.$invalid && showValidation}">
+            <select ng-model="entity.TipoMrp" name="tipoMrp" id="tipoMrp" ng-options="t.Nome for t in tiposMrp track by t.Id" ng-required="entity.FlgModeloMaterial == 'false'" class="form-control">
+                <option value="" selected="selected" data-localize="optionTipoMRP">Selecione o tipo MRP</option>
+            </select>
+        </label>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.tipoMrp.$invalid && showValidation"><span data-localize="validacaoTipoMRP"></span></em>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="placePlanejadorMRP">Planejador MRP</label>
+        <label class="label" ng-class="{'state-error': masterdataMaterialRegistrationForm.planejadorMrp.$invalid && showValidation}">
+            <select ng-model="entity.PlanejadorMrp" name="planejadorMrp" id="planejadorMrp" ng-options="p.Nome for p in planejadoresMrp track by p.Id" ng-required="entity.FlgModeloMaterial == 'false'" disabled class="form-control">
+                <option value="" selected="selected" data-localize="optionPlanejadorMRP">Selecione o planejador MRP</option>
+            </select>
+        </label>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.planejadorMrp.$invalid && showValidation"><span data-localize="validacaoPlanejadorMRP"></span></em>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <label class="label" data-localize="placeTamanhoDoLoteMRP">Tamanho do Lote MRP</label>
+        <label class="label" ng-class="{'state-error': masterdataMaterialRegistrationForm.tamanhoLoteMrp.$invalid && showValidation}">
+            <select ng-model="entity.TamanhoLoteMrp" name="tamanhoLoteMrp" id="tamanhoLoteMrp" ng-options="t.Nome for t in tamanhosLoteMrp track by t.Id" ng-required="entity.FlgModeloMaterial == 'false'" disabled class="form-control">
+                <option value="" selected="selected" data-localize="optionTamanhoDoLoteMRP">Selecione o tamanho MRP</option>
+            </select>
+        </label>
+        <em class="invalid" ng-show="masterdataMaterialRegistrationForm.tamanhoLoteMrp.$invalid && showValidation"><span data-localize="validacaoTamanhoDoLoteMRP"></span></em>
+    </div>
+</div>-->

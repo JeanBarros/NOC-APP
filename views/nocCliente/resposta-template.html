@@ -1,0 +1,895 @@
+﻿<section>
+    <div class="alert adjusted alert-info fade in">
+        <span>
+            <label data-localize="labelEtapaAnaliseInicial" style="font-weight: bold;">Análise Inicial e Ações Imediatas</label>
+        </span>
+    </div>
+</section>
+<table class="table table-striped word-break">
+    <tbody>
+        <tr ng-if="entity.Severidade.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelSeveridade">Severidade</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Severidade.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Resposta.Parecer.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelParecer">Parecer</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Resposta.Parecer.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Resposta.Fato">
+            <td class="col-sm-12" colspan="2">
+                <label class="control-label"><strong data-localize="labelTraducaoDoFato">Tradução do Fato</strong>: </label>
+                <label>{{ entity.Resposta.Fato }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Resposta.NotaRelevante">
+            <td class="col-sm-12" colspan="2">
+                <label class="control-label"><strong data-localize="labelNotasRelevantes">Notas Relevantes</strong>: </label>
+                <label>{{ entity.Resposta.NotaRelevante }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Resposta.Contencao">
+            <td class="col-sm-12" colspan="2">
+                <label class="control-label"><strong data-localize="labelContencao">Contenção</strong>: </label>
+                <label>{{ entity.Resposta.Contencao }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Resposta.AcaoDeDeteccao">
+            <td class="col-sm-12" colspan="2">
+                <label class="control-label"><strong data-localize="labelAcaoDeDeteccao">Ação de Detecção</strong>: </label>
+                <label>{{ entity.Resposta.AcaoDeDeteccao }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="row" ng-show="entity.Resposta.ListaAnexos.length > 0">
+                    <label data-localize="labelArquivos">Arquivos</label>
+                    <div ng-repeat="anexo in entity.Resposta.ListaAnexos">
+                        <a target="_blank" href="{{ '/files/' + anexo.NomeArquivo }}" download="{{ anexo.NomeArquivo }}"><span>{{ anexo.NomeArquivo }}</span> </a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<section>
+    <div class="alert adjusted alert-info fade in">
+        <span>
+            <label data-localize="labelMapaCausaRaiz" style="font-weight: bold;">Mapa Causa Raiz</label>
+        </span>
+    </div>
+</section>
+<div class="panel-group" id="accordionEquipamentoMaterial">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordionEquipamentoMaterial" href="#collapseEquipamentoMaterial" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                    <span class="widget-icon" data-localize="labelEquipamentoMaterial"><i class="fa fa-list-alt"></i></span>
+                    Equipamento/Material
+                </a>
+            </h4>
+        </div>
+        <div id="collapseEquipamentoMaterial" class="panel-collapse collapse in padding-10">
+            <div class="panel-body">
+                <table class="table table-striped word-break">
+                    <tbody>
+                        <tr ng-if="entity.Resposta.EquipamentoFalhou != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelEquipamentoQueFalhou">Equipamento que falhou?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.EquipamentoFalhou" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.EquipamentoFalhou" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.MaterialDefeituoso != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelmaterialDefeituoso">Material defeituoso?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.MaterialDefeituoso" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.MaterialDefeituoso" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.FalhaDoFornecedor != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelFalhaDoFornecedorDoEquipamentoOuMaterial">Falha do fornecedor do equipamento ou material?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.FalhaDoFornecedor" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.FalhaDoFornecedor" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.ComentariosDoEquipamentoMaterial">
+                            <td class="col-sm-12" colspan="2">
+                                <label class="control-label"><strong data-localize="labelComentarios">Comentários</strong>: </label>
+                                <label>{{ entity.Resposta.ComentariosDoEquipamentoMaterial }}</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.PriorizacaoDoEquipamentoMaterial != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelAnalisePriorizacaoSeAplicavel">Análise Priorização se aplicável</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.PriorizacaoDoEquipamentoMaterial == 0" data-localize="labelAlto">Alto</label>
+                                <label ng-if="entity.Resposta.PriorizacaoDoEquipamentoMaterial == 1" data-localize="labelMedio">Médio</label>
+                                <label ng-if="entity.Resposta.PriorizacaoDoEquipamentoMaterial == 2" data-localize="labelBaixo">Baixo</label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="panel-group" id="accordionProcedimento">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordionProcedimento" href="#collapseProcedimento" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                    <span class="widget-icon" data-localize="labelProcedimento"><i class="fa fa-list-alt"></i></span>
+                    Procedimento
+                </a>
+            </h4>
+        </div>
+        <div id="collapseProcedimento" class="panel-collapse collapse in padding-10">
+            <div class="panel-body">
+                <table class="table table-striped word-break">
+                    <tbody>
+                        <tr ng-if="entity.Resposta.ProcedimentoNaoSatisfaz != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelProcedimentoNaoClaroAmbiguoOuIncompleto">Procedimento não claro, ambíguo ou incompleto?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.ProcedimentoNaoSatisfaz" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.ProcedimentoNaoSatisfaz" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.FaltaDeProcedimento != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelFaltaDeProcedimento">Falta de procedimento?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.FaltaDeProcedimento" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.FaltaDeProcedimento" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.FalhaDeDeteccao != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelFalhaNosMecanismosDeDeteccaoDeFalhas">Falha nos mecanismos de detecção (de falhas)?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.FalhaDeDeteccao" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.FalhaDeDeteccao" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.ComentariosDoProcedimento">
+                            <td class="col-sm-12" colspan="2">
+                                <label class="control-label"><strong data-localize="labelComentarios">Comentários</strong>: </label>
+                                <label>{{ entity.Resposta.ComentariosDoProcedimento }}</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.PriorizacaoDoProcedimento != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelAnalisePriorizacaoSeAplicavel">Análise Priorização se aplicável</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.PriorizacaoDoProcedimento == 0" data-localize="labelAlto">Alto</label>
+                                <label ng-if="entity.Resposta.PriorizacaoDoProcedimento == 1" data-localize="labelMedio">Médio</label>
+                                <label ng-if="entity.Resposta.PriorizacaoDoProcedimento == 2" data-localize="labelBaixo">Baixo</label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="panel-group" id="accordionPessoal">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordionPessoal" href="#collapsePessoal" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                    <span class="widget-icon" data-localize="labelPessoal"><i class="fa fa-list-alt"></i></span>
+                    Pessoal
+                </a>
+            </h4>
+        </div>
+        <div id="collapsePessoal" class="panel-collapse collapse in padding-10">
+            <div class="panel-body">
+                <table class="table table-striped word-break">
+                    <tbody>
+                        <tr ng-if="entity.Resposta.CondicoesDoAmbienteDeTrabalhoInadequadas != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelCondicoesDoAmbienteDeTrabalhoInadequadas">Condições do ambiente de trabalho inadequadas?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.CondicoesDoAmbienteDeTrabalhoInadequadas" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.CondicoesDoAmbienteDeTrabalhoInadequadas" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.FaltaDeAtencaoAosDetalhes != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelFaltaDeAtencaoAosDetalhes">Falta de atenção aos detalhes?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.FaltaDeAtencaoAosDetalhes" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.FaltaDeAtencaoAosDetalhes" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.DesvioDeProcedimentoOuRequisito != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelDesvioDeProcedimentoOuRequisito">Desvio de procedimento ou requisito?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.DesvioDeProcedimentoOuRequisito" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.DesvioDeProcedimentoOuRequisito" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.FalhaNaComunicacaoInterna != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelFalhaNaComunicacaoInternaVerbalOuOutros">Falha na comunicação interna (verbal ou outros)?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.FalhaNaComunicacaoInterna" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.FalhaNaComunicacaoInterna" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.OutrosFatoresHumanos != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelOutrosFatoresHumanos">Outros fatores humanos?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.OutrosFatoresHumanos" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.OutrosFatoresHumanos" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.ComentariosDoPessoal">
+                            <td class="col-sm-12" colspan="2">
+                                <label class="control-label"><strong data-localize="labelComentarios">Comentários</strong>: </label>
+                                <label>{{ entity.Resposta.ComentariosDoPessoal }}</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.PriorizacaoDoPessoal != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelAnalisePriorizacaoSeAplicavel">Análise Priorização se aplicável</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.PriorizacaoDoPessoal == 0" data-localize="labelAlto">Alto</label>
+                                <label ng-if="entity.Resposta.PriorizacaoDoPessoal == 1" data-localize="labelMedio">Médio</label>
+                                <label ng-if="entity.Resposta.PriorizacaoDoPessoal == 2" data-localize="labelBaixo">Baixo</label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="panel-group" id="accordionFenomenosExternos">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordionFenomenosExternos" href="#collapseFenomenosExternos" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                    <span class="widget-icon" data-localize="labelFenomenosExternos"><i class="fa fa-list-alt"></i></span>
+                    Fenômenos Externos
+                </a>
+            </h4>
+        </div>
+        <div id="collapseFenomenosExternos" class="panel-collapse collapse in padding-10">
+            <div class="panel-body">
+                <table class="table table-striped word-break">
+                    <tbody>
+                        <tr ng-if="entity.Resposta.CondicoesAmbientaisOuClimaticas != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelCondicoesAmbientaisOuClimaticas">Condições ambientais ou climáticas?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.CondicoesAmbientaisOuClimaticas" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.CondicoesAmbientaisOuClimaticas" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.SuprimentoDenergiaInadequado != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelSuprimentoDeEnergiaOuAguaInadequados">Suprimento de energia ou água inadequados?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.SuprimentoDenergiaInadequado" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.SuprimentoDenergiaInadequado" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.IncendioOuExplosaoExterna != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelIncendioOuExplosaoExterna">Incêndio ou explosão externa?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.IncendioOuExplosaoExterna" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.IncendioOuExplosaoExterna" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.RouboOuAssaltoOuVandalismo != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelRouboAssaltoVandalismo">Roubo, assalto, vandalismo?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.RouboOuAssaltoOuVandalismo" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.RouboOuAssaltoOuVandalismo" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.ComentariosDeFenomenoExterno">
+                            <td class="col-sm-12" colspan="2">
+                                <label class="control-label"><strong data-localize="labelComentarios">Comentários</strong>: </label>
+                                <label>{{ entity.Resposta.ComentariosDeFenomenoExterno }}</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.PriorizacaoDeFenomenoExterno != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelAnalisePriorizacaoSeAplicavel">Análise Priorização se aplicável</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.PriorizacaoDeFenomenoExterno == 0" data-localize="labelAlto">Alto</label>
+                                <label ng-if="entity.Resposta.PriorizacaoDeFenomenoExterno == 1" data-localize="labelMedio">Médio</label>
+                                <label ng-if="entity.Resposta.PriorizacaoDeFenomenoExterno == 2" data-localize="labelBaixo">Baixo</label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="panel-group" id="accordionProjetos">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordionProjetos" href="#collapseProjetos" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                    <span class="widget-icon" data-localize="labelProjetos"><i class="fa fa-list-alt"></i></span>
+                    Projetos
+                </a>
+            </h4>
+        </div>
+        <div id="collapseProjetos" class="panel-collapse collapse in padding-10">
+            <div class="panel-body">
+                <table class="table table-striped word-break">
+                    <tbody>
+                        <tr ng-if="entity.Resposta.InterfaceInadequada != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelInterfaceHomemMaquinaInadequadas">Interface homem-máquina inadequadas?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.InterfaceInadequada" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.InterfaceInadequada" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.EspecificacaoInadequada != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelEspecificacaoDeMaterialOuDeEquipamentoInadequada">Especificação de material ou de equipamento inadequada?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.EspecificacaoInadequada" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.EspecificacaoInadequada" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.ErroDeDesenhoOuEspecificacao != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelErroEmDesenhosEspecificacoesOuDados">Erro em desenhos, especificações ou dados?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.ErroDeDesenhoOuEspecificacao" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.ErroDeDesenhoOuEspecificacao" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.ComentariosDoProjeto">
+                            <td class="col-sm-12" colspan="2">
+                                <label class="control-label"><strong data-localize="labelComentarios">Comentários</strong>: </label>
+                                <label>{{ entity.Resposta.ComentariosDoProjeto }}</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.PriorizacaoDoProjeto != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelAnalisePriorizacaoSeAplicavel">Análise Priorização se aplicável</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.PriorizacaoDoProjeto == 0" data-localize="labelAlto">Alto</label>
+                                <label ng-if="entity.Resposta.PriorizacaoDoProjeto == 1" data-localize="labelMedio">Médio</label>
+                                <label ng-if="entity.Resposta.PriorizacaoDoProjeto == 2" data-localize="labelBaixo">Baixo</label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="panel-group" id="accordionInfraestrutura">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordionInfraestrutura" href="#collapseInfraestrutura" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                    <span class="widget-icon" data-localize="labelInfraestrutura"><i class="fa fa-list-alt"></i></span>
+                    Infraestrutura
+                </a>
+            </h4>
+        </div>
+        <div id="collapseInfraestrutura" class="panel-collapse collapse in padding-10">
+            <div class="panel-body">
+                <table class="table table-striped word-break">
+                    <tbody>
+                        <tr ng-if="entity.Resposta.InstalacoesInadequadas != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelInstalacoesInadequadas">Instalações inadequadas?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.InstalacoesInadequadas" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.InstalacoesInadequadas" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.ManutencaoInstalacoesInadequadas != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelManutencaoDasInstalacoesAusenteOuInadequada">Manutenção das instalações ausente ou inadequada?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.ManutencaoInstalacoesInadequadas" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.ManutencaoInstalacoesInadequadas" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.DeficienciaNaOrganizacao != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelDeficienciaNaOrganizaçãoELimpezaDaArea">Deficiência na organização e limpeza da área?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.DeficienciaNaOrganizacao" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.DeficienciaNaOrganizacao" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.ComentariosDaInfraestrutura">
+                            <td class="col-sm-12" colspan="2">
+                                <label class="control-label"><strong data-localize="labelComentarios">Comentários</strong>: </label>
+                                <label>{{ entity.Resposta.ComentariosDaInfraestrutura }}</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.PriorizacaoDaInfraestrutura != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelAnalisePriorizacaoSeAplicavel">Análise Priorização se aplicável</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.PriorizacaoDaInfraestrutura == 0" data-localize="labelAlto">Alto</label>
+                                <label ng-if="entity.Resposta.PriorizacaoDaInfraestrutura == 1" data-localize="labelMedio">Médio</label>
+                                <label ng-if="entity.Resposta.PriorizacaoDaInfraestrutura == 2" data-localize="labelBaixo">Baixo</label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="panel-group" id="accordionTreinamento">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordionTreinamento" href="#collapseTreinamento" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                    <span class="widget-icon" data-localize="labelTreinamento"><i class="fa fa-list-alt"></i></span>
+                    Treinamento
+                </a>
+            </h4>
+        </div>
+        <div id="collapseTreinamento" class="panel-collapse collapse in padding-10">
+            <div class="panel-body">
+                <table class="table table-striped word-break">
+                    <tbody>
+                        <tr ng-if="entity.Resposta.NaoHouveTreinamento != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelNaoFoiFornecidoOTreinamento">Não foi fornecido o treinamento?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.NaoHouveTreinamento" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.NaoHouveTreinamento" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.PraticaInsuficienteNoTreinamento != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelPraticaInsuficienteDuranteOTreinamento">Prática insuficiente durante o treinamento?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.PraticaInsuficienteNoTreinamento" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.PraticaInsuficienteNoTreinamento" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.ConteudoInadequado != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelConteudoInadequado">Conteúdo inadequado?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.ConteudoInadequado" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.ConteudoInadequado" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.FaltaDeReciclagem != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelFaltaDeReciclagemPeriodica">Falta de reciclagem periódica?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.FaltaDeReciclagem" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.FaltaDeReciclagem" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.MaterialInadequado != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelMaterialDeSuporteInadequado">Material de suporte inadequado?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.MaterialInadequado" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.MaterialInadequado" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.MetodologiaInadequada != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelMetodologiaInadequada">Metodologia inadequada?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.MetodologiaInadequada" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.MetodologiaInadequada" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.ComentariosDoTreinamento">
+                            <td class="col-sm-12" colspan="2">
+                                <label class="control-label"><strong data-localize="labelComentarios">Comentários</strong>: </label>
+                                <label>{{ entity.Resposta.ComentariosDoTreinamento }}</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.PriorizacaoDoTreinamento != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelAnalisePriorizacaoSeAplicavel">Análise Priorização se aplicável</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.PriorizacaoDoTreinamento == 0" data-localize="labelAlto">Alto</label>
+                                <label ng-if="entity.Resposta.PriorizacaoDoTreinamento == 1" data-localize="labelMedio">Médio</label>
+                                <label ng-if="entity.Resposta.PriorizacaoDoTreinamento == 2" data-localize="labelBaixo">Baixo</label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="panel-group" id="accordionGestao">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordionGestao" href="#collapseGestao" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                    <span class="widget-icon" data-localize="labelGestao"><i class="fa fa-list-alt"></i></span>
+                    Gestão
+                </a>
+            </h4>
+        </div>
+        <div id="collapseGestao" class="panel-collapse collapse in padding-10">
+            <div class="panel-body">
+                <table class="table table-striped word-break">
+                    <tbody>
+                        <tr ng-if="entity.Resposta.ControleAdministrativoInadequado != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelControlesAdministrativosAusentesOuInadequados">Controles administrativos ausentes ou inadequados ?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.ControleAdministrativoInadequado" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.ControleAdministrativoInadequado" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.PlanejamentoInadequado != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelPlanejamentoDoTrabalhoInadequado">Planejamento (do trabalho) inadequado?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.PlanejamentoInadequado" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.PlanejamentoInadequado" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.OrganizacaoDoTrabalhoInadequada != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelOrganizacaoDoTrabalhoInadequada">Organização do trabalho inadequada?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.OrganizacaoDoTrabalhoInadequada" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.OrganizacaoDoTrabalhoInadequada" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.AlocacaoDeRecursoDeficiente != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelAlocacaoDeRecursosDeficienteFaltaDeRecursos">Alocação de recursos deficiente/falta de recursos?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.AlocacaoDeRecursoDeficiente" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.AlocacaoDeRecursoDeficiente" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.InadequadaSupervisao != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelInadequadaSupervisao">Inadequada supervisão?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.InadequadaSupervisao" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.InadequadaSupervisao" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.PoliticaInadequada != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelPoliticaNaoAdequadamenteDefinidaDisseminadaOuRreforcada">Política não adequadamente definida, disseminada ou reforçada?</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.PoliticaInadequada" data-localize="labelSim">Sim</label>
+                                <label ng-if="!entity.Resposta.PoliticaInadequada" data-localize="labelNao">Não</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.ComentariosDaGestao">
+                            <td class="col-sm-12" colspan="2">
+                                <label class="control-label"><strong data-localize="labelComentarios">Comentários</strong>: </label>
+                                <label>{{ entity.Resposta.ComentariosDaGestao }}</label>
+                            </td>
+                        </tr>
+                        <tr ng-if="entity.Resposta.PriorizacaoDaGestao != undefined">
+                            <td class="col-sm-6">
+                                <label class="control-label"><strong data-localize="labelAnalisePriorizacaoSeAplicavel">Análise Priorização se aplicável</strong> </label>
+                            </td>
+                            <td>
+                                <label ng-if="entity.Resposta.PriorizacaoDaGestao == 0" data-localize="labelAlto">Alto</label>
+                                <label ng-if="entity.Resposta.PriorizacaoDaGestao == 1" data-localize="labelMedio">Médio</label>
+                                <label ng-if="entity.Resposta.PriorizacaoDaGestao == 2" data-localize="labelBaixo">Baixo</label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<section>
+    <div class="alert adjusted alert-info fade in">
+        <span>
+            <label data-localize="labelAnaliseDosPorques" style="font-weight: bold;">Análise dos Porquês</label>
+        </span>
+    </div>
+</section>
+<section ng-show="entity.Resposta.AnaliseDasCausas.length">
+    <div ng-repeat="c in entity.Resposta.AnaliseDasCausas.slice(0) track by $index">
+        <div class="panel-group" id="accordion{{$index}}">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion{{$index}}" href="#collapse{{$index}}" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                            <span class="widget-icon" data-localize="labelCausa"><i class="fa fa-list-alt"></i></span>
+                            Causa {{ ConverterNumeroParaLetra($index) }}
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse{{$index}}" class="panel-collapse collapse in padding-10">
+                    <div class="panel-body">
+                        <table class="table table-striped word-break">
+                            <tbody>
+                                <tr>
+                                    <td class="col-sm-4">
+                                        <label class="control-label"><strong data-localize="labelCausa">Causa</strong>: </label>
+                                    </td>
+                                    <td>
+                                        <label>{{ c.Causa }}</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-12" colspan="2">
+                                        <label class="control-label"><strong data-localize="labelPorQue1">Por quê 1</strong>: </label>
+                                        <label>{{ c.Porque1 }}</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-12" colspan="2">
+                                        <label class="control-label"><strong data-localize="labelPorQue2">Por quê 2</strong>: </label>
+                                        <label>{{ c.Porque2 }}</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-12" colspan="2">
+                                        <label class="control-label"><strong data-localize="labelPorQue3">Por quê 3</strong>: </label>
+                                        <label>{{ c.Porque3 }}</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-12" colspan="2">
+                                        <label class="control-label"><strong data-localize="labelPorQue4">Por quê 4</strong>: </label>
+                                        <label>{{ c.Porque4 }}</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-12" colspan="2">
+                                        <label class="control-label"><strong data-localize="labelPorQue5">Por quê 5</strong>: </label>
+                                        <label>{{ c.Porque5 }}</label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="alert adjusted alert-info fade in">
+        <span>
+            <label data-localize="labelEtapaPlanoDeAcao" style="font-weight: bold;">Plano de Ação e Conclusão</label>
+        </span>
+    </div>
+
+</section>
+<table class="table table-striped word-break">
+    <tbody>
+		<tr ng-if="entity.Resposta.CodigoDoPlanoDeAcao">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelCodigoPlanoAcao">Código Plano de Ação</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Resposta.CodigoDoPlanoDeAcao }}</label>
+            </td>
+		</tr>
+		<tr ng-if="entity.Resposta.UrlDoPlanoDeAcao">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelUrlCodigoPlanoAcao">Url do Plano de Ação</strong>: </label>
+            </td>
+            <td>
+                <label><a href="{{ entity.Resposta.UrlDoPlanoDeAcao }}" target="_blank">{{ entity.Resposta.UrlDoPlanoDeAcao }}</a> </label>
+
+            </td>
+        </tr>
+		<tr ng-if="entity.Resposta.PlanoDeAcao.length">
+            <td class="col-sm-6">
+				<section ng-show="entity.Resposta.PlanoDeAcao.length">
+					<div ng-repeat="a in entity.Resposta.PlanoDeAcao.slice(0) track by $index">
+						<div class="panel-group" id="AcaoAccordion{{$index}}">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#AcaoAccordion{{$index}}" href="#AcaoCollapse{{$index}}" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+											<span class="widget-icon" data-localize="labelAcao"><i class="fa fa-list-alt"></i></span>
+											Ação {{ $index + 1}}
+										</a>
+									</h4>
+								</div>
+								<div id="AcaoCollapse{{$index}}" class="panel-collapse collapse in padding-10">
+									<div class="panel-body">
+										<table class="table table-striped word-break">
+											<tbody>
+												<tr>
+													<td class="col-sm-4">
+														<label class="control-label"><strong data-localize="labelCausas">Causas</strong>: </label>
+													</td>
+													<td>
+														<label>{{ a.Causas }}</label>
+													</td>
+												</tr>
+												<tr>
+													<td class="col-sm-12" colspan="2">
+														<label class="control-label"><strong data-localize="labelAcaoCorrespondente">Ação Correspondente</strong>: </label>
+														<label>{{ a.AcaoCorrespondente }}</label>
+													</td>
+												</tr>
+												<tr>
+													<td class="col-sm-12" colspan="2">
+														<label class="control-label"><strong data-localize="labelResponsavel">Responsável</strong>: </label>
+														<label>{{ a.Responsavel }}</label>
+													</td>
+												</tr>
+												<tr>
+													<td class="col-sm-12" colspan="2">
+														<label class="control-label"><strong data-localize="labelPrazoExecucao">Prazo de Execução</strong>: </label>
+														<label>{{ a.PrazoDeExecucao | date:'dd/MM/yyyy' }}</label>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</td>
+        </tr>
+		<tr ng-if="entity.Resposta.Ressarcimento != undefined">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelRessarcimento">Ressarcimento?</strong> </label>
+            </td>
+            <td>
+                <label ng-if="entity.Resposta.Ressarcimento" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.Resposta.Ressarcimento" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Resposta.QuantidadeRessarcidaEmLata">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelQuantidadeASerRessarcidaEmLata">Quantidade a ser ressarcida em lata</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Resposta.QuantidadeRessarcidaEmLata }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Resposta.QuantidadeRessarcidaEmTampa">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelQuantidadeASerRessarcidaEmTampa">Quantidade a ser ressarcida em tampa</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Resposta.QuantidadeRessarcidaEmTampa }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Resposta.DataAutorizacaoRessarcimento">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelDataAutorizacaoRessarcimento">Data autorização ressarcimento</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Resposta.DataAutorizacaoRessarcimento | date:'dd/MM/yyyy' }}</label>
+            </td>
+        </tr>
+		<tr ng-if="entity.Resposta.Conclusao">
+            <td class="col-sm-12" colspan="2">
+                <label class="control-label"><strong data-localize="labelConclusao">Conclusão</strong>: </label>
+                <label>{{ entity.Resposta.Conclusao }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Resposta.Devolucao != undefined">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelDevolucao">Devolução?</strong> </label>
+            </td>
+            <td>
+                <label ng-if="entity.Resposta.Devolucao" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.Resposta.Devolucao" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Resposta.FabricaDevolucao && entity.Resposta.FabricaDevolucao.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelFabricaDevolucao">Fabrica Devolução</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Resposta.FabricaDevolucao.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Resposta.QuantidadeAutorizadaADevolver">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelQuantidadeAutorizadaDevolver">Quantidade autorizada a devolver</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Resposta.QuantidadeAutorizadaADevolver }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Resposta.DataAutorizacaoDevolucao">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelDataAutorizacaoDevolucao">Data autorização devolução</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Resposta.DataAutorizacaoDevolucao | date:'dd/MM/yyyy' }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Resposta.ValorDoFrete">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelValorDoFrete">Valor do frete</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Resposta.ValorDoFrete | decimal }}</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+

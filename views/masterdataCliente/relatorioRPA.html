@@ -1,0 +1,87 @@
+<script src="js/plugin/datatables/jquery.dataTables.min.js"></script>
+<script src="js/plugin/datatables/dataTables.bootstrap.min.js"></script>
+<script src="js/plugin/datatables/dataTables.tableTools.min.js"></script>
+<script src="js/plugin/datatable-responsive/datatables.responsive.min.js"></script>
+<style type="text/css">
+    .linkGrid {
+        -webkit-tap-highlight-color: rgba(169,3,41,.5);
+        color: #3276b1;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .input-group-addon {
+        height: 15px !important;
+    }
+</style>
+
+<div class="row">
+    <div class="well no-padding smart-form client-form">
+        <header>
+            Relatório Masterdata Cliente RPA
+        </header>
+
+        <div class="row no-space">
+
+            <fieldset>
+                <table id="tblRelatorio" my-table aa-data="MasterdataClienteRelatorioRPAView" ao-column-defs="columnDefs" fn-row-callback="myCallback"
+                    class="table table-striped table-bordered table-hover" width="100%">
+                    <thead>
+                        <tr>
+							<th>Tipo de pessoa</th>
+                            <th>País</th>
+							<th>Código fiscal</th>
+							<th>Grupo de cliente</th>
+							<th>Grupo de contas</th>
+                            <th>Empresa</th>
+							
+							<th>Organização de venda</th>
+							<th>Canal distribuição</th>
+							<th>Setor de atividade</th>
+							
+							<th>Nome</th>
+							<th>Nome de busca</th>
+							<th>Rua</th>
+							<th>Numero</th>
+							<th>Complemento</th>
+							<th>Bairro</th>
+							<th>CEP</th>
+							<th>Cidade</th>
+							<th>País</th>
+							
+							<th>Região</th>
+							
+							<th>Telefone</th>
+							<th>Zona de transporte</th>
+							<th>E-mail - NFE</th>
+							<th>E-mail</th>
+							
+							<th>CNPJ</th>
+							<th>Inscrição estadual</th>
+							<th>Inscrição municipal</th>
+							<th>Conta conciliatória</th>
+							<th>Grp adm tesouraria</th>
+							<th>Condição de pagamento</th>
+							<th>Forma de pagamento</th>
+							<th>Região de vendas</th>
+							<th>Grupo de vendedores</th>
+							<th>Condição expedição</th>
+							<th>Centro de fornecimento</th>
+							<th>Incoterms</th>
+							<th>Grp Classif cont</th>
+							<th>Classificação fiscal</th>
+							<th>Agente de frete</th>
+							<th>Setor industrial</th>
+							<th>Moeda</th>
+							
+							<th>Grupo de preço</th>
+							<th>Envasadora produto acabado</th>
+							<th>Motivo da solicitação</th>
+							<th>Recebedor diferente</th>
+                        </tr>
+                    </thead>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+</div>

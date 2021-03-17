@@ -1,0 +1,227 @@
+<script src="js/plugin/fuelux/wizard/wizard.min.js"></script>
+
+<style type="text/css">
+    .smart-form .label {
+        margin-top: 10px!important;
+    }
+</style>
+
+<!--td:nth-of-type(even) { background-color:#ccc; }-->
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i>NOC <span data-localize="labelAceite">Aceite </span></h1>
+    </div>
+</div>
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+
+    <div class="container">
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="well no-padding">
+                    <form id="nocFornecedorAceiteForm" name="nocFornecedorAceiteForm" class="smart-form client-form" ng-submit="submit()" novalidate>
+                        <header>
+                            Aceite do Fornecedor
+                        </header>
+                        <fieldset>
+                            <section>
+
+                                <div id="myTabContent" class="tab-content col-sm-12">
+                                    <ul class="nav nav-tabs pull-center in" id="myTab">
+                                        <li class="active">
+                                            <a data-toggle="tab" ng-click="resposta = false" href="#tab1"><span class="hidden-mobile hidden-tablet" data-localize="labelTituloDefeito">Informações</span></a>
+                                        </li>
+
+                                        <li class="">
+                                            <a data-toggle="tab" href="#tab2" ng-click="resposta = true"><span class="hidden-mobile hidden-tablet" data-localize="labelResposta">Respostas</span></a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-pane fade padding-10 no-padding-bottom active in" id="tab1">
+                                        <div class="row no-space">
+                                            <fieldset>
+                                                <div ng-include="'views/nocFornecedor/informacoes-noc.html'">
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade padding-10" id="tab2">
+                                        <div class="row no-space">
+                                            <fieldset>
+                                                <div id="aceiteNoc" ng-show="entity.UsuarioAceite == undefined ">
+                                                    <section>
+                                                        <label class="label" data-localize="labelNomeRepresentante">Nome do Representante</label>
+                                                        <label class="input" ng-class="{'state-error': nocFornecedorAceiteForm.nomeRepresentante.$invalid && showValidation}">
+                                                            <input type="text" required ng-model="entity.NomeRepresentante" data-localize="placeNomeRepresentante" name="nomeRepresentante" id="nomeRepresentante" maxlength="75" class="form-control">
+                                                        </label>
+                                                        <em class="invalid" ng-show="nocFornecedorAceiteForm.nomeRepresentante.$invalid && showValidation"><span data-localize="validacaoNomeRepresentante"></span></em>
+                                                    </section>
+                                                    <section>
+                                                        <label class="label" data-localize="labelPerguntaResponder">Deseja aceitar e responder a NOC?</label>
+                                                        <div class="inline-group">
+                                                            <label class="label">
+                                                                <label class="radio">
+                                                                    <input type="radio" ng-model="entity.RespondeAceitando" name="RespondeAceitando" value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                </label>
+                                                                <label class="radio">
+                                                                    <input type="radio" ng-model="entity.RespondeAceitando" name="RespondeAceitando" checked value="false"><i></i><span data-localize="labelNao"> Não </span>
+                                                                </label>
+                                                            </label>
+                                                        </div>
+                                                    </section>
+                                                    <div ng-show="entity.UsuarioAceite != undefined">
+                                                        <div class="alert adjusted alert-info fade in">
+                                                            <i class="fa-fw fa-lg fa fa-info"></i>
+                                                            <span data-localize="labelAceiteFornecedor">Aceite do Fornecedor</span>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <section class="col col-6">
+                                                                <label class="label" data-localize="labelResponsavel">Responsável </label>
+                                                                <div class="input-group">
+                                                                    <label>{{ entity.UsuarioAceite }} </label>
+                                                                </div>
+                                                            </section>
+                                                            <section class="col col-6">
+                                                                <label class="label" data-localize="labelDataAceite">Data de Aceite </label>
+                                                                <label>{{ entity.DataAceite | date:'dd/MM/yyyy HH:mm:ss' }} </label>
+                                                            </section>
+                                                        </div>
+                                                        <div class="row">
+                                                            <section class="col col-12">
+                                                                <label class="label" data-localize="labelNomeRepresentante ">Representante</label>
+                                                                <label>{{ entity.NomeRepresentanteAceite }} </label>
+                                                            </section>
+                                                        </div>
+                                                    </div>
+                                                    <div ng-show="entity.RespondeAceitando">
+                                                        <div id="novaResposta">
+                                                            <legend>Nova Resposta</legend>
+                                                            <div id="novaRespostaFornecedor">
+
+                                                                <section>
+                                                                    <label class="label" data-localize="labelParecer">Parecer</label>
+                                                                    <label class="label" ng-class="{'state-error': nocFornecedorRespostaFornecedorForm.entity.resposta.parecer.$invalid && showValidation}">
+                                                                        <select ng-model="entity.resposta.ParecerLookup" name="parecer" id="parecer" ng-options="p.Nome for p in entity.Pareceres" required class="form-control">
+                                                                            <option value="" selected="selected" data-localize="optionSelecioneParecer">Selecione o parecer</option>
+                                                                        </select>
+                                                                    </label>
+                                                                    <em class="invalid" ng-show="nocFornecedorRespostaFornecedorForm.entity.resposta.parecer.$invalid && showValidation"><span data-localize="validacaoParecer">Informe o Parecer</span></em>
+                                                                </section>
+                                                                <section>
+                                                                    <label class="label" data-localize="labelResumoOcorrencia">Resumo da Ocorrência</label>
+                                                                    <label class="textarea" ng-class="{'state-error': nocFornecedorRespostaFornecedorForm.entity.resposta.resumoOcorrencia.$invalid && showValidation}">
+                                                                        <textarea ng-model="entity.resposta.ResumoOcorrencia" name="resumoOcorrencia" id="resumoOcorrencia" data-localize="placeResumoOcorrencia" rows="3" class="form-control" maxlength="500" required></textarea>
+                                                                    </label>
+                                                                    <em class="invalid" ng-show="nocFornecedorRespostaFornecedorForm.entity.resposta.resumoOcorrencia.$invalid && showValidation"><span data-localize="validacaoResumoOcorrencia">Informe o Resumo da Ocorrência</span></em>
+                                                                </section>
+                                                                <section>
+                                                                    <label class="label" data-localize="labelAcoesCorretivas">Ações Corretivas</label>
+                                                                    <label class="textarea" ng-class="{'state-error': nocFornecedorRespostaFornecedorForm.entity.resposta.causasAcoesCorretivas.$invalid && showValidation}">
+                                                                        <textarea ng-model="entity.resposta.CausasAcoesCorretivas" name="causasAcoesCorretivas" id="causasAcoesCorretivas" data-localize="labelAcoesCorretivas" rows="3" maxlength="500" class="form-control" required></textarea>
+                                                                    </label>
+                                                                    <em class="invalid" ng-show="nocFornecedorRespostaFornecedorForm.entity.resposta.causasAcoesCorretivas.$invalid && showValidation"><span data-localize="validacaoAcoesCorretivas">Informe as ações corretivas</span></em>
+                                                                </section>
+                                                                <section>
+                                                                    <label class="label" data-localize="labelCausaRaiz">Causa Raiz</label>
+                                                                    <label class="textarea" ng-class="{'state-error': nocFornecedorRespostaFornecedorForm.entity.resposta.causaRaiz.$invalid && showValidation}">
+                                                                        <textarea ng-model="entity.resposta.CausaRaiz" data-localize="labelCausaRaiz" rows="2" name="causaRaiz" id="causaRaiz" maxlength="250" required class="form-control"></textarea>
+                                                                    </label>
+                                                                    <em class="invalid" ng-show="nocFornecedorRespostaFornecedorForm.entity.resposta.causaRaiz.$invalid && showValidation"><span data-localize="validacaoCausaRaiz">Informe a causa raiz</span></em>
+                                                                </section>
+                                                                <section>
+                                                                    <label class="label" data-localize="labelAcoesPreventivas">Ações Preventivas</label>
+                                                                    <!--<label class="textarea" ng-class="{'state-error': nocFornecedorRespostaFornecedorForm.causasAcoesPreventivas.$invalid && showValidation}">-->
+                                                                    <textarea ng-model="entity.resposta.CausasAcoesPreventivas" name="causasAcoesPreventivas" id="causasAcoesPreventivas" data-localize="labelAcoesPreventivas" rows="3" maxlength="500" class="form-control"></textarea>
+                                                                    <!--</label>
+                                                                    <em class="invalid" ng-show="nocFornecedorRespostaFornecedorForm.causasAcoesPreventivas.$invalid && showValidation"><span data-localize="validacaoAcoesPreventivas"></span></em>-->
+                                                                </section>
+                                                                <section>
+                                                                    <label class="label" data-localize="labelConclusao">Conclusão</label>
+                                                                    <label class="textarea" ng-class="{'state-error': nocFornecedorRespostaFornecedorForm.entity.resposta.Conclusao.$invalid && showValidation}">
+                                                                        <textarea ng-model="entity.resposta.Conclusao" name="Conclusao" id="Conclusao" data-localize="placeConclusao" rows="3" class="form-control" maxlength="500" required></textarea>
+                                                                    </label>
+                                                                    <em class="invalid" ng-show="nocFornecedorRespostaFornecedorForm.entity.resposta.Conclusao.$invalid && showValidation"><span data-localize="validacaoConclusao">Informe a Conclusão</span></em>
+                                                                </section>
+
+                                                                <!--Materiais Diretos/Indiretos ou Transportes-->
+                                                                <section ng-show="entity.Categoria < 3">
+                                                                    <label class="label" data-localize="labelDevolucao">Devolução?</label>
+                                                                    <div class="inline-group">
+                                                                        <label class="label">
+                                                                            <label class="radio" ng-class="{'state-error': nocFornecedorRespostaFornecedorForm..entity.resposta.Devolucao.$invalid && showValidation}">
+                                                                                <input type="radio" ng-model="entity.resposta.FlgDevolucao" name="Devolucao" value="true" ng-required="entity.Categoria < 3" ng-change="Devolucao(entity.resposta.FlgDevolucao)"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                            </label>
+                                                                            <label class="radio" ng-class="{'entity.state-error': nocFornecedorRespostaFornecedorForm.entity.resposta.Devolucao.$invalid && showValidation}">
+                                                                                <input type="radio" ng-model="entity.resposta.FlgDevolucao" name="Devolucao" value="false" ng-required="entity.Categoria < 3" ng-change="Devolucao(entity.resposta.FlgDevolucao)"><i></i><span data-localize="labelNao"> Não </span>
+                                                                            </label>
+                                                                            <em class="invalid" ng-show="nocFornecedorRespostaFornecedorForm.entity.resposta.Devolucao.$invalid && showValidation"><span data-localize="validacaoDevolucao">Informe se é devolução</span></em>
+                                                                        </label>
+                                                                    </div>
+                                                                </section>
+
+                                                                <div class="row" ng-show="entity.Categoria < 3">
+                                                                    <section class="col col-6">
+                                                                        <label class="label" data-localize="labelQuantidadeAutorizadaDevolver">Quantidade autorizada a devolver </label>
+                                                                        <label class="label" ng-class="{'state-error': nocFornecedorRespostaFornecedorForm.entity.resposta.qtdAutorizadaDevolver.$invalid && showValidation}">
+                                                                            <input type="text" ng-required="entity.resposta.FlgDevolucao == 'true'" ng-model="entity.resposta.QtdAutorizadaDevolver" data-localize="placeQuantidadeAutorizadaDevolver" maxlength="10" name="qtdAutorizadaDevolver" id="qtdAutorizadaDevolver" class="form-control" disabled number-decimal>
+                                                                        </label>
+                                                                        <em class="invalid" ng-show="nocFornecedorRespostaFornecedorForm.entity.resposta.qtdAutorizadaDevolver.$invalid && showValidation"><span data-localize="validacaoQuantidadeAutorizadaDevolver">Informe a quantidade autorizada a devolver</span></em>
+                                                                    </section>
+                                                                    <section class="col col-6">
+                                                                        <label class="label" data-localize="labelDataAutorizacaoDevolucao">Data de Autorização da Devolução</label>
+                                                                        <div class="input-group" ng-class="{'state-error': nocFornecedorRespostaFornecedorForm.entity.resposta.dataFabricacao.$invalid && showValidation}">
+                                                                            <input type="text" ng-required="entity.resposta.FlgDevolucao == 'true'" ng-class="{invalid: nocFornecedorRespostaFornecedorForm.entity.resposta.dataAutorizacaoDevolucao.$invalid && showValidation}" ui-date ng-model="entity.resposta.DataAutorizacaoDevolucao" name="dataAutorizacaoDevolucao" id="dataAutorizacaoDevolucao" datepicker-popup="dd/MM/yyyy" is-open="exibirDatepickerDataAutorizacaoDevolucao" datepicker-options="{ showWeeks: false }" show-button-bar="false" class="form-control" disabled>
+                                                                            <span class="input-group-addon" ng-click="exibirDatepicker($event, 'exibirDatepickerDataAutorizacaoDevolucao')"><i class="fa fa-calendar"></i></span>
+                                                                        </div>
+                                                                        <em class="invalid" ng-show="nocFornecedorRespostaFornecedorForm.entity.resposta.dataAutorizacaoDevolucao.$invalid && showValidation"><span data-localize="validacaoDataAutorizacaoDevolucao">Informe a data de autorização devolução</span> </em>
+                                                                    </section>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <section class="col col-6">
+                                                                        <label class="label" data-localize="labelRessarcimentoValorAutorizado">Ressarcimento (Valor Autorizado)</label>
+                                                                        <input type="text" ng-model="entity.resposta.ValorAutorizadoRessarcimento" data-localize="placeRessarcimentoValorAutorizado" maxlength="10" name="valorAutorizadoRessarcimento" id="valorAutorizadoRessarcimento" class="form-control" number-decimal>
+                                                                    </section>
+                                                                    <section class="col col-6">
+                                                                        <label class="label" data-localize="labelObservacao">Observação</label>
+                                                                        <textarea ng-model="entity.resposta.Observacao" name="observacao" id="observacao" data-localize="placeObservacao" rows="3" maxlength="500" class="form-control"></textarea>
+                                                                    </section>
+                                                                </div>
+                                                                <div id="uploadArquivos">
+                                                                    <file-upload></file-upload>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                 <div ng-include="'views/nocFornecedor/historico.html'">
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" ng-show="entity.IsHistorico == false && resposta">
+                                        <ul class="pager wizard no-margin">
+                                            <li>
+                                                <a href="javascript:void(0);" id="Aceitar" class="btn btn-lg txt-color-darken" ng-click="submit() " ng-show="entity.UsuarioAceite == undefined" data-localize="liAceitar">Aceitar</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </section>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<br />
+
+
+<!-- end widget grid -->

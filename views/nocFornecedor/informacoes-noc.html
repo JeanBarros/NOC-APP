@@ -1,0 +1,207 @@
+<table class="table table-striped word-break">
+    <tbody>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelCategoria"><strong>Categoria:</strong> </label>
+            </td>
+            <td>
+                <label>{{ entity.DcrCategoria }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelPlanta"><strong>Planta:</strong></label>
+            </td>
+            <td>
+                <label>{{ entity.NomePlanta }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelFornecedor"><strong>Fornecedor:</strong></label></td>
+            <td>
+                <label>{{ entity.NomeFornecedor }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelMoeda"><strong>Moeda:</strong></label></td>
+            <td>
+                <label>{{ entity.Moeda }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelSeveridade"><strong>Severidade:</strong></label></td>
+            <td>
+                <label>{{ entity.Severidade }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelClasse"><strong>Classe:</strong></label></td>
+            <td>
+                <label>{{ entity.ClasseDefeito }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelTituloDefeito"><strong>Defeito:</strong></label></td>
+            <td>
+                <label>{{ entity.Defeito }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelDataOcorrencia"><strong>Data de Ocorrência:</strong></label></td>
+            <td>
+                <label>{{ entity.DataOcorrencia | date:'dd/MM/yyyy HH:mm' }} </label>
+            </td>
+        </tr>
+        <!--Material Direto-->
+        <tr ng-show="entity.Categoria == 0">
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelCodigoProdutoSAP"><strong>Código do Produto SAP:</strong></label></td>
+            <td>
+                <label>{{ entity.CodigoProdutoSap }} </label>
+            </td>
+        </tr>
+        <tr ng-show="entity.Categoria == 0">
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelCodigoProdutoFornecedor"><strong>Código do Produto Fornecedor:</strong></label></td>
+            <td>
+                <label>{{ entity.CodigoProdutoFornecedor }} </label>
+            </td>
+        </tr>
+        <tr ng-show="entity.Categoria == 0">
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelDataFabricacao"><strong>Data de Fabricação:</strong></label></td>
+            <td>
+                <label>{{ entity.DataFabricacao | date:'dd/MM/yyyy' }} </label>
+            </td>
+        </tr>
+        <tr ng-show="entity.Categoria == 0">
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelLote"><strong>Lote:</strong></label></td>
+            <td>
+                <label>{{ entity.Lote }} </label>
+            </td>
+        </tr>
+        <tr ng-show="entity.Categoria == 0">
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelNotaFiscal"><strong>Nota Fiscal:</strong></label></td>
+            <td>
+                <label>{{ entity.NotaFiscal }} </label>
+            </td>
+        </tr>
+        <tr ng-show="entity.Categoria == 0">
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelQuantidadeRetida"><strong>Qtde. Retida:</strong></label></td>
+            <td>
+                <label>{{ entity.QuantidadeRetida }} </label>
+            </td>
+        </tr>
+        <tr ng-show="entity.Categoria == 0">
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelUnidadeRetida"><strong>Unid. Retida:</strong></label></td>
+            <td>
+                <label>{{ entity.UnidadeMedidaRetida }} </label>
+            </td>
+        </tr>
+        <tr ng-show="entity.Categoria == 0">
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelQuantidadeRetida"><strong>Quantidade de latas/tampas perdidas:</strong></label></td>
+            <td>
+                <label>{{ entity.QuantidadeLatasTampasPerdidas }} </label>
+            </td>
+        </tr>
+        <tr ng-show="entity.Categoria == 0">
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelQuantidadeHorasParadas"><strong>Quantidade de Horas paradas:</strong></label></td>
+            <td>
+                <label>{{ entity.HorasParadas }} </label>
+            </td>
+        </tr>
+
+        <!--Material Indireto-->
+        <tr ng-show="entity.Categoria == 1">
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelCodigoProdutoSAP"><strong>Código do Produto SAP:</strong></label></td>
+            <td>
+                <label>{{ entity.CodigoProdutoSap }} </label>
+            </td>
+        </tr>
+        <tr ng-show="entity.Categoria == 1">
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelCodigoProdutoFornecedor"><strong>Código do Produto Fornecedor:</strong></label></td>
+            <td>
+                <label>{{ entity.CodigoProdutoFornecedor }} </label>
+            </td>
+        </tr>
+        <tr ng-show="entity.Categoria == 1">
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelNotaFiscal"><strong>Nota Fiscal:</strong></label></td>
+            <td>
+                <label>{{ entity.NotaFiscal }} </label>
+            </td>
+        </tr>
+        <tr ng-show="entity.Categoria == 1">
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelQuantidadeRetida"><strong>Qtde. Retida:</strong></label></td>
+            <td>
+                <label>{{ entity.QuantidadeRetida }} </label>
+            </td>
+        </tr>
+        <tr ng-show="entity.Categoria == 1">
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelUnidadeRetida"><strong>Unid. Retida:</strong></label></td>
+            <td>
+                <label>{{ entity.UnidadeMedidaRetida }} </label>
+            </td>
+        </tr>
+
+        <!--Serviços-->
+        <tr ng-show="entity.Categoria == 2">
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelTipoDeServico"><strong>Tipo de Serviço:</strong></label></td>
+            <td>
+                <label>{{ entity.TipoServico }} </label>
+            </td>
+        </tr>
+
+        <!--Frete/Movimentação Interna-->
+        <tr ng-show="entity.Categoria == 3">
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelPlacaVeiculo"><strong>Placa Veículo:</strong></label></td>
+            <td>
+                <label>{{ entity.PlacaVeiculo }} </label>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label" data-localize="labelCustosDespesas"><strong>Custos/despesas:</strong></label></td>
+            <td>
+                <label>{{ entity.ValorCustosDespesas | decimal }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="col-sm-12">
+                <label class="control-label" data-localize="labelObservacao"><strong>Observação:</strong></label>
+                <label>{{ entity.Observacao }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="col-sm-12">
+                <label class="control-label" data-localize="labelComentariosDaOcorrencia"><strong>Comentários da Ocorrência:</strong></label>
+                <label>{{ entity.ComentariosRexam }} </label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="col-sm-12">
+                <label class="control-label" data-localize="labelParecerPrevio"><strong>Parecer Prévio Rexam:</strong></label>
+                <label>{{ entity.ParecerRexam }} </label>
+            </td>
+        </tr>
+    </tbody>
+</table>

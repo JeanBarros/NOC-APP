@@ -1,0 +1,135 @@
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                    <span class="widget-icon" data-localize="labelHistorico"><i class="fa fa-list-alt"></i>Histórico</span>
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in padding-10">
+            <div class="panel-body">
+                <div id="divRespostas">
+                    <!--Historico de Respostas-->
+                    <div ng-repeat="resposta in entity.Respostas" class="word-break">
+                        <div id="respostaFornecedor" ng-show="resposta.FlgRespostaRexam  == false">
+                            <legend>Resposta do Fornecedor </legend>
+                            <div class="row">
+                                <section class="col col-6">
+                                    <label class="label" data-localize="labelResponsavel">Responsável</label>
+                                    <div class="input-group">
+                                        <label>{{ resposta.NomeResponsavel }} </label>
+                                    </div>
+                                </section>
+                                <section class="col col-6">
+                                    <label class="label" data-localize="labelDataResposta">Data da Resposta</label>
+                                    <label>{{ resposta.DataResposta | date:'dd/MM/yyyy' }} </label>
+                                </section>
+                            </div>
+                            <section>
+                                <label class="label" data-localize="labelParecer">Parecer</label>
+                                <label>{{ resposta.Parecer }} </label>
+                            </section>
+                            <section>
+                                <label class="label" data-localize="labelNomeRepresentante">Nome do Representante</label>
+                                <label>{{ resposta.NomeRepresentante }} </label>
+                            </section>
+                            <section>
+                                <label class="label" data-localize="labelResumoOcorrencia">Resumo da Ocorrência</label>
+                                <label>{{ resposta.ResumoOcorrencia }} </label>
+                            </section>
+                            <section>
+                                <label class="label" data-localize="labelCausasAcoesCorretivas">Causas e Ações Corretivas</label>
+                                <label>{{ resposta.CausasAcoesCorretivas }} </label>
+                            </section>
+                            <section>
+                                <label class="label" data-localize="labelCausasAcoesPreventivas">Causas e Ações Preventivas</label>
+                                <label>{{ resposta.CausasAcoesPreventivas }} </label>
+                            </section>
+                            <section>
+                                <label class="label" data-localize="labelConclusao">Conclusão</label>
+                                <label>{{ resposta.Conclusao }} </label>
+                            </section>
+                            <section>
+                                <label class="label" data-localize="labelCausaRaiz">Causa Raiz</label>
+                                <label>{{ resposta.CausaRaiz }} </label>
+                            </section>
+                            <!--Materiais Diretos/Indiretos ou Transportes-->
+                            <section ng-show="entity.Categoria < 3">
+                                <label class="label" data-localize="labelDevolucao">Devolução</label>
+                                <label ng-if="resposta.FlgDevolucao" data-localize="labelSim">Sim</label>
+                                <label ng-if="!resposta.FlgDevolucao" data-localize="labelNao">Não</label>
+                            </section>
+                            <div class="row" ng-show="entity.Categoria < 3">
+                                <section class="col col-6">
+                                    <label class="label" data-localize="labelQtdAutorizadaDevolver">Quantidade autorizada a devolver </label>
+                                    <label>{{ resposta.QtdAutorizadaDevolver | decimal }} </label>
+                                </section>
+                                <section class="col col-6">
+                                    <label class="label" data-localize="labelDataAutorizacaoDevolucao">Data autorização devolução</label>
+                                    <label>{{ resposta.DataAutorizacaoDevolucao | date:'dd/MM/yyyy' }} </label>
+                                </section>
+                            </div>
+
+                            <div class="row">
+                                <section class="col col-6">
+                                    <label class="label" data-localize="labelRessarcimentoValorAutorizado">Ressarcimento (Valor Autorizado)</label>
+                                    <label>{{ resposta.ValorAutorizadoRessarcimento | decimal }} </label>
+                                </section>
+                                <section class="col col-6">
+                                    <label class="label" data-localize="labelObservacao">Observação</label>
+                                    <label>{{ resposta.Observacao }} </label>
+                                </section>
+                            </div>
+                        </div>
+                        <div id="respostaFabrica" ng-show="resposta.FlgRespostaRexam  == true">
+                            <legend>Resposta do Fábrica </legend>
+                            <section>
+                                <label class="label" data-localize="labelStatusResposta">Status</label>
+                                <label>{{ resposta.StatusResposta }} </label>
+                            </section>
+                            <section>
+                                <label class="label" data-localize="labelMotivo">Motivo</label>
+                                <label>{{ resposta.Motivo }} </label>
+                            </section>
+                        </div>
+                        <div id="arquivosResposta">
+                            <div ng-repeat="anexo in resposta.ListaAnexos">
+                                <a target="_blank" href="{{ '/files/' + anexo.NomeArquivo }}" download="{{ anexo.NomeArquivo }}"><span>{{ anexo.NomeArquivo }}</span> </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="histAceiteNoc" ng-show="entity.UsuarioAceite != undefined">
+                        <legend data-localize="labelAceiteFornecedor">Aceite do Fornecedor</legend>
+                        <div class="row">
+                            <section class="col col-6">
+                                <label class="label" data-localize="labelResponsavel">Responsável </label>
+                                <div class="input-group">
+                                    <label>{{ entity.UsuarioAceite }} </label>
+                                </div>
+                            </section>
+                            <section class="col col-6">
+                                <label class="label" data-localize="labelDataAceite">Data de Aceite </label>
+                                <label>{{ entity.DataAceite | date:'dd/MM/yyyy HH:mm:ss' }} </label>
+                            </section>
+                        </div>
+                        <div class="row">
+                            <section class="col col-12">
+                                <label class="label" data-localize="labelNomeRepresentante ">Representante</label>
+                                <label>{{ entity.NomeRepresentanteAceite }} </label>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <legend data-localize="labelArquivos">Arquivos</legend>
+                    <div ng-repeat="anexo in entity.ListaAnexos">
+                        <a target="_blank" href="{{ '/files/' + anexo.NomeArquivo }}" download="{{ anexo.NomeArquivo }}"><span>{{ anexo.NomeArquivo }}</span> </a>
+                    </div>
+                    <label class="label">{{ entity.ListaAnexos.length == 0 ? 'Sem arquivos' : ''}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

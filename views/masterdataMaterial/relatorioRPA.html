@@ -1,0 +1,85 @@
+<script src="js/plugin/datatables/jquery.dataTables.min.js"></script>
+<script src="js/plugin/datatables/dataTables.bootstrap.min.js"></script>
+<script src="js/plugin/datatables/dataTables.tableTools.min.js"></script>
+<script src="js/plugin/datatable-responsive/datatables.responsive.min.js"></script>
+<style type="text/css">
+    .linkGrid {
+        -webkit-tap-highlight-color: rgba(169,3,41,.5);
+        color: #3276b1;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .input-group-addon {
+        height: 15px !important;
+    }
+</style>
+
+<div class="row">
+    <div class="well no-padding smart-form client-form">
+        <header>
+            Relatório Masterdata Material RPA
+        </header>
+
+        <div class="row no-space">
+
+            <fieldset>
+                <table id="tblRelatorio" my-table aa-data="MasterdataMaterialRelatorioRPAView" ao-column-defs="columnDefs" fn-row-callback="myCallback"
+                    class="table table-striped table-bordered table-hover" width="100%">
+                    <thead>
+                        <tr>
+                            <th>TIPO MATERIAL</th>
+                            <th>MODELO MATERIAL</th>
+							<th>CODIGO MODELO MATERIAL SAP</th>
+							<th>TIPO FERT</th>
+							<th>FERRAMENTA INTERMUTAVEL</th>
+							<th>ITEM CRITICO</th>
+							<th>ITEM RECUPERAVEL</th>
+							<th>PLANTA</th>
+							<th>DEPOSITO</th>
+							<th>DESCRICAO CURTA</th>
+							<th>UNIDADE MEDIDA</th>
+							<th>GRUPO MERCADORIA</th>
+							<th>DEIXAR VERSAO BLOQUEADO Z1</th>
+							<th>DEIXAR VERSAO BLOQUEADO 03</th>
+							<th>QTD LATAS CAMADA</th>
+							<th>QTD LATAS PALETE</th>
+							<th>LAB ESC</th>
+							<th>DESCRICAO LONGA</th>
+							<th>DESCRICAO IMPORTADA</th>
+							<th>FUNCAO MATERIAL</th>
+							<th>UTILIZACAO EQUIPAMENTO</th>
+							<th>EQUIPAMENTO</th>
+							<th>ORIGEM MATERIAL</th>
+							<th>PART NUMBER</th>
+							<th>FABRICANTE</th>
+							<th>ESTOQUE MINIMO</th>
+							<th>ESTOQUE MAXIMO</th>
+							<th>TIPO MRP</th>
+							<th>PLANEJADOR MRP</th>
+							<th>TAMANHO LOTE MRP</th>
+							<th>PESO BRUTO</th>
+							<th>PESO LIQUIDO</th>
+							<th>CENTRO LUCRO</th>
+							<th>DEPOSITO PRODUCAO</th>
+							<th>INFO. TEC. 1 - CODIGO</th>
+							<th>INFO. TEC. 1 - PRODUTO</th>
+							<th>INFO. TEC. 1 - QUANTIDADE</th>
+							<th>INFO. TEC. 1 - UND MEDIDA</th>
+							<th>INFO. TEC. 2 - CODIGO</th>
+							<th>INFO. TEC. 2 - PRODUTO</th>
+							<th>INFO. TEC. 2 - QUANTIDADE</th>
+							<th>INFO. TEC. 2 - UND MEDIDA</th>
+							<th>CUSTO MATERIAL</th>
+							<th>CODIGO NCM</th>
+							<th>CATEGORIA CFOP</th>
+							<th>CLASSIFICACAO FISCAL</th>
+							<th>UTILIZACAO MATERIAL</th>
+							<th>CLASSE AVALIACAO</th>
+                        </tr>
+                    </thead>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+</div>

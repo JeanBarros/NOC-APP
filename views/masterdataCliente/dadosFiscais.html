@@ -1,0 +1,93 @@
+<style type="text/css">
+    .smart-form fieldset {
+        padding-top: 0px!important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i>Masterdata - <span data-localize="labelDadosFiscais">Dados Fiscais</span></h1>
+    </div>
+</div>
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+    <div class="container">
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="well no-padding">
+                    <form id="masterdataClientDadosFiscaisForm" name="masterdataClientDadosFiscaisForm" class="smart-form client-form" ng-submit="submit()" novalidate>
+                        <header>
+                            <span data-localize="labelDadosFiscais">Dados Fiscais</span>
+                        </header>
+                        <fieldset>
+                            <section>
+                                <div id="myTabContent" class="tab-content col-sm-12">
+                                    <ul class="nav nav-tabs pull-center in" id="myTab">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#tab1"><span class="hidden-mobile hidden-tablet" data-localize="liCliente">Cliente</span></a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#tab2"><span class="hidden-mobile hidden-tablet" data-localize="liRexam">Rexam</span></a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#tab3"><span class="hidden-mobile hidden-tablet" data-localize="labelDadosFiscais">Dados Fiscais</span></a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-pane fade padding-10 no-padding-bottom active in" id="tab1">
+                                        <div ng-include="'views/masterDataCliente/client-template.html'">
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade padding-10" id="tab2">
+                                        <div ng-include="'views/masterDataCliente/rexam-template.html'">
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade padding-10" id="tab3">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelClassificacaoFiscal">Classificação Fiscal</label>
+                                                <label class="label" ng-class="{'state-error': showValidation && !entity.ClassificacaoFiscal.Id}">
+                                                    <select ng-model="entity.ClassificacaoFiscal" name="classificacaoFiscal" id="classificacaoFiscal" ng-options="c.Nome for c in classificacoesFiscais track by c.Id" required class="form-control">
+                                                        <option value="" selected="selected" data-localize="optionSelecioneClassificacaoFiscal">Selecione a classificação fiscal</option>
+                                                    </select>
+                                                </label>
+                                                <em class="invalid" ng-show="showValidation && !entity.ClassificacaoFiscal.Id"><span data-localize="validacaoSelecioneClassificacaoFiscal"></span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelSetorIndustrial">Setor Industrial</label>
+                                                <label class="label" ng-class="{'state-error': showValidation && !entity.SetorIndustrial.Id}">
+                                                    <select ng-model="entity.SetorIndustrial" name="setorIndustrial" id="setorIndustrial" ng-options="c.Nome for c in setoresIndustriais track by c.Id" required class="form-control">
+                                                        <option value="" selected="selected" data-localize="optionSelecioneSetorIndustrial">Selecione o setor industrial</option>
+                                                    </select>
+                                                </label>
+                                                <em class="invalid" ng-show="showValidation && !entity.SetorIndustrial.Id"><span data-localize="validacaoSelecioneSetorIndustrial"></span></em>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <br>
+
+                                        <div class="col-sm-12">
+                                            <ul class="pager wizard no-margin">
+                                                <li class="next finish">
+                                                    <a href="javascript:void(0);" id="salvar" class="btn btn-lg txt-color-darken" ng-click="submit()"><span data-localize="liSalvar">Enviar</span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                            </section>
+                        </fieldset>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+</section>
+<!-- end widget grid -->

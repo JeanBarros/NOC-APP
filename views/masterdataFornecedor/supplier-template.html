@@ -1,0 +1,158 @@
+<table class="table table-striped word-break">
+    <tbody>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelTipoDePessoa">Tipo de Pessoa</strong>: </label>
+            </td>
+            <td>
+                <label ng-if="entity.TipoDePessoa == 'J'" data-localize="labelJuridica">Jurídica</label>
+                <label ng-if="entity.TipoDePessoa == 'F'" data-localize="labelFisica">Física</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelPaisFornecedor">País do Fornecedor</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.PaisDoFornecedor.Nome }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelCodigoFiscal">Código Fiscal</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.CodigoFiscal }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.TipoDePessoa == 'J' && entity.PaisDoFornecedor.PossuiInscricaoEstadualMunicipal">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelInscricaoEstadual">Inscrição Estadual</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.InscricaoEstadual }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.TipoDePessoa == 'J' && entity.PaisDoFornecedor.PossuiInscricaoEstadualMunicipal">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelInscricaoMunicipal">Inscrição Municipal</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.InscricaoMunicipal }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelNomeCliente">Nome</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.NomeFornecedor }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelNomeDeBusca">Nome de Busca</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.NomeDeBusca }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelTipoLogradouro">Tipo de Logradouro</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.TipoDeLogradouro.Nome }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelLogradouro">Logradouro</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Logradouro }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelNumeroEndereco">Número</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.NumeroEndereco }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelComplementoEndereco">Complemento</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.ComplementoEndereco }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelBairro">Bairro</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Bairro }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelCEP">CEP</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Cep }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelCidade">Cidade</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Cidade }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelRegiao">Estado</strong>: </label>
+            </td>
+            <td>
+                <label ng-if="entity.Regiao != null && entity.Regiao.Id != 0">{{ entity.Regiao.Nome }}</label>
+                <label ng-if="entity.Regiao == null || entity.Regiao.Id == 0">{{ entity.DcrRegiao }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelTelefone">Telefone</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Telefone }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong>E-mail:</strong></label>
+            </td>
+            <td>
+                <label>{{ entity.Email }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong>E-mail NFE:</strong></label>
+            </td>
+            <td>
+                <label>{{ entity.EmailNFE }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelNomeSobrenomeContato">Nome/Sobrenome Contato</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.NomeContato }}</label>
+            </td>
+        </tr>
+    </tbody>
+</table>

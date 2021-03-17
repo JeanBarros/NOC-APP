@@ -1,0 +1,119 @@
+﻿<style type="text/css">
+    .smart-form fieldset {
+        padding-top: 0px !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i>Masterdata - <span data-localize="labelContabil">Contábil</span>
+        </h1>
+    </div>
+</div>
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+    <div class="container">
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-1">
+                <div class="well no-padding">
+                    <form id="masterdataMaterialContabilForm" name="masterdataMaterialContabilForm" class="smart-form client-form" ng-submit="submit()" novalidate>
+                        <header>
+                            <span data-localize="labelContabil">Contábil</span>
+                        </header>
+                        <fieldset>
+                             <section>
+                                <div class="row" ng-if="entity.PedidoCorrecao">
+                                    <div class="alert adjusted alert-info fade in" style="margin: 10px;">
+                                        <span><i class="fa-fw fa-lg fa fa-info"></i>
+                                            <label data-localize="labelPedidoCorrecao" style="font-weight: bold;">Pedido de Correção</label>
+                                        </span>
+                                        <br />
+                                        <span>{{entity.PedidoCorrecao}}</span>
+                                    </div>
+                                </div>
+                            </section>
+                            <section>
+                                <div id="myTabContent" class="tab-content col-sm-12">
+                                    <ul class="nav nav-tabs pull-center in" id="myTab">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#tab1"><span class="hidden-mobile hidden-tablet" data-localize="labelMaterial">Material</span></a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#tab2"><span class="hidden-mobile hidden-tablet" data-localize="labelContabil">Contábil</span></a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-pane fade padding-10 no-padding-bottom active in" id="tab1">
+                                        <div ng-include="'views/masterdataMaterial/material-template.html'">
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade padding-10" id="tab2">
+                                        <div class="row">
+                                            <label class="label" data-localize="labelAprovacao">Aprovação</label>
+                                            <div class="inline-group">
+                                                <label class="radio" ng-class="{'state-error': entity.Aprovar == undefined && showValidation}">
+                                                    <input type="radio" ng-model="entity.Aprovar" name="aprovar" value="true"><i></i><span data-localize="labelAprovar"> Aprovar </span>
+                                                </label>
+                                                <label class="radio" ng-class="{'state-error': entity.Aprovar == undefined && showValidation}">
+                                                    <input type="radio" ng-model="entity.Aprovar" name="aprovar" value="false"><i></i><span data-localize="labelSolicitarCorrecao"> Solicitar Correção </span>
+                                                </label>
+                                                <em class="invalid" ng-show="entity.Aprovar == undefined && showValidation"><span data-localize="validacaoInformeSeDesejaAprovar">Informe se deseja aprovar</span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-show="entity.Aprovar == 'true'">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelClasseAvaliacao">Classe Avaliação</label>
+                                                <label class="label" ng-class="{'state-error': !resposta.ClasseAvaliacao.Id && showValidation && !devolver}">
+                                                    <select ng-model="resposta.ClasseAvaliacao" name="classeAvaliacao" id="classeAvaliacao" ng-options="c.Nome for c in classesAvaliacao track by c.Id" required class="form-control">
+                                                        <option value="" selected="selected" data-localize="placeClasseAvaliacao">Selecione a classe avaliação</option>
+                                                    </select>
+                                                </label>
+                                                <em class="invalid" ng-show="!resposta.ClasseAvaliacao.Id && showValidation && !devolver"><span data-localize="validacaoClasseAvaliacao">Selecione a classe avaliação</span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-show="entity.Aprovar == 'false'">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelPedidoCorrecao">Pedido de Correção</label>
+                                                <label class="input" ng-class="{'state-error': masterdataMaterialContabilForm.pedidoDeCorrecao.$invalid && showValidation && devolver}">
+                                                    <textarea type="text" ng-model="resposta.PedidoCorrecao" data-localize="placePedidoCorrecao" rows="3" name="pedidoDeCorrecao" id="pedidoDeCorrecao" maxlength="500" required class="form-control"></textarea>
+                                                </label>
+                                                <em class="invalid" ng-show="masterdataMaterialContabilForm.pedidoDeCorrecao.$invalid && showValidation && devolver"><span data-localize="validacaoPedidoCorrecao">Informe o pedido de correção</span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-show="entity.Aprovar == 'false'">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelDevolverPara">Devolver para</label>
+                                                <label class="label" ng-class="{'state-error': !resposta.DevolverPara && showValidation && devolver}">
+                                                    <select ng-model="resposta.DevolverPara" name="devolverPara" id="devolverPara" required class="form-control">
+                                                        <option ng-if="entity.Etapas.indexOf(0) > -1" value="0" selected="selected" data-localize="optionSolicitante">Solicitante</option>
+                                                        <option ng-if="entity.Etapas.indexOf(1) > -1" value="1" data-localize="optionSuprimentos">Suprimentos</option>
+                                                    </select>
+                                                </label>
+                                                <em class="invalid" ng-show="!resposta.DevolverPara && showValidation && devolver"><span data-localize="validacaoInformeAEtapaParaQualDesejaDevolver">Informe a etapa para qual deseja devolver</span></em>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="col-sm-12">
+                                            <ul class="pager wizard no-margin">
+                                                <li class="next finish">
+                                                    <a href="javascript:void(0);" id="salvar" class="btn btn-lg txt-color-darken" ng-click="submit(entity.Aprovar == 'false')"><span data-localize="liSalvar">Enviar</span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+</section>
+<!-- end widget grid -->

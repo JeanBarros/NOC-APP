@@ -1,0 +1,1369 @@
+﻿<script src="js/plugin/fuelux/wizard/wizard.min.js"></script>
+
+<style type="text/css">
+    .smart-form fieldset {
+        padding-top: 0px !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i>Noc Cliente - <span data-localize="labelResposta">Resposta</span>
+        </h1>
+    </div>
+</div>
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+    <div class="container">
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="well no-padding">
+                    <form id="nocClienteRespostaForm" name="nocClienteRespostaForm" class="smart-form client-form" ng-submit="submit()" novalidate>
+                        <header>
+                            <span data-localize="labelResposta">Resposta</span>
+                        </header>
+                        <section>
+                            <!--<div class="row" ng-if="entity.PedidoDeCorrecao">
+                                <div class="alert adjusted alert-info fade in" style="margin: 10px;">
+                                    <span>
+                                        <i class="fa-fw fa-lg fa fa-info"></i>
+                                        <label data-localize="labelPedidoCorrecao" style="font-weight: bold;">Pedido de Correção</label>
+                                    </span>
+                                    <br />
+                                    <span>{{entity.PedidoDeCorrecao}}</span>
+                                </div>
+                            </div>-->
+                        </section>
+                        <fieldset>
+                            <section>
+                                <div id="myTabContent" class="tab-content col-sm-12">
+                                    <ul class="nav nav-tabs pull-center in" id="myTab">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#tabA" id="htabA"><span class="hidden-mobile hidden-tablet" data-localize="labelNocCliente">Noc Cliente</span></a>
+                                        </li>
+                                        <li class="" ng-if="resposta.Aprovar">
+                                            <a data-toggle="tab" href="#tabB" id="htabB"><span class="hidden-mobile hidden-tablet" data-localize="labelResposta">Resposta</span></a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-pane fade padding-10 no-padding-bottom active in" id="tabA">
+                                        <div style="padding-bottom: 5px;">
+                                            <label class="label" data-localize="labelAprovacao">Aprovação</label>
+                                            <div class="inline-group">
+                                                <label class="radio" ng-class="{'state-error': resposta.Aprovar == undefined && showValidation}">
+                                                    <input type="radio" ng-model="resposta.Aprovar" name="aprovar" ng-value="true"><i></i><span data-localize="labelResponder"> Responder </span>
+                                                </label>
+                                                <label class="radio" ng-class="{'state-error': resposta.Aprovar == undefined && showValidation}">
+                                                    <input type="radio" ng-model="resposta.Aprovar" name="aprovar" ng-value="false"><i></i><span data-localize="labelSolicitarCorrecao"> Solicitar Correção </span>
+                                                </label>
+                                                <em class="invalid" ng-show="resposta.Aprovar == undefined && showValidation"><span data-localize="validacaoInformeSeDesejaAprovar">Informe se deseja aprovar</span></em>
+                                            </div>
+                                        </div>
+                                        <div ng-if="resposta.Aprovar == false">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelPedidoCorrecao">Pedido de Correção</label>
+                                                <label class="input" ng-class="{'state-error': !resposta.Rascunho && nocClienteRespostaForm.pedidoDeCorrecao.$invalid && showValidation && devolver}">
+                                                    <textarea type="text" ng-model="resposta.PedidoCorrecao" data-localize="placePedidoCorrecao" rows="3" name="pedidoDeCorrecao" id="pedidoDeCorrecao" maxlength="500" ng-required="!resposta.Rascunho" required class="form-control"></textarea>
+                                                </label>
+                                                <em class="invalid" ng-show="!resposta.Rascunho && nocClienteRespostaForm.pedidoDeCorrecao.$invalid && showValidation && devolver"><span data-localize="validacaoPedidoCorrecao"></span></em>
+                                            </div>
+                                        </div>
+                                        <div ng-include="'views/nocCliente/history-template.html'">
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                            <ul class="pager wizard no-margin">
+                                                <li class="next finish">
+                                                    <a href="javascript:void(0);" id="btnSalvar1" class="btnSalvar  btn btn-lg txt-color-darken" ng-click="submit()"><span data-localize="liSalvar">Enviar</span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                    <div class="tab-pane fade padding-10" id="tabB">
+                                        <br />
+
+                                        <div id="bootstrap-wizard-1">
+                                            <div class="form-bootstrapWizard">
+                                                <ul class="bootstrapWizard form-wizard" style="padding: 0 0;">
+                                                    <li class="active" data-target="#step1">
+                                                        <a href="#tab1" id="htab1" data-toggle="tab"><span class="step">1</span> <span class="title" data-localize="labelEtapaAnaliseInicial">Análise Inicial e Ações Imediatas</span></a>
+                                                    </li>
+                                                    <li data-target="#step2" class="disabledTab">
+                                                        <a href="#tab2" id="htab2" data-toggle="tab"><span class="step">2</span> <span class="title" data-localize="labelMapaCausaRaiz">Mapa Causa Raiz</span> </a>
+                                                    </li>
+                                                    <li data-target="#step3" class="disabledTab">
+                                                        <a href="#tab3" id="htab3" data-toggle="tab"><span class="step">3</span> <span class="title" data-localize="labelAnaliseDosPorques">Análise dos porquês</span> </a>
+                                                    </li>
+                                                    <li data-target="#step4" class="disabledTab">
+                                                        <a href="#tab4" id="htab4" data-toggle="tab"><span class="step">4</span> <span class="title" data-localize="labelEtapaPlanoDeAcao">Plano de Ação e Conclusão</span> </a>
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="tab1">
+                                                    <br>
+                                                    <br>
+                                                    <h3><span data-localize="labelEtapa1"><strong>Etapa 1</strong></span> - <span data-localize="labelInformacoesGerais">Informações Gerais</span></h3>
+                                                    <br>
+                                                    <fieldset>
+                                                        <div class="row ">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="labelSeveridade">Severidade</label>
+                                                                <label class="label" ng-class="{'state-error': nocClienteRespostaForm.severidade.$invalid && showValidation}">
+                                                                    <select ng-model="resposta.Severidade" name="severidade" id="severidade" ng-options="s.Nome for s in severidades track by s.Id" ng-required="!resposta.Rascunho" class="form-control">
+                                                                        <option value="" selected="selected" data-localize="optionSelecioneSeveridade">Selecione a severidade</option>
+                                                                    </select>
+                                                                </label>
+                                                                <em class="invalid" ng-show="nocClienteRespostaForm.severidade.$invalid && showValidation"><span data-localize="validacaoSeveridade"></span></em>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row ">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="labelParecer">Parecer</label>
+                                                                <label class="label" ng-class="{'state-error': nocClienteRespostaForm.parecer.$invalid && showValidation}">
+                                                                    <select ng-model="resposta.Parecer" name="parecer" id="parecer" ng-options="s.Nome for s in pareceres track by s.Id" ng-required="!resposta.Rascunho" class="form-control">
+                                                                        <option value="" selected="selected" data-localize="optionSelecioneParecer">Selecione o parecer</option>
+                                                                    </select>
+                                                                </label>
+                                                                <em class="invalid" ng-show="nocClienteRespostaForm.parecer.$invalid && showValidation"><span data-localize="validacaoParecer"></span></em>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="labelTraducaoDoFato">Tradução do Fato</label>
+                                                                <label class="textarea" ng-class="{'state-error': nocClienteRespostaForm.traducaoDoFato.$invalid && showValidation}">
+                                                                    <textarea ng-model="resposta.Fato" name="traducaoDoFato" id="traducaoDoFato" data-localize="placeTraducaoDoFato" rows="5" class="form-control" maxlength="4000" ng-required="!resposta.Rascunho"></textarea>
+                                                                </label>
+                                                                <em class="invalid" ng-show="nocClienteRespostaForm.traducaoDoFato.$invalid && showValidation"><span data-localize="validacaoTraducaoDoFato"></span></em>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="labelNotasRelevantes">Notas Relevantes</label>
+                                                                <label class="textarea">
+                                                                    <textarea ng-model="resposta.NotaRelevante" name="notasRelevantes" id="notasRelevantes" data-localize="placeNotasRelevantes" rows="5" class="form-control" maxlength="4000"></textarea>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="labelContencao">Ação de Contenção - Ação Imediata definindo o destino do lote afetado e/ou suspeito</label>
+                                                                <label class="textarea" ng-class="{'state-error': nocClienteRespostaForm.contencao.$invalid && showValidation}">
+                                                                    <textarea ng-model="resposta.Contencao" name="contencao" id="contencao" data-localize="placeContencao" rows="5" class="form-control" maxlength="4000" ng-required="resposta.Parecer.IdCampo != '01' && !resposta.Rascunho"></textarea>
+                                                                </label>
+                                                                <em class="invalid" ng-show="nocClienteRespostaForm.contencao.$invalid && showValidation"><span data-localize="validacaoContencao"></span></em>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="labelAcaoDeDeteccao">Ação de Detecção - Porque o defeito não foi detectado e segregado internamente?</label>
+                                                                <label class="textarea">
+                                                                    <textarea ng-model="resposta.AcaoDeDeteccao" name="acaoDeDeteccao" id="acaoDeDeteccao" data-localize="placeAcaoDeDeteccao" rows="5" class="form-control" maxlength="4000"></textarea>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                        <file-upload></file-upload>
+                                                        <div ng-show="resposta.ListaAnexos.length">
+                                                            <div ng-repeat="anexo in resposta.ListaAnexos.slice(0) track by $index">
+                                                                <span><a target="_blank" href="{{ '/files/' + anexo.NomeArquivo }}" download="{{ anexo.NomeArquivo }}"><span>{{ anexo.NomeArquivo }}</span> </a></span><span class="remove" ng-click="removeArquivo($index)"><i class="fa fa-trash-o fa-lg"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+
+                                                <div class="tab-pane" id="tab2">
+                                                    <br>
+                                                    <br>
+                                                    <h3><span data-localize="labelEtapa2"><strong>Etapa 2</strong></span> - <span data-localize="labelMapaCausaRaiz">Mapa Causa Raiz</span></h3>
+                                                    <br>
+                                                    <fieldset>
+                                                        <div class="panel-group" id="accordionEquipamentoMaterial">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    <h4 class="panel-title">
+                                                                        <a data-toggle="collapse" data-parent="#accordionEquipamentoMaterial" href="#collapseEquipamentoMaterial" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                                                                            <i class="fa fa-list-alt"></i><span class="widget-icon" data-localize="labelEquipamentoMaterial">Equipamento/Material</span>
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapseEquipamentoMaterial" class="panel-collapse collapse in padding-10">
+                                                                    <div class="panel-body word-break">
+                                                                        <br />
+                                                                        <div class="row">
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelEquipamentoQueFalhou">Equipamento que falhou</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.EquipamentoFalhou" name="equipamentoQueFalhou" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.EquipamentoFalhou" name="equipamentoQueFalhou" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelmaterialDefeituoso">Material Defeituoso</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class=" radio">
+                                                                                            <input type="radio" ng-model="resposta.MaterialDefeituoso" name="materialDefeituoso" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.MaterialDefeituoso" name="materialDefeituoso" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <section class="col col-12">
+                                                                                <label class="label" data-localize="labelFalhaDoFornecedorDoEquipamentoOuMaterial">Falha do Fornecedor do Equipamento ou Material</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.FalhaDoFornecedor" name="falhaDoFornecedor" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.FalhaDoFornecedor" name="falhaDoFornecedor" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="label" data-localize="labelComentarios">Comentários</label>
+                                                                            <label class="textarea">
+                                                                                <textarea ng-model="resposta.ComentariosDoEquipamentoMaterial" name="comentariosEquipamento" id="comentariosEquipamento" data-localize="placeComentarios" rows="5" class="form-control" maxlength="4000"></textarea>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="label" data-localize="labelAnalisePriorizacaoSeAplicavel">Analise Priorização se Aplicável:</label>
+                                                                            <label class="label">
+                                                                                <select ng-model="resposta.PriorizacaoDoEquipamentoMaterial" name="analisePriorizacaoEquipamento" id="analisePriorizacaoEquipamento" class="form-control">
+                                                                                    <option value="" selected="selected" data-localize="labelSelecioneAnaliseDePriorizacao">Selecione a analise de priorização</option>
+                                                                                    <option value="0" data-localize="labelAlto">Alto</option>
+                                                                                    <option value="1" data-localize="labelMedio">Médio</option>
+                                                                                    <option value="2" data-localize="labelBaixo">Baixo</option>
+                                                                                </select>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel-group" id="accordionProcedimento">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    <h4 class="panel-title">
+                                                                        <a data-toggle="collapse" data-parent="#accordionProcedimento" href="#collapseProcedimento" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                                                                            <i class="fa fa-list-alt"></i><span class="widget-icon" data-localize="labelProcedimento">Procedimento</span>
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapseProcedimento" class="panel-collapse collapse in padding-10">
+                                                                    <div class="panel-body word-break">
+                                                                        <br />
+                                                                        <div class="row">
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelProcedimentoNaoClaroAmbiguoOuIncompleto">Procedimento Não Claro, Ambíguo ou Incompleto</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.ProcedimentoNaoSatisfaz" name="procedimentoNaoSatisfaz" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.ProcedimentoNaoSatisfaz" name="procedimentoNaoSatisfaz" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelFaltaDeProcedimento">Falta de Procedimento</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class=" radio">
+                                                                                            <input type="radio" ng-model="resposta.FaltaDeProcedimento" name="faltaDeProcedimento" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.FaltaDeProcedimento" name="faltaDeProcedimento" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <section class="col col-12">
+                                                                                <label class="label" data-localize="labelFalhaNosMecanismosDeDeteccaoDeFalhas">Falha nos Mecanismos de Detecção de Falhas</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.FalhaDeDeteccao" name="falhaNosMecanismos" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.FalhaDeDeteccao" name="falhaNosMecanismos" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="label" data-localize="labelComentarios">Comentários</label>
+                                                                            <label class="textarea">
+                                                                                <textarea ng-model="resposta.ComentariosDoProcedimento" name="comentariosProcedimento" id="comentariosProcedimento" data-localize="placeComentarios" rows="5" class="form-control" maxlength="4000"></textarea>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="label" data-localize="labelAnalisePriorizacaoSeAplicavel">Analise Priorização se Aplicável:</label>
+                                                                            <label class="label">
+                                                                                <select ng-model="resposta.PriorizacaoDoProcedimento" name="analisePriorizacaoProcedimento" id="analisePriorizacaoProcedimento" class="form-control">
+                                                                                    <option value="" selected="selected" data-localize="labelSelecioneAnaliseDePriorizacao">Selecione a analise de priorização</option>
+                                                                                    <option value="0" data-localize="labelAlto">Alto</option>
+                                                                                    <option value="1" data-localize="labelMedio">Médio</option>
+                                                                                    <option value="2" data-localize="labelBaixo">Baixo</option>
+                                                                                </select>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel-group" id="accordionPessoal">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    <h4 class="panel-title">
+                                                                        <a data-toggle="collapse" data-parent="#accordionPessoal" href="#collapsePessoal" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                                                                            <i class="fa fa-list-alt"></i><span class="widget-icon" data-localize="labelPessoal">Pessoal</span>
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapsePessoal" class="panel-collapse collapse in padding-10">
+                                                                    <div class="panel-body word-break">
+                                                                        <br />
+                                                                        <div class="row">
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelCondicoesDoAmbienteDeTrabalhoInadequadas">Condições do Ambiente de Trabalho Inadequadas</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.CondicoesDoAmbienteDeTrabalhoInadequadas" name="condicoesDoAmbienteDeTrabalhoInadequadas" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.CondicoesDoAmbienteDeTrabalhoInadequadas" name="condicoesDoAmbienteDeTrabalhoInadequadas" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelFaltaDeAtencaoAosDetalhes">Falta de Atenção aos Detalhes</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class=" radio">
+                                                                                            <input type="radio" ng-model="resposta.FaltaDeAtencaoAosDetalhes" name="faltaDeAtencaoAosDetalhes" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.FaltaDeAtencaoAosDetalhes" name="faltaDeAtencaoAosDetalhes" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelDesvioDeProcedimentoOuRequisito">Desvio de Procedimento ou Requisito</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.DesvioDeProcedimentoOuRequisito" name="desvioDeProcedimentoOuRequisito" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.DesvioDeProcedimentoOuRequisito" name="desvioDeProcedimentoOuRequisito" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelFalhaNaComunicacaoInternaVerbalOuOutros">Falha na Comunicação Interna (Verbal ou Outros)</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class=" radio">
+                                                                                            <input type="radio" ng-model="resposta.FalhaNaComunicacaoInterna" name="falhaNaComunicacaoInterna" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.FalhaNaComunicacaoInterna" name="falhaNaComunicacaoInterna" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <section class="col col-12">
+                                                                                <label class="label" data-localize="labelOutrosFatoresHumanos">Outros Fatores Humanos</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.OutrosFatoresHumanos" name="outrosFatoresHumanos" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.OutrosFatoresHumanos" name="outrosFatoresHumanos" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="label" data-localize="labelComentarios">Comentários</label>
+                                                                            <label class="textarea">
+                                                                                <textarea ng-model="resposta.ComentariosDoPessoal" name="comentariosDoPessoal" id="comentariosDoPessoal" data-localize="placeComentarios" rows="5" class="form-control" maxlength="4000"></textarea>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="label" data-localize="labelAnalisePriorizacaoSeAplicavel">Analise Priorização se Aplicável:</label>
+                                                                            <label class="label">
+                                                                                <select ng-model="resposta.PriorizacaoDoPessoal" name="priorizacaoDoPessoal" id="priorizacaoDoPessoal" class="form-control">
+                                                                                    <option value="" selected="selected" data-localize="labelSelecioneAnaliseDePriorizacao">Selecione a analise de priorização</option>
+                                                                                    <option value="0" data-localize="labelAlto">Alto</option>
+                                                                                    <option value="1" data-localize="labelMedio">Médio</option>
+                                                                                    <option value="2" data-localize="labelBaixo">Baixo</option>
+                                                                                </select>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel-group" id="accordionFenomenosExternos">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    <h4 class="panel-title">
+                                                                        <a data-toggle="collapse" data-parent="#accordionFenomenosExternos" href="#collapseFenomenosExternos" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                                                                            <i class="fa fa-list-alt"></i><span class="widget-icon" data-localize="labelFenomenosExternos">Fenômenos Externos</span>
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapseFenomenosExternos" class="panel-collapse collapse in padding-10">
+                                                                    <div class="panel-body word-break">
+                                                                        <br />
+                                                                        <div class="row">
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelCondicoesAmbientaisOuClimaticas">Condições Ambientais ou Climáticas</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.CondicoesAmbientaisOuClimaticas" name="condicoesAmbientaisOuClimaticas" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.CondicoesAmbientaisOuClimaticas" name="condicoesAmbientaisOuClimaticas" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelSuprimentoDeEnergiaOuAguaInadequados">Suprimento de Energia ou Água Inadequados</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class=" radio">
+                                                                                            <input type="radio" ng-model="resposta.SuprimentoDenergiaInadequado" name="suprimentoDenergiaInadequado" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.SuprimentoDenergiaInadequado" name="suprimentoDenergiaInadequado" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelIncendioOuExplosaoExterna">Incêndio ou Explosão Externa</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.IncendioOuExplosaoExterna" name="incendioOuExplosaoExterna" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.IncendioOuExplosaoExterna" name="incendioOuExplosaoExterna" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelRouboAssaltoVandalismo">Roubo, Assalto ou Vandalismo</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class=" radio">
+                                                                                            <input type="radio" ng-model="resposta.RouboOuAssaltoOuVandalismo" name="rouboOuAssaltoOuVandalismo" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.RouboOuAssaltoOuVandalismo" name="rouboOuAssaltoOuVandalismo" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="label" data-localize="labelComentarios">Comentários</label>
+                                                                            <label class="textarea">
+                                                                                <textarea ng-model="resposta.ComentariosDeFenomenoExterno" name="comentariosDeFenomenoExterno" id="comentariosDeFenomenoExterno" data-localize="placeComentarios" rows="5" class="form-control" maxlength="4000"></textarea>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="label" data-localize="labelAnalisePriorizacaoSeAplicavel">Analise Priorização se Aplicável:</label>
+                                                                            <label class="label">
+                                                                                <select ng-model="resposta.PriorizacaoDeFenomenoExterno" name="priorizacaoDeFenomenoExterno" id="priorizacaoDeFenomenoExterno" class="form-control">
+                                                                                    <option value="" selected="selected" data-localize="labelSelecioneAnaliseDePriorizacao">Selecione a analise de priorização</option>
+                                                                                    <option value="0" data-localize="labelAlto">Alto</option>
+                                                                                    <option value="1" data-localize="labelMedio">Médio</option>
+                                                                                    <option value="2" data-localize="labelBaixo">Baixo</option>
+                                                                                </select>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel-group" id="accordionProjetos">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    <h4 class="panel-title">
+                                                                        <a data-toggle="collapse" data-parent="#accordionProjetos" href="#collapseProjetos" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                                                                            <i class="fa fa-list-alt"></i><span class="widget-icon" data-localize="labelProjetos">Projetos</span>
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapseProjetos" class="panel-collapse collapse in padding-10">
+                                                                    <div class="panel-body word-break">
+                                                                        <br />
+                                                                        <div class="row">
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelInterfaceHomemMaquinaInadequadas">Interface Homem-Máquina Inadequadas</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.InterfaceInadequada" name="interfaceInadequada" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.InterfaceInadequada" name="interfaceInadequada" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelErroEmDesenhosEspecificacoesOuDados">Erros em Desenhos, Especificações ou Dados</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.ErroDeDesenhoOuEspecificacao" name="erroDeDesenhoOuEspecificacao" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.ErroDeDesenhoOuEspecificacao" name="erroDeDesenhoOuEspecificacao" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <section class="col col-12">
+                                                                                <label class="label" data-localize="labelEspecificacaoDeMaterialOuDeEquipamentoInadequada">Especificação de Material ou de Equipamento Inadequada</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.EspecificacaoInadequada" name="especificacaoInadequada" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.EspecificacaoInadequada" name="especificacaoInadequada" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="label" data-localize="labelComentarios">Comentários</label>
+                                                                            <label class="textarea">
+                                                                                <textarea ng-model="resposta.ComentariosDoProjeto" name="comentariosDoProjeto" id="comentariosDoProjeto" data-localize="placeComentarios" rows="5" class="form-control" maxlength="4000"></textarea>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="label" data-localize="labelAnalisePriorizacaoSeAplicavel">Analise Priorização se Aplicável:</label>
+                                                                            <label class="label">
+                                                                                <select ng-model="resposta.PriorizacaoDoProjeto" name="priorizacaoDoProjeto" id="priorizacaoDoProjeto" class="form-control">
+                                                                                    <option value="" selected="selected" data-localize="labelSelecioneAnaliseDePriorizacao">Selecione a analise de priorização</option>
+                                                                                    <option value="0" data-localize="labelAlto">Alto</option>
+                                                                                    <option value="1" data-localize="labelMedio">Médio</option>
+                                                                                    <option value="2" data-localize="labelBaixo">Baixo</option>
+                                                                                </select>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel-group" id="accordionInfraestrutura">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    <h4 class="panel-title">
+                                                                        <a data-toggle="collapse" data-parent="#accordionInfraestrutura" href="#collapseInfraestrutura" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                                                                            <i class="fa fa-list-alt"></i><span class="widget-icon" data-localize="labelInfraestrutura">Infraestrutura</span>
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapseInfraestrutura" class="panel-collapse collapse in padding-10">
+                                                                    <div class="panel-body word-break">
+                                                                        <br />
+                                                                        <div class="row">
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelInstalacoesInadequadas">Instalações Inadequadas</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.InstalacoesInadequadas" name="instalacoesInadequadas" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.InstalacoesInadequadas" name="instalacoesInadequadas" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelManutencaoDasInstalacoesAusenteOuInadequada">Manutenção das Instalações Ausente ou Inadequada</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class=" radio">
+                                                                                            <input type="radio" ng-model="resposta.ManutencaoInstalacoesInadequadas" name="manutencaoInstalacoesInadequadas" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.ManutencaoInstalacoesInadequadas" name="manutencaoInstalacoesInadequadas" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <section class="col col-12">
+                                                                                <label class="label" data-localize="labelDeficienciaNaOrganizaçãoELimpezaDaArea">Deficiência na Organização e Limpeza da Área</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.DeficienciaNaOrganizacao" name="deficienciaNaOrganizacao" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.DeficienciaNaOrganizacao" name="deficienciaNaOrganizacao" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="label" data-localize="labelComentarios">Comentários</label>
+                                                                            <label class="textarea">
+                                                                                <textarea ng-model="resposta.ComentariosDaInfraestrutura" name="comentariosDaInfraestrutura" id="comentariosDaInfraestrutura" data-localize="placeComentarios" rows="5" class="form-control" maxlength="4000"></textarea>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="label" data-localize="labelAnalisePriorizacaoSeAplicavel">Analise Priorização se Aplicável:</label>
+                                                                            <label class="label">
+                                                                                <select ng-model="resposta.PriorizacaoDaInfraestrutura" name="priorizacaoDaInfraestrutura" id="priorizacaoDaInfraestrutura" class="form-control">
+                                                                                    <option value="" selected="selected" data-localize="labelSelecioneAnaliseDePriorizacao">Selecione a analise de priorização</option>
+                                                                                    <option value="0" data-localize="labelAlto">Alto</option>
+                                                                                    <option value="1" data-localize="labelMedio">Médio</option>
+                                                                                    <option value="2" data-localize="labelBaixo">Baixo</option>
+                                                                                </select>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel-group" id="accordionTreinamento">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    <h4 class="panel-title">
+                                                                        <a data-toggle="collapse" data-parent="#accordionTreinamento" href="#collapseTreinamento" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                                                                            <i class="fa fa-list-alt"></i><span class="widget-icon" data-localize="labelTreinamento">Treinamento</span>
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapseTreinamento" class="panel-collapse collapse in padding-10">
+                                                                    <div class="panel-body word-break">
+                                                                        <br />
+                                                                        <div class="row">
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelNaoFoiFornecidoOTreinamento">Não foi Fornecido o Treinamento</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.NaoHouveTreinamento" name="naoHouveTreinamento" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.NaoHouveTreinamento" name="naoHouveTreinamento" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelPraticaInsuficienteDuranteOTreinamento">Prática Insuficiente Durante o Treinamento</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.PraticaInsuficienteNoTreinamento" name="praticaInsuficienteNoTreinamento" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.PraticaInsuficienteNoTreinamento" name="praticaInsuficienteNoTreinamento" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelConteudoInadequado">Conteúdo Inadequado</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.ConteudoInadequado" name="ConteudoInadequado" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.ConteudoInadequado" name="ConteudoInadequado" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelFaltaDeReciclagemPeriodica">Falta de Reciclagem Periódica</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.FaltaDeReciclagem" name="faltaDeReciclagem" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.FaltaDeReciclagem" name="faltaDeReciclagem" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelMaterialDeSuporteInadequado">Material de Suporte Inadequado</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.MaterialInadequado" name="materialInadequado" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.MaterialInadequado" name="materialInadequado" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelMetodologiaInadequada">Metodologia Inadequada</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class=" radio">
+                                                                                            <input type="radio" ng-model="resposta.MetodologiaInadequada" name="metodologiaInadequada" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.MetodologiaInadequada" name="metodologiaInadequada" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="label" data-localize="labelComentarios">Comentários</label>
+                                                                            <label class="textarea">
+                                                                                <textarea ng-model="resposta.ComentariosDoTreinamento" name="comentariosDoTreinamento" id="comentariosDoTreinamento" data-localize="placeComentarios" rows="5" class="form-control" maxlength="4000"></textarea>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="label" data-localize="labelAnalisePriorizacaoSeAplicavel">Analise Priorização se Aplicável:</label>
+                                                                            <label class="label">
+                                                                                <select ng-model="resposta.PriorizacaoDoTreinamento" name="priorizacaoDoTreinamento" id="priorizacaoDoTreinamento" class="form-control">
+                                                                                    <option value="" selected="selected" data-localize="labelSelecioneAnaliseDePriorizacao">Selecione a analise de priorização</option>
+                                                                                    <option value="0" data-localize="labelAlto">Alto</option>
+                                                                                    <option value="1" data-localize="labelMedio">Médio</option>
+                                                                                    <option value="2" data-localize="labelBaixo">Baixo</option>
+                                                                                </select>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel-group" id="accordionGestao">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    <h4 class="panel-title">
+                                                                        <a data-toggle="collapse" data-parent="#accordionGestao" href="#collapseGestao" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                                                                            <i class="fa fa-list-alt"></i><span class="widget-icon" data-localize="labelGestao">Gestão</span>
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapseGestao" class="panel-collapse collapse in padding-10">
+                                                                    <div class="panel-body word-break">
+                                                                        <br />
+                                                                        <div class="row">
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelControlesAdministrativosAusentesOuInadequados">Controles Administrativos Ausentes ou Inadequados</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.ControleAdministrativoInadequado" name="controleAdministrativoInadequado" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.ControleAdministrativoInadequado" name="controleAdministrativoInadequado" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelPlanejamentoDoTrabalhoInadequado">Planejamento (do Trabalho) Inadequado</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class=" radio">
+                                                                                            <input type="radio" ng-model="resposta.PlanejamentoInadequado" name="planejamentoInadequado" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.PlanejamentoInadequado" name="planejamentoInadequado" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelOrganizacaoDoTrabalhoInadequada">Organização do Trabalho Inadequada</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.OrganizacaoDoTrabalhoInadequada" name="organizacaoDoTrabalhoInadequada" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.OrganizacaoDoTrabalhoInadequada" name="organizacaoDoTrabalhoInadequada" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                            <section class="col col-6">
+                                                                                <label class="label" data-localize="labelAlocacaoDeRecursosDeficienteFaltaDeRecursos">Alocação de Recursos Deficiente/Falta de Recursos</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.AlocacaoDeRecursoDeficiente" name="alocacaoDeRecursoDeficiente" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.AlocacaoDeRecursoDeficiente" name="alocacaoDeRecursoDeficiente" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <section class="col col-12">
+                                                                                <label class="label" data-localize="labelInadequadaSupervisao">Inadequada Supervisão</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.InadequadaSupervisao" name="inadequadaSupervisao" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.InadequadaSupervisao" name="inadequadaSupervisao" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <section class="col col-12">
+                                                                                <label class="label" data-localize="labelPoliticaNaoAdequadamenteDefinidaDisseminadaOuRreforcada">Política Não Adequadamente Definida, Disseminada ou Reforçada</label>
+                                                                                <div class="inline-group">
+                                                                                    <label class="label">
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.PoliticaInadequada" name="politicaInadequada" ng-value="true"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                                        </label>
+                                                                                        <label class="radio">
+                                                                                            <input type="radio" ng-model="resposta.PoliticaInadequada" name="politicaInadequada" ng-value="false" ng-checked="true"><i></i><span data-localize="labelNao"> Não </span>
+                                                                                        </label>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="label" data-localize="labelComentarios">Comentários</label>
+                                                                            <label class="textarea">
+                                                                                <textarea ng-model="resposta.ComentariosDaGestao" name="comentariosDaGestao" id="comentariosDaGestao" data-localize="placeComentarios" rows="5" class="form-control" maxlength="4000"></textarea>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="label" data-localize="labelAnalisePriorizacaoSeAplicavel">Analise Priorização se Aplicável:</label>
+                                                                            <label class="label">
+                                                                                <select ng-model="resposta.PriorizacaoDaGestao" name="priorizacaoDaGestao" id="priorizacaoDaGestao" class="form-control">
+                                                                                    <option value="" selected="selected" data-localize="labelSelecioneAnaliseDePriorizacao">Selecione a analise de priorização</option>
+                                                                                    <option value="0" data-localize="labelAlto">Alto</option>
+                                                                                    <option value="1" data-localize="labelMedio">Médio</option>
+                                                                                    <option value="2" data-localize="labelBaixo">Baixo</option>
+                                                                                </select>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+
+                                                <div class="tab-pane" id="tab3">
+                                                    <br>
+                                                    <br>
+                                                    <h3><span data-localize="labelEtapa3"><strong>Etapa 3</strong></span> - <span data-localize="labelAnaliseDosPorques">Análise dos porquês</span></h3>
+                                                    <br>
+                                                    <fieldset>
+                                                        <!-- causas e porques -->
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="labelCausas">Causas</label>
+                                                                <div class="form-group">
+                                                                    <button data-localize="labelNovaCausa" class="btn btn-primary btn-xm" data-toggle="modal" data-target="#cadCausa" id="btnIncluirCausa">
+                                                                        Nova causa
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <section ng-show="resposta.AnaliseDasCausas.length">
+                                                                <div ng-repeat="c in resposta.AnaliseDasCausas.slice(0) track by $index">
+                                                                    <div class="panel-group" id="accordion{{$index}}">
+                                                                        <div class="panel panel-default">
+                                                                            <div class="panel-heading">
+                                                                                <h4 class="panel-title">
+                                                                                    <a data-toggle="collapse" data-parent="#accordion{{$index}}" href="#collapse{{$index}}" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                                                                                        <i class="fa fa-list-alt"></i><span class="widget-icon" data-localize="labelCausa">Causa</span> {{ ConverterNumeroParaLetra($index) }}
+                                                                                    </a>
+                                                                                    <span style="float: right; padding: 10px;" class="remove" ng-click="removeCausa($index)"><i class="fa fa-trash-o fa-lg"></i></span>
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div id="collapse{{$index}}" class="panel-collapse collapse in padding-10">
+                                                                                <div class="panel-body">
+                                                                                    <table class="table table-striped word-break">
+                                                                                        <tbody>
+                                                                                            <tr>
+                                                                                                <td class="col-sm-4">
+                                                                                                    <label class="control-label"><strong data-localize="labelCausa">Causa</strong>: </label>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <label>{{ c.Causa }}</label>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="col-sm-12" colspan="2">
+                                                                                                    <label class="control-label"><strong data-localize="labelPorQue1">Por quê 1</strong>: </label>
+                                                                                                    <label>{{ c.Porque1 }}</label>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="col-sm-12" colspan="2">
+                                                                                                    <label class="control-label"><strong data-localize="labelPorQue2">Por quê 2</strong>: </label>
+                                                                                                    <label>{{ c.Porque2 }}</label>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="col-sm-12" colspan="2">
+                                                                                                    <label class="control-label"><strong data-localize="labelPorQue3">Por quê 3</strong>: </label>
+                                                                                                    <label>{{ c.Porque3 }}</label>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="col-sm-12" colspan="2">
+                                                                                                    <label class="control-label"><strong data-localize="labelPorQue4">Por quê 4</strong>: </label>
+                                                                                                    <label>{{ c.Porque4 }}</label>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="col-sm-12" colspan="2">
+                                                                                                    <label class="control-label"><strong data-localize="labelPorQue5">Por quê 5</strong>: </label>
+                                                                                                    <label>{{ c.Porque5 }}</label>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </section>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+
+                                                <div class="tab-pane" id="tab4">
+                                                    <br>
+                                                    <br>
+                                                    <h3><span data-localize="labelEtapa4"><strong>Etapa 4</strong></span> - <span data-localize="labelEtapaAnaliseInicial">Análise Inicial e Ações Imediatas</span></h3>
+                                                    <br>
+                                                    <fieldset>
+													  <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="labelCodigoPlanoAcao">Código Plano de Ação</label>
+                                                                <label class="label">
+                                                                    <input type="text" ng-model="resposta.CodigoDoPlanoDeAcao" maxlength="50" data-localize="placeCodigoPlanoAcao" name="codigoPlanoDeAcao" id="codigoPlanoDeAcao" class="form-control">
+                                                                </label>
+                                                            </div>
+                                                           <div class="form-group">
+                                                                <label class="label" data-localize="labelUrldoPlanoAcao">Url Plano de Ação</label>
+                                                                <label class="label">
+                                                                    <input type="text" ng-model="resposta.UrlDoPlanoDeAcao" maxlength="250" data-localize="placeUrlPlanoAcao" name="UrldoPlanoDeAcao" id="urldoPlanoDeAcao" class="form-control">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+														    <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="labelPlanoDeAcao">Plano de Ação</label>
+                                                                <div class="form-group">
+                                                                    <button data-localize="labelNovaAcao" class="btn btn-primary btn-xm" data-toggle="modal" data-target="#cadPlanoDeAcao" id="btnIncluirAcao">
+                                                                        Nova Ação
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <section ng-show="resposta.PlanoDeAcao.length">
+                                                                <div ng-repeat="a in resposta.PlanoDeAcao.slice(0) track by $index">
+                                                                    <div class="panel-group" id="AcaoAccordion{{$index}}">
+                                                                        <div class="panel panel-default">
+                                                                            <div class="panel-heading">
+                                                                                <h4 class="panel-title">
+                                                                                    <a data-toggle="collapse" data-parent="#AcaoAccordion{{$index}}" href="#AcaoCollapse{{$index}}" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                                                                                        <i class="fa fa-list-alt"></i><span class="widget-icon" data-localize="labelAcao">Ação</span> {{ $index + 1 }}
+                                                                                    </a>
+                                                                                    <span style="float: right; padding: 10px;" class="remove" ng-click="removeAcao($index)"><i class="fa fa-trash-o fa-lg"></i></span>
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div id="AcaoCollapse{{$index}}" class="panel-collapse collapse in padding-10">
+                                                                                <div class="panel-body">
+                                                                                    <table class="table table-striped word-break">
+                                                                                        <tbody>
+                                                                                            <tr>
+                                                                                                <td class="col-sm-12" colspan="2">
+                                                                                                    <label class="control-label"><strong data-localize="labelCausas">Causas</strong>: </label>
+                                                                                                    <label>{{ a.Causas }}</label>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="col-sm-12" colspan="2">
+                                                                                                    <label class="control-label"><strong data-localize="labelAcaoCorrespondente">Ação Correspondente</strong>: </label>
+                                                                                                    <label>{{ a.AcaoCorrespondente }}</label>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="col-sm-12" colspan="2">
+                                                                                                    <label class="control-label"><strong data-localize="placeResponsavel">Responsável</strong>: </label>
+                                                                                                    <label>{{ a.Responsavel }}</label>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="col-sm-12" colspan="2">
+                                                                                                    <label class="control-label"><strong data-localize="labelPrazoExecucao">Prazo de Execução</strong>: </label>
+                                                                                                    <label>{{ a.PrazoDeExecucao | date:'dd/MM/yyyy' }}</label>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </section>
+                                                        </div>
+														  <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="labelRessarcimento">Ressarcimento</label>
+                                                                <div class="inline-group">
+                                                                    <label class="label">
+                                                                        <label class="radio" ng-class="{'state-error': nocClienteRespostaForm.ressarcimento.$invalid && showValidation}">
+                                                                            <input type="radio" ng-model="resposta.Ressarcimento" name="ressarcimento" ng-value="true"  ng-required="resposta.Parecer.IdCampo != '01' && !resposta.Rascunho"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                        </label>
+                                                                        <label class="radio" ng-class="{'state-error': nocClienteRespostaForm.devolucao.$invalid && showValidation}">
+                                                                            <input type="radio" ng-model="resposta.Ressarcimento" name="ressarcimento" ng-value="false"  ng-required="resposta.Parecer.IdCampo != '01' && !resposta.Rascunho"><i></i><span data-localize="labelNao"> Não </span>
+                                                                        </label>
+                                                                    </label>
+                                                                    <em class="invalid" ng-show="nocClienteRespostaForm.ressarcimento.$invalid && showValidation"><span data-localize="validacaoRessarcimento"></span></em>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+														 <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="labelQuantidadeASerRessarcidaEmLata">Quantidade a ser Ressarcida em Lata</label>
+                                                                <label class="label" ng-class="{'state-error': nocClienteRespostaForm.quantidadeRessarcidaLata.$invalid && showValidation}">
+                                                                    <input type="text" ng-model="resposta.QuantidadeRessarcidaEmLata" maxlength="10" data-localize="placeQuantidadeASerRessarcidaEmLata" name="quantidadeRessarcidaLata" id="quantidadeRessarcidaLata" numbers-only disabled class="form-control" ng-required="resposta.Ressarcimento == true && !resposta.Rascunho">
+                                                                </label>
+                                                                <em class="invalid" ng-show="nocClienteRespostaForm.quantidadeRessarcidaLata.$invalid && showValidation"><span data-localize="validacaoQuantidadeASerRessarcidaEmLata"></span></em>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="labelQuantidadeASerRessarcidaEmTampa">Quantidade a ser Ressarcida em Tampa</label>
+                                                                <label class="label" ng-class="{'state-error': nocClienteRespostaForm.quantidadeRessarcidaTampa.$invalid && showValidation}">
+                                                                    <input type="text" ng-model="resposta.QuantidadeRessarcidaEmTampa" maxlength="10" data-localize="placeQuantidadeASerRessarcidaEmTampa" name="quantidadeRessarcidaTampa" id="quantidadeRessarcidaTampa" numbers-only disabled class="form-control" ng-required="resposta.Ressarcimento == true && !resposta.Rascunho">
+                                                                </label>
+                                                                <em class="invalid" ng-show="nocClienteRespostaForm.quantidadeRessarcidaTampa.$invalid && showValidation"><span data-localize="validacaoQuantidadeASerRessarcidaEmTampa"></span></em>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="labelDataAutorizacaoRessarcimento">Data de Autorização do Ressarcimento</label>
+                                                                <div class="input-group" ng-class="{'state-error': nocClienteRespostaForm.dataAutorizacaoRessarcimento.$invalid && showValidation}">
+                                                                    <input type="text" ng-class="{invalid: nocClienteRespostaForm.dataAutorizacaoRessarcimento.$invalid && showValidation}" ui-date ng-model="resposta.DataAutorizacaoRessarcimento" name="dataAutorizacaoRessarcimento" id="dataAutorizacaoRessarcimento" disabled datepicker-popup="dd/MM/yyyy" is-open="exibirDatepickerDataAutorizacaoRessarcimento" datepicker-options="{ showWeeks: false }" show-button-bar="false" class="form-control" max-date="resposta.Hoje" ng-required="resposta.Ressarcimento == true && !resposta.Rascunho">
+                                                                    <span class="input-group-addon" ng-click="exibirDatepicker($event, 'exibirDatepickerDataAutorizacaoRessarcimento')"><i class="fa fa-calendar"></i></span>
+                                                                </div>
+                                                                <em class="invalid" ng-show="nocClienteRespostaForm.dataAutorizacaoRessarcimento.$invalid && showValidation"><span data-localize="validacaoDataAutorizacaoRessarcimento"></span></em>
+                                                            </div>
+                                                        </div>
+														 <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="Devolução">Devolução</label>
+                                                                <div class="inline-group">
+                                                                    <label class="label">
+                                                                        <label class="radio" ng-class="{'state-error': nocClienteRespostaForm.devolucao.$invalid && showValidation}">
+                                                                            <input type="radio" ng-model="resposta.Devolucao" name="devolucao" ng-value="true"  ng-required="resposta.Parecer.IdCampo != '01' && !resposta.Rascunho"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                        </label>
+                                                                        <label class="radio" ng-class="{'state-error': nocClienteRespostaForm.devolucao.$invalid && showValidation}">
+                                                                            <input type="radio" ng-model="resposta.Devolucao" name="devolucao" ng-value="false"  ng-required="resposta.Parecer.IdCampo != '01' && !resposta.Rascunho"><i></i><span data-localize="labelNao"> Não </span>
+                                                                        </label>
+                                                                    </label>
+                                                                    <em class="invalid" ng-show="nocClienteRespostaForm.devolucao.$invalid && showValidation"><span data-localize="validacaoDevolucao"></span></em>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row ">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="labelFabricaDevolucao">Fábrica Devolução</label>
+                                                                <label class="label" ng-class="{'state-error': nocClienteRespostaForm.fabricaDevolucao.$invalid && showValidation}">
+                                                                    <select ng-model="resposta.FabricaDevolucao" name="fabricaDevolucao" id="fabricaDevolucao" ng-options="f.Nome for f in fabricas track by f.Id" disabled class="form-control" ng-required="resposta.Devolucao == true && !resposta.Rascunho">
+                                                                        <option value="" selected="selected" data-localize="optionSelecioneFabricaDevolucao">Selecione a fabrica devolução</option>
+                                                                    </select>
+                                                                </label>
+                                                                <em class="invalid" ng-show="nocClienteRespostaForm.fabricaDevolucao.$invalid && showValidation"><span data-localize="validacaoFabricaDevolucao"></span></em>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="labelQuantidadeAutorizadaDevolver">Quantidade Autorizada a Devolver</label>
+                                                                <label class="label" ng-class="{'state-error': nocClienteRespostaForm.PedidoDeCorrecaoquantidadeAutorizadaADevolver.$invalid && showValidation}">
+                                                                    <input type="text" ng-model="resposta.QuantidadeAutorizadaADevolver" maxlength="10" data-localize="placeQuantidadeAutorizadaDevolver" name="quantidadeAutorizadaADevolver" id="quantidadeAutorizadaADevolver" numbers-only disabled class="form-control" ng-required="resposta.Devolucao == true && !resposta.Rascunho">
+                                                                </label>
+                                                                <em class="invalid" ng-show="nocClienteRespostaForm.quantidadeAutorizadaADevolver.$invalid && showValidation"><span data-localize="validacaoQuantidadeAutorizadaDevolver"></span></em>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="labelDataAutorizacaoDevolucao">Data de Autorização da Devolução</label>
+                                                                <div class="input-group" ng-class="{'state-error': nocClienteRespostaForm.dataAutorizacaoDevolucao.$invalid && showValidation}">
+                                                                    <input type="text" ng-class="{invalid: nocClienteRespostaForm.dataAutorizacaoDevolucao.$invalid && showValidation}" ui-date ng-model="resposta.DataAutorizacaoDevolucao" name="dataAutorizacaoDevolucao" id="dataAutorizacaoDevolucao" disabled datepicker-popup="dd/MM/yyyy" is-open="exibirDatepickerDataAutorizacaoDevolucao" datepicker-options="{ showWeeks: false }" show-button-bar="false" class="form-control" ng-required="resposta.Devolucao == true && !resposta.Rascunho">
+                                                                    <span class="input-group-addon" ng-click="exibirDatepicker($event, 'exibirDatepickerDataAutorizacaoDevolucao')"><i class="fa fa-calendar"></i></span>
+                                                                </div>
+                                                                <em class="invalid" ng-show="nocClienteRespostaForm.dataAutorizacaoDevolucao.$invalid && showValidation"><span data-localize="validacaoDataAutorizacaoDevolucao">Informe a data de autorização da devolução</span> </em>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="labelValorDoFrete">Valor do Frete</label>
+                                                                <label class="label" ng-class="{'state-error': nocClienteRespostaForm.valorDoFrete.$invalid && showValidation}">
+                                                                    <input type="text" ng-model="resposta.ValorDoFrete" maxlength="13" data-localize="placeValorDoFrete" name="valorDoFrete" id="valorDoFrete" number-decimal disabled class="form-control" ng-required="resposta.Devolucao == true && !resposta.Rascunho">
+                                                                </label>
+                                                                <em class="invalid" ng-show="nocClienteRespostaForm.valorDoFrete.$invalid && showValidation"><span data-localize="validacaoValorDoFrete"></span></em>
+                                                            </div>
+                                                        </div>
+                                                      
+                                                       
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="labelConclusao">Conclusão</label>
+                                                                <label class="textarea" ng-class="{'state-error': !resposta.Rascunho && nocClienteRespostaForm.conclusao.$invalid && showValidation}">
+                                                                    <textarea ng-model="resposta.Conclusao" name="conclusao" id="conclusao" data-localize="placeConclusao" rows="5" class="form-control" maxlength="4000"  ng-required="!resposta.Rascunho"></textarea>
+                                                                </label>
+                                                                <em class="invalid" ng-show="!resposta.Rascunho && nocClienteRespostaForm.conclusao.$invalid && showValidation"><span data-localize="validacaoConclusao"></span></em>
+                                                            </div>
+                                                        </div>
+                                                       
+                                                      
+                                                    
+                                                    </fieldset>
+                                                </div>
+
+                                                <br>
+                                                <br>
+                                                <div class="col-sm-12">
+                                                    <ul class="pager wizard no-margin">
+                                                        <li class="previous disabled">
+                                                            <a href="javascript:void(0);" class="btn btn-lg btn-default"><span data-localize="liAnterior">Anterior </span></a>
+                                                        </li>
+                                                        <li class="next">
+                                                            <a href="javascript:void(0);" class="btn btn-lg txt-color-darken" data-localize="liProximo">Próximo</a>
+                                                        </li>
+                                                        <li class="next finish" style="display: none;">
+                                                            <a href="javascript:void(0);" id="salvarWizard" class="btnSalvar btn btn-lg txt-color-darken" ng-click="submit()"><span data-localize="liSalvar">Enviar</span></a>
+                                                        </li>
+                                                        <li class="next finish">
+                                                            <a href="javascript:void(0);" id="salvar" class="btn btn-lg txt-color-darken" ng-click="submitDraft()"><span data-localize="liSalvarRascunho">Rascunho</span></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+</section>
+<!-- end widget grid -->
+
+<div class="modal fade" id="cadCausa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel" data-localize="labelNovaCausa">Nova Causa</h4>
+            </div>
+            <div class="modal-body smart-form client-form">
+                <fieldset>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelCausa">Causa</label>
+                            <label class="label" ng-class="{'state-error': !entityCausa.Causa && showValidationCausa}">
+                                <input type="text" ng-model="entityCausa.Causa" data-localize="placeCausa" name="causa" id="causa" class="form-control" maxlength="100" ng-required="!resposta.Rascunho">
+                            </label>
+                            <em class="invalid" ng-show="!entityCausa.Causa && showValidationCausa"><span data-localize="validacaoCausa"></span></em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelPorQue1">Por quê 1</label>
+                            <label class="textarea" ng-class="{'state-error': !entityCausa.Porque1 && showValidationCausa}">
+                                <textarea ng-model="entityCausa.Porque1" data-localize="placePorQue1" name="porque1" id="porque1" class="form-control" maxlength="5000" ng-required="!resposta.Rascunho"></textarea>
+                            </label>
+                            <em class="invalid" ng-show="entityCausa.Porque1 && showValidationCausa"><span data-localize="validacaoPorQue1"></span></em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelPorQue2">Por quê 2</label>
+                            <label class="textarea" ng-class="{'state-error': !entityCausa.Porque2 && showValidationCausa}">
+                                <textarea ng-model="entityCausa.Porque2" data-localize="placePorQue2" name="porque2" id="porque2" class="form-control" maxlength="5000" ng-required="!resposta.Rascunho"></textarea>
+                            </label>
+                            <em class="invalid" ng-show="entityCausa.Porque2 && showValidationCausa"><span data-localize="validacaoPorQue2"></span></em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelPorQue3">Por quê 3</label>
+                            <label class="textarea">
+                                <textarea ng-model="entityCausa.Porque3" data-localize="" name="porque3" id="porque3" class="form-control" maxlength="5000"></textarea>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelPorQue4">Por quê 4</label>
+                            <label class="textarea">
+                                <textarea ng-model="entityCausa.Porque4" data-localize="placePorQue4" name="porque4" id="porque4" class="form-control" maxlength="5000"></textarea>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelPorQue5">Por quê 5</label>
+                            <label class="textarea">
+                                <textarea ng-model="entityCausa.Porque5" data-localize="placePorQue5" name="porque5" id="porque5" class="form-control" maxlength="5000"></textarea>
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="IncluirCausa()">
+                    Salvar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="cadPlanoDeAcao" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel" data-localize="labelNovaAcao">Nova Ação</h4>
+            </div>
+            <div class="modal-body smart-form client-form">
+                <fieldset>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelCausas">Causas</label>
+                            <label class="textarea" ng-class="{'state-error': nocClienteRespostaForm.entityAcao.causas.$invalid && showValidationAcao}">
+                                <textarea ng-model="entityAcao.causas" name="causas" id="causas" data-localize="placeCausas" rows="5" class="form-control" maxlength="4000" ng-required="!resposta.Rascunho"></textarea>
+                            </label>
+                            <em class="invalid" ng-show="nocClienteRespostaForm.entityAcao.causas.$invalid && showValidationAcao"><span data-localize="validacaoCausas"></span></em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelAcaoCorrespondente">Ação Correspondente</label>
+                            <label class="textarea" ng-class="{'state-error': nocClienteRespostaForm.entityAcao.acao.$invalid && showValidationAcao}">
+                                <textarea ng-model="entityAcao.acao" name="acao" id="acao" data-localize="placeAcaoCorrespondente" rows="5" class="form-control" maxlength="4000" ng-required="!resposta.Rascunho"></textarea>
+                            </label>
+                            <em class="invalid" ng-show="nocClienteRespostaForm.entityAcao.acao.$invalid && showValidationAcao"><span data-localize="validacaoAcaoCorrespondente"></span></em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelResponsavel">Responsável</label>
+                            <label class="textarea" ng-class="{'state-error': nocClienteRespostaForm.entityAcao.responsavel.$invalid && showValidationAcao}">
+                                <textarea ng-model="entityAcao.responsavel" name="responsavel" id="responsavel" data-localize="placeResponsavel" rows="5" class="form-control" maxlength="4000" ng-required="!resposta.Rascunho"></textarea>
+                            </label>
+                            <em class="invalid" ng-show="nocClienteRespostaForm.entityAcao.responsavel.$invalid && showValidationAcao"><span data-localize="validacaoResponsavel"></span></em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelPrazo">Prazo</label>
+                            <div class="input-group" ng-class="{'state-error': nocClienteRespostaForm.entityAcao.prazo.$invalid && showValidationAcao}">
+                                <input type="text" ng-class="{invalid: nocClienteRespostaForm.entityAcao.prazo.$invalid && showValidation}" ui-date ng-model="entityAcao.prazo" name="prazoAcao" id="prazoAcao" datepicker-popup="dd/MM/yyyy" is-open="exibirDatepickerPrazoAcao" datepicker-options="{ showWeeks: false }" show-button-bar="false" class="form-control">
+                                <span class="input-group-addon" ng-click="exibirDatepicker($event, 'exibirDatepickerPrazoAcao')"><i class="fa fa-calendar"></i></span>
+                            </div>
+                            <em class="invalid" ng-show="nocClienteRespostaForm.entityAcao.prazo.$invalid && showValidationAcao"><span data-localize="validacaoPrazo"></span></em>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="IncluirAcao()">
+                    Salvar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

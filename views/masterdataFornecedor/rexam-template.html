@@ -1,0 +1,142 @@
+<table class="table table-striped word-break">
+    <tbody>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelPaisRexam">País da Rexam</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.PaisDaRexam.Nome }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="table-responsive" ng-show="entity.ListaEmpresas.length">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Empresa</th>
+                                <th>Organização de Compras</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="r in entity.ListaEmpresas.slice(0) track by $index">
+                                <td>{{ r.DcrEmpresa }}</td>
+                                <td>{{ r.DcrOrganizacaoCompra }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelSetorIndustrial">Setor Industrial</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.SetorIndustrial.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.TipoDePessoa == 'J'">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelIncotermFOB">FOB?</strong> </label>
+            </td>
+            <td>
+                <label ng-if="entity.FlgIncotermFob" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.FlgIncotermFob" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelCondicaoDePagamento">Condição de Pagamento</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.CondicaoDePagamento.Nome }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelFormaDePagamento">Forma de Pagamento</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.FormaDePagamento.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.CondicaoDePagamento.InformarJustificativa">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelJustificativaCondicaoPagamento">Justificativa Condição Pagamento</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.JustificativaCondicaoPagamento }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelJustificativaFormaPagamento">Justificativa Forma de Pagamento</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.JustificativaFormaPagamento }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelMoeda">Moeda</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Moeda.Nome }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelMotivoDaSolicitacao">Motivo da Solicitação</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.MotivoDaSolicitacao }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="table-responsive" ng-show="entity.DadosBancarios.length">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Banco</th>
+                                <th>Agência</th>
+                                <th>Conta Corrente</th>
+                                <th>CBU</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="r in entity.DadosBancarios.slice(0) track by $index">
+                                <td>{{ r.DcrBanco }}</td>
+                                <td>{{ r.Agencia }}<label ng-show="r.AgenciaDigito.length">-{{ r.AgenciaDigito }}</label></td>
+                                <td>{{ r.ContaCorrente }}<label ng-show="r.ContaDigito.length">-{{ r.ContaDigito }}</label></td>
+                                <td>{{ r.CBU }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+		<!--<tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong>Grupo de esquema</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.GrpEsqFornecedor.Nome }}</label>
+            </td>
+        </tr>-->
+        <tr ng-repeat="anexo in entity.ListaAnexos.slice(0) track by $index">
+            <td>
+                <label class="control-label" ng-if="anexo.DcrTipoDocumento == 'CodigoFiscal'"><strong data-localize="labelCodigoFiscal">Código Fiscal</strong>: </label>
+                <label class="control-label" ng-if="anexo.DcrTipoDocumento == 'CartaAutorizacao'"><strong data-localize="labelCartaAutorizacao">Carta Autorização</strong>: </label>
+                <label class="control-label" ng-if="anexo.DcrTipoDocumento == 'DocumentoBancario'"><strong data-localize="labelDocumentoBancario">Documento Bancário</strong>: </label>
+                <label class="control-label" ng-if="anexo.DcrTipoDocumento == 'InscricaoMunicipal'"><strong data-localize="labelInscricaoMunicipal">Inscrição Municipal</strong>: </label>
+                <label class="control-label" ng-if="anexo.DcrTipoDocumento == 'InscricaoEstadual'"><strong data-localize="labelInscricaoEstadual">Inscrição Estadual</strong>: </label>
+                <label class="control-label" ng-if="anexo.DcrTipoDocumento == 'Outros'"><strong data-localize="labelOutros">Outros</strong>: </label>
+            </td>
+            <td>
+                <a target="_blank" href="{{ '/files/' + anexo.NomeArquivo }}" download="{{ anexo.NomeArquivo }}"><span>{{ anexo.NomeArquivo }}</span> </a>
+            </td>
+        </tr>
+    </tbody>
+</table>

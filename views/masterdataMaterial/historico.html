@@ -1,0 +1,58 @@
+﻿<style type="text/css">
+    .smart-form fieldset {
+        padding-top: 0px !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i>Masterdata - <span data-localize="labelHistorico">Histórico</span>
+        </h1>
+    </div>
+</div>
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+    <div class="container">
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="well no-padding">
+                    <form class="smart-form client-form">
+                        <header>
+                            <span data-localize="labelHistorico">Histórico</span>
+                        </header>
+                        <fieldset>
+                            <section>
+                                <div class="alert adjusted alert-info fade in" style="margin: 15px;">
+                                    <i class="fa-fw fa-lg fa fa-info"></i>
+                                    <span data-localize="labelAguardandoCorrecaoCadastro" ng-if="entity.Status == 0">Aguardando correção no cadastro</span>
+                                    <span data-localize="labelAguardandoSetorSuprimentos" ng-if="entity.Status == 1">Aguardando setor de suprimentos</span>
+                                    <span data-localize="labelAguardandoSetoresFiscalEContabil" ng-if="entity.Status == 2">Aguardando setores fiscal e contábil</span>
+                                    <span data-localize="labelAguardandoSetorFiscal" ng-if="entity.Status == 3">Aguardando setor fiscal</span>
+                                    <span data-localize="labelAguardandoSetorContabil" ng-if="entity.Status == 4">Aguardando setor contábil</span>
+                                    <span data-localize="labelAguardandoSetorEngenharia" ng-if="entity.Status == 5">Aguardando setor de engenharia</span>
+                                    <span data-localize="labelAguardandoAprovacaoSAP" ng-if="entity.Status == 6">Aguardando a aprovação do SAP</span>
+                                    <span data-localize="labelCadastroConcluido" ng-if="entity.Status == 7">Cadastro concluído</span>
+                                    <span data-localize="labelCadastroCancelado" ng-if="entity.Status == 8">Cadastro cancelado</span>
+                                </div>
+                            </section>
+                            <section>
+                                <div id="myTabContent" class="tab-content col-sm-12">
+                                    <div class="tab-pane fade padding-10 no-padding-bottom active in" id="tab1">
+                                        <div ng-include="'views/masterdataMaterial/material-template.html'">
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+</section>
+<!-- end widget grid -->

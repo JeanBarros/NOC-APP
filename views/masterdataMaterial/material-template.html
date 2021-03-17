@@ -1,0 +1,429 @@
+﻿<table class="table table-striped word-break">
+    <tbody>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelTipoDeMaterial">Tipo de Material</strong>: </label>
+            </td>
+            <td>
+                <label ng-if="entity.TipoMaterial == 0">ERSA</label>
+                <label ng-if="entity.TipoMaterial == 1">ROH</label>
+                <label ng-if="entity.TipoMaterial == 2">LEIH</label>
+                <label ng-if="entity.TipoMaterial == 3">VERP</label>
+                <label ng-if="entity.TipoMaterial == 4">DIEN</label>
+                <label ng-if="entity.TipoMaterial == 5">HIBE</label>
+                <label ng-if="entity.TipoMaterial == 6">HALB</label>
+                <label ng-if="entity.TipoMaterial == 7">NLAG</label>
+                <label ng-if="entity.TipoMaterial == 8">FERT</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.FlgFerramentaIntermutavel != undefined">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelFerramentaIntermutavel">Ferramenta Intermutável</strong> </label>
+            </td>
+            <td>
+                <label ng-if="entity.FlgFerramentaIntermutavel" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.FlgFerramentaIntermutavel" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.FlgItemCritico != undefined">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelItemCritico">Item Crítico</strong> </label>
+            </td>
+            <td>
+                <label ng-if="entity.FlgItemCritico" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.FlgItemCritico" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.FlgItemRecuperavel != undefined">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelItemRecuperavel">Item Recuperável</strong> </label>
+            </td>
+            <td>
+                <label ng-if="entity.FlgItemRecuperavel" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.FlgItemRecuperavel" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.FlgModeloMaterial != undefined">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelModeloMaterial">Modelo de Material</strong> </label>
+            </td>
+            <td>
+                <label ng-if="entity.FlgModeloMaterial" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.FlgModeloMaterial" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.CodigoModeloMaterialSap">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelCodigoDoMaterial">Código do Material no SAP</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.CodigoModeloMaterialSap }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.TipoMaterial == 8 && entity.TipoFert != undefined">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelTipoDeFert">Tipo de FERT</strong>: </label>
+            </td>
+            <td>
+                <label ng-if="entity.TipoFert == 0" data-localize="labelLata">Lata</label>
+                <label ng-if="entity.TipoFert == 1" data-localize="labelampa">Tampa</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Planta.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelPlanta">Planta</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Planta.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Deposito.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelDeposito">Depósito</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Deposito.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.DescricaoCurta">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelDescricaoCurta">Descrição Curta</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.DescricaoCurta }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.UnidadeMedida.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelUnidadeMedida">Unidade de Medida</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.UnidadeMedida.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.GrupoMercadoria.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelGrupoMercadoria">Grupo de Mercadoria</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.GrupoMercadoria.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.LabEsc.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelLabEsc">Lab./escr.</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.LabEsc.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.DescricaoLonga">
+            <td colspan="2" class="col-sm-12">
+                <label class="control-label"><strong data-localize="labelDescricaoLonga">Descrição Longa</strong>: </label>
+                <label ng-bind-html="entity.DescricaoLonga | nl2br"></label>
+            </td>
+        </tr>
+        <tr ng-if="entity.DescricaoImportada">
+            <td colspan="2" class="col-sm-12">
+                <label class="control-label"><strong data-localize="labelDescricaoImportada">Descrição em Inglês</strong>: </label>
+                <label>{{ entity.DescricaoImportada }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.FuncaoMaterial">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelFuncaoMaterial">Função do Material</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.FuncaoMaterial }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.AplicacaoEquipamento.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelAplicacaoDoEquipamento">Aplicação do Equipamento</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.AplicacaoEquipamento.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.UtilizacaoEquipamento.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="placeUtilizacaoEquipamento">Utilização do Equipamento</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.UtilizacaoEquipamento.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Equipamento.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelEquipamento">Equipamento</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Equipamento.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.OrigemMaterial.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelOrigemMaterial">Origem Material</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.OrigemMaterial.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.CentroLucro.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelCentroDeLucro">Centro de Lucro</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.CentroLucro.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.DepositoProducao.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelDepositoDeProducao">Depósito de Produção</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.DepositoProducao.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.PartNumber">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelPartNumber">Part Number</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.PartNumber }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Fabricante">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelFabricanteReferencia">Fabricante/Referência</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Fabricante }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.EstoqueMinimo">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelEstoqueMinimo">Estoque Mínimo</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.EstoqueMinimo }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.EstoqueMaximo">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelEstoqueMaximo">Estoque Máximo</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.EstoqueMaximo }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.GrupoMrp.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelGrupoMRP">Grupo MRP</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.GrupoMrp.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.TipoMrp.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="placeTipoMRP">Tipo MRP</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.TipoMrp.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.PlanejadorMrp.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="placeTipoMRP">Planejador MRP</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.PlanejadorMrp.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.TamanhoLoteMrp.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="placeTamanhoDoLoteMRP">Tamanho do Lote MRP</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.TamanhoLoteMrp.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.PesoLiquido">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelPesoLiquido">Peso Líquido</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.PesoLiquido }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.PesoBruto">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelPesoBruto">Peso Bruto</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.PesoBruto }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.TipoMaterial == 8 && entity.FlgDeixarVersaoBloqueadoZ1 != undefined">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelDeixarVersaoBloqueadoEmZ1">Deixar Versão Bloqueado em Z1?</strong> </label>
+            </td>
+            <td>
+                <label ng-if="entity.FlgDeixarVersaoBloqueadoZ1" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.FlgDeixarVersaoBloqueadoZ1" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.TipoMaterial == 8 && entity.FlgDeixarVersaoBloqueado03 != undefined">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelDeixarVersaoBloqueadoEm03">Deixar Versão Bloqueado em 03?</strong> </label>
+            </td>
+            <td>
+                <label ng-if="entity.FlgDeixarVersaoBloqueado03" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.FlgDeixarVersaoBloqueado03" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.TipoMaterial == 8 && entity.QtdLatasCamada">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelQuantidadeLatasPorCamada">Quantidade de Latas por Camada</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.QtdLatasCamada }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.TipoMaterial == 8 && entity.TipoLata">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelTipoDeLata">Tipo de Lata</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.TipoLata }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.TipoMaterial == 8 && entity.QtdLatasPalete">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelQuantidadeLatasTampasPorPalete">Quantidade de Latas/Tampas Por Palete</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.QtdLatasPalete }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.TipoMaterial == 8 && entity.Observacoes">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelObservacoes">Observações</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Observacoes }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.TipoMaterial == 8">
+            <td colspan="2">
+                <div class="table-responsive" ng-if="entity.ListaInformacaoTecnica.length">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th data-localize="labelCodigo">Código</th>
+                                <th data-localize="labelProduto">Produto</th>
+                                <th data-localize="labelQuantidade">Quantidade</th>
+                                <th data-localize="labelUnidadeMedida">Unidade de Medida</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="i in entity.ListaInformacaoTecnica.slice(0) track by $index">
+                                <td>{{ i.Codigo }}</td>
+                                <td>{{ i.Produto }}</td>
+                                <td>{{ i.Quantidade }}</td>
+                                <td>{{ i.UnidadeMedida }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr ng-if="entity.TipoMaterial == 8">
+            <td colspan="2">
+                <div class="table-responsive" ng-if="entity.ListaPlantas.length">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th data-localize="labelPlanta">Planta</th>
+                                <th data-localize="labelDeposito">Depósito</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="r in entity.ListaPlantas.slice(0) track by $index">
+                                <td>{{ r.DcrPlanta }}</td>
+                                <td>{{ r.DcrDeposito }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr ng-if="entity.CustoMaterial">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelCustoMaterial">Custo Material</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.CustoMaterial }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.CodigoNcm">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelCodigoNCM">Código NCM</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.CodigoNcm }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.TipoMaterial != 8 && entity.CategoriaCfop.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelCategoriaCFOP">Categoria CFOP</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.CategoriaCfop.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.TipoMaterial != 8 && entity.ClassificacaoFiscal.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelClassificacaoFIscal">Classificação Fiscal</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.ClassificacaoFiscal.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.TipoMaterial != 8 && entity.UtilizacaoMaterial.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelUtilizacaoDoMaterial">Utilização do Material</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.UtilizacaoMaterial.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.TipoMaterial != 8 && entity.ClasseAvaliacao.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelClasseAvaliacao">Classe Avaliação</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.ClasseAvaliacao.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.CodigoMaterialSap">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelCodigoDoMaterialNoSAP">Código do Material no SAP</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.CodigoMaterialSap }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="row" ng-show="entity.ListaAnexos.length > 0">
+                    <label data-localize="labelArquivos">Arquivos</label>
+                    <div ng-repeat="anexo in entity.ListaAnexos">
+                        <a target="_blank" href="{{ '/files/' + anexo.NomeArquivo }}" download="{{ anexo.NomeArquivo }}"><span>{{ anexo.NomeArquivo }}</span> </a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

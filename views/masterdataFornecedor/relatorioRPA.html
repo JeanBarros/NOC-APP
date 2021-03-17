@@ -1,0 +1,85 @@
+<script src="js/plugin/datatables/jquery.dataTables.min.js"></script>
+<script src="js/plugin/datatables/dataTables.bootstrap.min.js"></script>
+<script src="js/plugin/datatables/dataTables.tableTools.min.js"></script>
+<script src="js/plugin/datatable-responsive/datatables.responsive.min.js"></script>
+<style type="text/css">
+    .linkGrid {
+        -webkit-tap-highlight-color: rgba(169,3,41,.5);
+        color: #3276b1;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .input-group-addon {
+        height: 15px !important;
+    }
+</style>
+
+<div class="row">
+    <div class="well no-padding smart-form client-form">
+        <header>
+            Relatório Masterdata Fornecedor RPA
+        </header>
+
+        <div class="row no-space">
+
+            <fieldset>
+                <table id="tblRelatorio" my-table aa-data="MasterdataFornecedorRelatorioRPAView" ao-column-defs="columnDefs" fn-row-callback="myCallback"
+                    class="table table-striped table-bordered table-hover" width="100%">
+                    <thead>
+                        <tr>
+                            <th>EMPRESA</th>
+                            <th>ORG.COMPRAS</th>
+							<th>GRUPO DE CONTAS</th>
+							<th>NOME</th>
+							<th>TERMO PESQUISA</th>
+							<th>RUA</th>
+							<th>NÚMERO</th>
+							<th>CX POSTAL</th>
+							<th>REGIÃO - CIDADE</th>
+							<th>PAÍS</th>
+							<th>LOCAL - ESTADO</th>
+							<th>COMPLEMENTO</th>
+							<th>BAIRRO</th>
+							<th>TELEFONE</th>
+							<th>EMAIL</th>
+							<th>CNPJ</th>
+							<th>CPF</th>
+							<th>PESSOA FISICA</th>
+							<th>INSC. ESTADUAL</th>
+							<th>INSC. MUNICIPAL</th>
+							<th>SETOR INDUSTRIAL</th>
+							
+							<th>PAIS 1</th>
+							<th>BANCO 1</th>
+							<th>AGENCIA 1</th>
+							<th>DIGITO AGENCIA 1</th>
+							<th>CONTA BANCARIA 1</th>
+							<th>DIGITO CONTA 1</th>
+							<th>TITULAR CONTA 1</th>
+							<th>CBU 1</th>
+							
+							<th>PAIS 2</th>
+							<th>BANCO 2</th>
+							<th>AGENCIA 2</th>
+							<th>DIGITO AGENCIA 2</th>
+							<th>CONTA BANCARIA 2</th>
+							<th>DIGITO CONTA 2</th>
+							<th>TITULAR CONTA 2</th>
+							<th>CBU 2</th>
+							
+							<th>COD. SAP MATRIZ RECEBEDORA</th>
+							<th>CONTA CONCILIATORIA</th>
+							<th>COND. PAGTO</th>
+							<th>VERIF. DUPLICADAS</th>
+							<th>FORMA PGTO</th>
+							<th>MOEDA</th>
+							<th>COND. PGTO2</th>
+							<th>VER FATURA BASEADO EM EM</th>
+                        </tr>
+                    </thead>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+</div>

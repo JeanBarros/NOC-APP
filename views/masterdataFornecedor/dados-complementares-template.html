@@ -1,0 +1,86 @@
+﻿<div class="panel-group" id="accordionDadosContabeis" ng-if="entity.ContaConciliatoria.Nome && entity.Status > 1">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordionDadosContabeis" href="#collapseDadosContabeis" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                    <i class="fa fa-list-alt"></i><span class="widget-icon" data-localize="labelDadosContabeis">Dados Contábeis</span>
+                </a>
+            </h4>
+        </div>
+        <div id="collapseDadosContabeis" class="panel-collapse collapse in padding-10">
+            <table class="table table-striped word-break">
+                <tbody>
+                    <tr>
+                        <td class="col-sm-6">
+                            <label class="control-label"><strong data-localize="labelContaConciliatoria">Conta Conciliatória</strong>: </label>
+                        </td>
+                        <td>
+                            <label>{{ entity.ContaConciliatoria.Nome }}</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-6">
+                            <label class="control-label"><strong data-localize="labelGrupoDeContas">Grupo de Contas</strong>: </label>
+                        </td>
+                        <td>
+                            <label>{{ entity.GrupoDeContas.Nome }}</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br />
+<div class="panel-group" id="accordionPassoFinanceiro" ng-if="entity.Status > 4">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordionPassoFinanceiro" href="#collapsePassoFinanceiro" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                    <i class="fa fa-list-alt"></i><span class="widget-icon" data-localize="labelPassoFinanceiro">Passo Financeiro</span>
+                </a>
+            </h4>
+        </div>
+        <div id="collapsePassoFinanceiro" class="panel-collapse collapse in padding-10">
+            <table class="table table-striped word-break">
+                <tbody>
+                    <tr>
+                        <td class="col-sm-6">
+                            <label class="control-label"><strong data-localize="labelAprovado">Aprovado</strong>: </label>
+                        </td>
+                        <td>
+                            <label data-localize="labelSim">Sim</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br />
+<div class="panel-group" id="accordionCadastroSAP" ng-if="entity.NumeroFornecedorSap && entity.Status == 6">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordionCadastroSAP" href="#collapseCadastroSAP" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                    <i class="fa fa-list-alt"></i><span class="widget-icon" data-localize="labelCadastroSap">Cadastro SAP</span>
+                </a>
+            </h4>
+        </div>
+        <div id="collapseCadastroSAP" class="panel-collapse collapse in padding-10">
+            <table class="table table-striped word-break">
+                <tbody>
+                    <tr>
+                        <td class="col-sm-6">
+                            <label class="control-label"><strong data-localize="labelNumeroFornecedorSAP">Número Fornecedor SAP</strong>: </label>
+                        </td>
+                        <td>
+                            <label>{{ entity.NumeroFornecedorSap }}</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,82 @@
+﻿<script src="js/plugin/datatables/jquery.dataTables.min.js"></script>
+<script src="js/plugin/datatables/dataTables.colVis.min.js"></script>
+<script src="js/plugin/datatables/dataTables.tableTools.min.js"></script>
+<script src="js/plugin/datatables/dataTables.bootstrap.min.js"></script>
+<script src="js/plugin/datatable-responsive/datatables.responsive.min.js"></script>
+
+<style type="text/css">
+    .linkGrid {
+        -webkit-tap-highlight-color: rgba(169,3,41,.5);
+        color: #3276b1;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .input-group-addon {
+        height: 15px !important;
+    }
+</style>
+
+<div class="row">
+    <div class="well no-padding smart-form client-form">
+        <header data-localize="labelRelatorioDeParticipantes">Relatório de Participantes</header>
+        <div class="row no-space">
+            <fieldset>
+                <section class="col col-4">
+                    <label class="label" data-localize="labelEdicao">Edição</label>
+                    <label class="label">
+                        <select ng-model="filtro.Edicao" name="edicao" id="edicao" ng-options="e.Nome for e in edicoes track by e.Id" class="form-control">
+                            <option value="" selected="selected" data-localize="optionEdicao">Selecione a Edição</option>
+                        </select>
+                    </label>
+                </section>
+                <section class="col col-4">
+                    <label class="label" data-localize="labelUnidadeDoParticipante">Unidade do Participante</label>
+                    <label class="label">
+                        <select ng-model="filtro.Unidade" name="unidadeEquipe" id="unidadeEquipe" ng-options="u.NomeDaUnidade for u in unidades" required class="form-control">
+                            <option value="" selected="selected" data-localize="optionUnidadeDoParticipante">Selecione a unidade do participante</option>
+                        </select>
+                    </label>
+                </section>
+                <section class="col col-4">
+                    <div style="padding-top: 17px;">
+                        <button type="submit" class="btn btn-primary btn-lg" ng-click="obterRelatorio()">
+                            <span data-localize=""><i class="fa fa-file-text-o"></i>Gerar</span>
+                        </button>
+                    </div>
+                </section>
+
+                <table id="tblRelatorio" my-table aa-data="RelatorioParticipanteInovacao" ao-column-defs="columnDefs" fn-row-callback="myCallback" class="table table-striped table-bordered table-hover" width="100%">
+                    <thead>
+                        <tr>
+                            <th class="hasinput" style="width: 17%">
+                                <input type="text" class="form-control" placeholder="Filter Name" />
+                            </th>
+                            <th class="hasinput" style="width: 17%">
+                                <input type="text" class="form-control" placeholder="Filter Name" />
+                            </th>
+                            <th class="hasinput" style="width: 17%">
+                                <input type="text" class="form-control" placeholder="Filter Name" />
+                            </th>
+                            <th class="hasinput" style="width: 17%">
+                                <input type="text" class="form-control" placeholder="Filter Name" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <th data-localize="labelUnidade">Unidade</th>
+                            <th data-localize="labelEdicao">Edição</th>
+                            <th data-localize="labelNomeDoParticipante">Nome do Participante</th>
+                            <th data-localize="labelMatricula">Matrícula</th>
+                            <th data-localize="labelFuncionario">Cargo do Funcionário</th>
+                            <th data-localize="labelPontosMelhoria">Pontos Melhoria</th>
+                            <th data-localize="labelPontosInovação">Pontos Inovação</th>
+                            <th data-localize="labelValorMelhoria">Valor Melhoria</th>
+                            <th data-localize="labelValorInovacao">Valor Inovação</th>
+                            <th data-localize="labelValorTotal">Valor Total</th>
+                        </tr>
+                    </thead>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+</div>

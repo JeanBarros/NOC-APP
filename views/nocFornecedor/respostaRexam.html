@@ -1,0 +1,115 @@
+<style type="text/css">
+    .smart-form .label {
+        margin-top: 10px!important;
+    }
+</style>
+
+<!--td:nth-of-type(even) { background-color:#ccc; }-->
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i>NOC <span data-localize="labelAceite">Resposta Fábrica </span></h1>
+    </div>
+</div>
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+
+    <div class="container">
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="well no-padding">
+                    <form id="nocFornecedorRespostaRexamForm" name="nocFornecedorRespostaRexamForm" class="smart-form client-form" ng-submit="submit()" novalidate>
+                        <header>
+                            Resposta Fábrica
+                        </header>
+                        <fieldset>
+                            <section>
+
+                                <div id="myTabContent" class="tab-content col-sm-12">
+                                    <ul class="nav nav-tabs pull-center in" id="myTab">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#tab1"><span class="hidden-mobile hidden-tablet" data-localize="labelTituloDefeito">Informações</span></a>
+                                        </li>
+
+                                        <li class="">
+                                            <a data-toggle="tab" href="#tab2"><span class="hidden-mobile hidden-tablet" data-localize="labelResposta">Respostas</span></a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-pane fade padding-10 no-padding-bottom active in" id="tab1">
+                                        <div class="row no-space">
+                                            <fieldset>
+                                                <div ng-include="'views/nocFornecedor/informacoes-noc.html'">
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade padding-10" id="tab2">
+                                        <div class="row no-space">
+                                            <fieldset>
+                                                <div ng-show="entity.IsHistorico == false">
+                                                    <div id="novaResposta" ng-show="entity.UsuarioAprovacao == undefined  && entity.UsuarioAceite != undefined">
+                                                        <legend>Nova Resposta</legend>
+                                                        <div id="novaRespostaFornecedor">
+                                                            <div class="row">
+                                                                <section class="col col-6">
+                                                                    <label class="label" data-localize="labelResponsavel">Responsável</label>
+                                                                    <div class="input-group">
+                                                                        <label>{{ resposta.NomeResponsavel }} </label>
+                                                                    </div>
+                                                                </section>
+                                                                <section class="col col-6">
+                                                                    <label class="label" data-localize="labelDataResposta">Data da Resposta</label>
+                                                                    <label>{{ resposta.DataResposta | date:'dd/MM/yyyy' }} </label>
+                                                                </section>
+                                                            </div>
+                                                            <section>
+                                                                <div class="inline-group">
+                                                                    <label class="radio" ng-repeat="resp in respostasRexam track by $index" ng-class="{'state-error': nocFornecedorRespostaRexamForm.statusResposta.$invalid && showValidation}">
+                                                                        <input type="radio" ng-model="resposta.respostaRexam" index="{{$index}}" name="statusResposta" ng-value="resp.Id + ' - ' + resp.NomeResposta" required><i></i><span data-localize="labelReprovado"> {{ resp.NomeResposta }} </span>
+                                                                    </label>
+                                                                    <em class="invalid" ng-show="nocFornecedorRespostaRexamForm.statusResposta.$invalid && showValidation"><span data-localize="validacaoResposta">Informe uma resposta</span></em>
+                                                                </div>
+                                                            </section>
+                                                            <section>
+                                                                <label class="label" data-localize="labelMotivo">Motivo</label>
+                                                                <label class="input" ng-class="{'state-error': nocFornecedorRespostaRexamForm.motivo.$invalid && showValidation}">
+                                                                    <textarea ng-model="resposta.Motivo" ng-required="validarMotivo()" name="motivo" id="motivo" data-localize="placeMotivo" rows="3" maxlength="500" class="form-control"></textarea>
+                                                                </label>
+                                                                <em class="invalid" ng-show="nocFornecedorRespostaRexamForm.motivo.$invalid && showValidation"><span data-localize="validacaoMotivo"></span></em>
+                                                            </section>
+
+                                                        </div>
+                                                    </div>
+                                                    <div id="uploadArquivos" ng-show="entity.UsuarioAprovacao == undefined  && entity.UsuarioAceite != undefined">
+                                                        <file-upload></file-upload>
+                                                    </div>
+                                                </div>
+                                                <div ng-include="'views/nocFornecedor/historico.html'">
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="row" ng-show="entity.IsHistorico == false">
+                                            <ul class="pager wizard no-margin">
+                                                <li>
+                                                    <a href="javascript:void(0);" id="Salvar" class="btn btn-lg txt-color-darken" ng-click="submit()" data-localize="liSalvar">Enviar</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+
+</section>
+<!-- end widget grid -->

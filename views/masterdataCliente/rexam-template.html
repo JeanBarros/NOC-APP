@@ -1,0 +1,200 @@
+<table class="table table-striped word-break">
+    <tbody>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelPaisRexam">País da Rexam</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.PaisDaRexam.Nome }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="table-responsive" ng-show="entity.ListaEmpresas.length">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th><label class="label" data-localize="labelEmpresa">Empresa</label></th>
+                                <th><label class="label" data-localize="labelCentroDeFornecimento">Centro de fornecimento</label></th>
+                                <th><label class="label" data-localize="labelGrupoDeCliente">Grupo de cliente</label></th>
+                                <th><label class="label" data-localize="labelGrupoDePreco">Grupo de preço</label></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="r in entity.ListaEmpresas.slice(0) track by $index">
+                                <td>{{ r.DcrEmpresa }}</td>
+                                <td>{{ r.DcrCentroFornecimento }}</td>
+                                <td>{{ r.DcrGrupoCliente }}</td>
+                                <td>{{ r.DcrGrupoPreco }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelFormaDePagamento">Forma de Pagamento</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.FormaDePagamento.Nome }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelEmailDeCobranca">E-mail de Cobrança</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.EmailDeCobranca }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelGrupoDeContas">Grupo de Contas</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.GrupoDeContas.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.TipoDePessoa == 'J'">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelClienteEnvasadoraProdutoAcabado">Cliente Envasadora / Produto Acabado?</strong></label>
+            </td>
+            <td>
+                <label ng-if="entity.FlgClienteEnvasadoraProdutoAcabado" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.FlgClienteEnvasadoraProdutoAcabado" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelMotivoDaSolicitacao">Motivo da Solicitação</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.MotivoDaSolicitacao }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelOrganizacaoDeVendas">Organização de Vendas</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.PaisDaRexam.CodigoOrganizacaoDeVendas }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelCanalDeDistribuicao">Canal de Distribuição</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.PaisDaRexam.CodigoCanalDeDistribuicao }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelSetorDeAtividade">Setor de Atividade</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.PaisDaRexam.CodigoSetorDeAtividade }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelGrupoDeVendedores">Grupo de Vendedores</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.PaisDaRexam.CodigoGrupoDeVendedores }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelRegiaoDeVendas">Região de Vendas</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.RegiaoDeVendas.Nome }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelZonaDeTransporte">Zona de Transporte</strong>: </label>
+            </td>
+            <td>
+                <label ng-if="entity.ZonaDeTransporte.Nome">{{ entity.ZonaDeTransporte.Nome }}</label>
+                <label ng-if="!entity.ZonaDeTransporte.Nome">{{ entity.NovoCodigoZonaDeTransporte }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelMoedaContabilizacao">Moeda de Contabilização</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.MoedaDeContabilizacao.Nome }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelAgenteFrete">Agente Frete</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.AgenteFrete }}</label>
+            </td>
+        </tr>
+        <!--<tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelRecebedorMercadoria">Recebedor da Mercadoria</strong>: </label></td>
+            <td>
+                <label>{{ entity.RecebedorDaMercadoria }}</label>
+            </td>
+        </tr>-->
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelRecebedorMercadoriaDiferente">Recebedor de mercadoria diferente deste cadastro?</strong> </label>
+            </td>
+            <td>
+                <label ng-if="entity.FlgRecebedorDiferente" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.FlgRecebedorDiferente" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.FlgRecebedorDiferente">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelCodigoClienteSAP">Código Cliente SAP</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.CodigoClienteSap }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelCondicaoDaExpedicao">Condição da Expedição</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.CondicaoDeExpedicao.Nome }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelCondicaoDePagamento">Condição de Pagamento</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.CondicaoDePagamento.Nome }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelIncoterm">Incoterm</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Incoterm.Nome }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="row" ng-show="entity.ListaAnexos.length > 0">
+                    <label data-localize="labelArquivos">Arquivos</label>
+                    <div ng-repeat="anexo in entity.ListaAnexos">
+                        <a target="_blank" href="{{ '/files/' + anexo.NomeArquivo }}" download="{{ anexo.NomeArquivo }}"><span>{{ anexo.NomeArquivo }}</span> </a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

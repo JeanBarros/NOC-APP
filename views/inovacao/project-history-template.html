@@ -1,0 +1,448 @@
+﻿<table class="table table-striped word-break">
+    <tbody>
+        <!--Etapa 1 - Informações Gerais-->
+        <tr>
+            <td colspan="2" class="col-sm-12">
+                <div class="alert adjusted alert-info fade in" style="margin-bottom: 0">
+                    <span>
+                        <label data-localize="labelInformacoesGerais" style="font-weight: bold;">Informações Gerais</label>
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelTipodeProjeto">Tipo de Projeto</strong>: </label>
+            </td>
+            <td>
+                <label ng-if="entity.TipoDeProjeto == 0" data-localize="optionMelhoria">Melhoria</label>
+                <label ng-if="entity.TipoDeProjeto == 1" data-localize="optionInovacao">Inovação</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelUnidadeDoProjeto">Unidade do Projeto</strong> </label>
+            </td>
+            <td>
+                <label>{{ entity.UnidadeDoProjeto.Nome }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelNomeDoProjeto">Nome do Projeto</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.NomeDoProjeto }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.EquipeDoProjeto.length">
+            <td colspan="2">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th data-localize="labelUnidadeDoParticipante">Unidade do Participante</th>
+                                <th data-localize="labelParticipante">Participante</th>
+                                <th data-localize="labelMatricula">Matrícula</th>
+                                <th data-localize="labelDepartamento">Departamento</th>
+                                <th data-localize="labelCargo">Cargo</th>
+                                <th data-localize="labelTurma">Turma</th>
+                                <th data-localize="labelLider">Líder</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="e in entity.EquipeDoProjeto.slice(0) track by $index">
+                                <td>{{ e.NomeUnidadeDoParticipante }}</td>
+                                <td>{{ e.NomeParticipante }}</td>
+                                <td>{{ e.Matricula }}</td>
+                                <td>{{ e.Departamento }}</td>
+                                <td>{{ e.Cargo }}</td>
+                                <td>{{ e.NomeDaTurma }}</td>
+                                <td>
+                                    <span ng-if="e.Lider" data-localize="labelSim">Sim</span>
+                                    <span ng-if="!e.Lider" data-localize="labelNao">Não</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelEmailParaNotificacoes">E-mail para Notificações</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.EmailParaNotificacao }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelSupervisorResponsavel">Gestor Responsável</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.SupervisorResponsavel.Login }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelEsteProjetoEstaSendoImportadoDeOutraUnidade">Este projeto está sendo importado de outra unidade?</strong> </label>
+            </td>
+            <td>
+                <label ng-if="entity.ProjetoImportadoDeOutraUnidade" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.ProjetoImportadoDeOutraUnidade" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.ProjetoImportadoDeOutraUnidade">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelProjetoDesenvolvidoNaUnidade">Projeto Desenvolvido na Unidade</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.UnidadeDoProjetoReplicado.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.ProjetoImportadoDeOutraUnidade">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelProjeto">Projeto</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.ProjetoReplicado.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.ProjetoImportadoDeOutraUnidade">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelDataimplantacaoDoProjeto">Data de Implantação do Projeto</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.DataDeImplementacaoDoProjeto | date:'dd/MM/yyyy' }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelInvestimentoDoProjeto">Investimento do Projeto (em Reais)</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.InvestimentoDoProjeto | decimal }}</label>
+            </td>
+        </tr>
+        <!--FIM Etapa 1 - Informações Gerais-->
+
+        <!--Etapa 2 - Descrição do projeto-->
+        <tr>
+            <td colspan="2" class="col-sm-12">
+                <div class="alert adjusted alert-info fade in" style="margin-bottom: 0">
+                    <span>
+                        <label data-localize="labelDescricaoDoProjeto" style="font-weight: bold;">Descrição do projeto</label>
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="col-sm-12">
+                <label class="control-label"><strong data-localize="labelDefinicaoDoProblema">Definição do Problema</strong>: </label>
+                <label>{{ entity.DefinicaoDoProblema }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="col-sm-12">
+                <label class="control-label"><strong data-localize="labelAnaliseDoProblemaESuasCausas">Análise do problema e suas causas</strong>: </label>
+                <label>{{ entity.AnaliseDoProblemaECausa }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="col-sm-12">
+                <label class="control-label"><strong data-localize="liAnexos">Anexos</strong>: </label>
+                <div ng-show="entity.ListaAnexos.length">
+                    <div ng-repeat="anexo in entity.ListaAnexos.slice(0) track by $index">
+                        <div ng-if="anexo.DcrTipoDocumento == 'DescricaoProjeto'">
+                            <a target="_blank" href="{{ '/files/' + anexo.NomeArquivo }}" download="{{ anexo.NomeArquivo }}"><span>{{ anexo.NomeArquivo }}</span> </a>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <!--FIm Etapa 2 - Descrição do projeto-->
+
+        <!--Etapa 3 - Categorização-->
+        <tr>
+            <td colspan="2" class="col-sm-12">
+                <div class="alert adjusted alert-info fade in" style="margin-bottom: 0">
+                    <span>
+                        <label data-localize="labelCategorizacao" style="font-weight: bold;">Categorização</label>
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="col-sm-12">
+                <label class="control-label"><strong data-localize="labelSolucoesImplementadas">Soluções Implementadas</strong>: </label>
+                <label>{{ entity.SolucaoImplementada }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelAtuaSobreGargalo">Atua Sobre o Gargalo?</strong> </label>
+            </td>
+            <td>
+                <label ng-if="entity.AtuaSobreGargalo" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.AtuaSobreGargalo" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelHouveRiscosEliminadosPeloPeojeto">Houve Riscos Eliminados Pelo Projeto?</strong> </label>
+            </td>
+            <td>
+                <label ng-if="entity.HouveRiscoEliminadoPeloProjeto" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.HouveRiscoEliminadoPeloProjeto" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.HouveRiscoEliminadoPeloProjeto">
+            <td colspan="2" class="col-sm-12">
+                <label class="control-label"><strong data-localize="labelQual">Qual?</strong>: </label>
+                <label>{{ entity.DescricaoDoRiscoEliminado }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelSeuProjetoEstaVinculadoPerdaDeLatasTampas">Seu Projeto Está Vinculado a Perda de Latas/Tampas?</strong> </label>
+            </td>
+            <td>
+                <label ng-if="entity.ProjetoVinculadoAPerdaDeLatas" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.ProjetoVinculadoAPerdaDeLatas" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.ProjetoVinculadoAPerdaDeLatas">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelAntesDaInovacao">Antes da Inovação (latas/tampas por minuto)</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.LatasPerdidasPorMinutoAntes }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.ProjetoVinculadoAPerdaDeLatas">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelDepoisDaInovacao">Depois da Inovação (latas/tampas por minuto)</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.LatasPerdidasPorMinutoDepois }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="col-sm-12">
+                <label class="control-label"><strong data-localize="liAnexos">Anexos</strong>: </label>
+                <div ng-show="entity.ListaAnexos.length">
+                    <div ng-repeat="anexo in entity.ListaAnexos.slice(0) track by $index">
+                        <div ng-if="anexo.DcrTipoDocumento == 'Categorizacao'">
+                            <a target="_blank" href="{{ '/files/' + anexo.NomeArquivo }}" download="{{ anexo.NomeArquivo }}"><span>{{ anexo.NomeArquivo }}</span> </a>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <!--FIm Etapa 3 - Categorização-->
+
+        <!--Etapa 4 - Ganhos Obtidos-->
+        <tr>
+            <td colspan="2" class="col-sm-12">
+                <div class="alert adjusted alert-info fade in" style="margin-bottom: 0">
+                    <span>
+                        <label data-localize="labelGanhosObtidos" style="font-weight: bold;">Ganhos Obtidos</label>
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="col-sm-12">
+                <label class="control-label"><strong data-localize="labelGanhosNaoMensurados">Resultados alcançados</strong>: </label>
+                <label>{{ entity.GanhosNaoMensurados }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="col-sm-12">
+                <label class="control-label"><strong data-localize="labelOutrasEconomiasMensais">Saving mensal gerado (em Reais, não vinculado a perda de latas ou tampas)</strong>: </label>
+                <label>{{ entity.OutrasEconomias | decimal }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.ProjetoVinculadoAPerdaDeLatas">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelUnidadesPerdidasPorMesAntesDaInovacao">Unidades perdidas por mês (antes da inovação)</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.UnidadesPerdidasPorMesAntesDaInovacao | decimal:0 }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.ProjetoVinculadoAPerdaDeLatas">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelUnidadesPerdidasPorMesDepoisDaInovacao">Unidades perdidas por mês (depois da inovação)</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.UnidadesPerdidasPorMesDepoisDaInovacao | decimal:0 }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.ProjetoVinculadoAPerdaDeLatas">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelUnidadesPerdidasPorAnoAntesDaInovacao">Unidades perdidas por ano (antes da inovação)</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.UnidadesPerdidasPorAnoAntesDaInovacao | decimal:0 }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.ProjetoVinculadoAPerdaDeLatas">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelUnidadesPerdidasPorAnoDepoisDaInovacao">Unidades perdidas por ano (depois da inovação)</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.UnidadesPerdidasPorAnoDepoisDaInovacao | decimal:0 }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.ProjetoVinculadoAPerdaDeLatas">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelDesperdicioMesAntesDaInovacao">Desperdício mês (US$, antes da inovação)</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.DesperdicioMesAntesDaInovacao | decimal }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.ProjetoVinculadoAPerdaDeLatas">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelDesperdicioMesDepoisDaInovacao">Desperdício mês (US$, depois da inovação)</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.DesperdicioMesDepoisDaInovacao | decimal }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.ProjetoVinculadoAPerdaDeLatas">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelDesperdicioAnoAntesDaInovacao">Desperdício ano (US$, antes da inovação)</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.DesperdicioAnoAntesDaInovacao | decimal  }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.ProjetoVinculadoAPerdaDeLatas">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelDesperdicioAnoDepoisDaInovacao">Desperdício ano (US$, depois da inovação)</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.DesperdicioAnoDepoisDaInovacao | decimal  }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.ProjetoVinculadoAPerdaDeLatas">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelEconomiaGeradaPorMes">Economia gerada por mês (US$)</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.EconomiaGeradaPorMes | decimal }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.ProjetoVinculadoAPerdaDeLatas">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelEconomiaGeradaPorAno">Economia gerada por ano (US$)</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.EconomiaGeradaPorAno | decimal}}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelCPM">CPM</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.CPM | decimal}}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelTotalDeCreditos">Total de Créditos</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.TotalDeCreditos | decimal:0 }}</label>
+            </td>
+        </tr>
+        <!--FIM Etapa 4 - Ganhos Obtidos-->
+
+        <!--Histórico de Aprovações-->
+        <tr>
+            <td colspan="2" class="col-sm-12">
+                <div class="alert adjusted alert-info fade in" style="margin-bottom: 0">
+                    <span>
+                        <label data-localize="labelHistoricoDeAprovacoes" style="font-weight: bold;">Histórico de Aprovações</label>
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr ng-if="entity.UsuarioAprovacaoLiderLean">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelLiderLeanQueAprovou">Líder Lean que aprovou</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.UsuarioAprovacaoLiderLean }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.DataAprovacaoLiderLean">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelDataDeAprovaçãoPeloLider">Data de Aprovação pelo Líder Lean</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.DataAprovacaoLiderLean | date:'dd/MM/yyyy HH:mm:ss' }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.UsuarioAprovacaoSuperiorImediato">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelSuperiorImediatoQueQprovou">Superior Imediato que aprovou</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.UsuarioAprovacaoSuperiorImediato }}</label>
+            </td>
+            <tr ng-if="entity.DataAprovacaoSuperiorImediato">
+                <td class="col-sm-6">
+                    <label class="control-label"><strong data-localize="labelDataDeAprovacaoPeloSuperiorImediato">Data de Aprovação pelo Superior Imediato</strong>: </label>
+                </td>
+                <td>
+                    <label>{{ entity.DataAprovacaoSuperiorImediato | date:'dd/MM/yyyy HH:mm:ss' }}</label>
+                </td>
+            </tr>
+        <tr ng-if="entity.UsuarioAprovacaoEspecialistaLean">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelEspecialistaLeanQueAprovou">Especialista Lean que aprovou</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.UsuarioAprovacaoEspecialistaLean }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.DataAprovacaoEspecialistaLean">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelDataDeAprovacaoPeloEspecialistaLean">Data de Aprovação pelo Especialista Lean</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.DataAprovacaoEspecialistaLean | date:'dd/MM/yyyy HH:mm:ss' }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.UsuarioAprovacaoGerente">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelGerenteQueAprovou">Gerente que aprovou</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.UsuarioAprovacaoGerente }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.DataAprovacaoGerente">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelDataDeAprovacaoPeloGerente">Data de Aprovação pelo Gerente</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.DataAprovacaoGerente | date:'dd/MM/yyyy HH:mm:ss' }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.JustificativaDaReprovacao">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelJustificativaDaReprovacao">Justificativa da Reprovação</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.JustificativaDaReprovacao }}</label>
+            </td>
+        </tr>
+        <!--Log de rastreabilidade-->
+    </tbody>
+</table>

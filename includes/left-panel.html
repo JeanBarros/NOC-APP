@@ -1,0 +1,32 @@
+<!-- User info -->
+			<div class="login-info">
+				<span> <!-- User image size is adjusted inside CSS, it should stay as is --> 
+					
+					<a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
+						<!-- <img src="img/avatars/sunny.png" alt="me" class="online" />  -->
+						<span data-localize="john.doe">
+							john.doe 
+						</span>
+						<i class="fa fa-angle-down"></i>
+					</a> 
+					
+				</span>
+			</div>
+			<!-- end user info -->
+
+			<!-- NAVIGATION : This navigation is also responsive
+
+			To make this navigation dynamic please make sure to link the node
+			(the reference to the nav > ul) after page load. Or the navigation
+			will not initialize.
+			-->
+
+			<navigation>
+
+                <nav:group data-icon="fa fa-lg fa-fw fa-book" title="NOC">
+                    <nav:item data-view="/noc/register" title="Cadastro de NOC usando wizard" />
+					<nav:item data-view="/noc/registerinline" title="Cadastro de NOC in line" />
+                </nav:group>
+				
+			</navigation>
+			<span class="minifyme" data-action="minifyMenu"> <i class="fa fa-arrow-circle-left hit"></i> </span>

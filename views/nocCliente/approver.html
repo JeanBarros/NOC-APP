@@ -1,0 +1,152 @@
+﻿<script src="js/plugin/fuelux/wizard/wizard.min.js"></script>
+
+<style type="text/css">
+    .smart-form fieldset {
+        padding-top: 0px !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i>Noc Cliente - <span data-localize="labelApprover">Approver</span>
+        </h1>
+    </div>
+</div>
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+    <div class="container">
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="well no-padding">
+                    <form id="nocClienteApproverForm" name="nocClienteApproverForm" class="smart-form client-form" ng-submit="submit()" novalidate>
+                        <header>
+                            <span data-localize="labelApprover">Approver</span>
+                        </header>
+                        <fieldset>
+                            <section>
+                                <div id="myTabContent" class="tab-content col-sm-12">
+                                    <ul class="nav nav-tabs pull-center in" id="myTab">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#tabA"><span class="hidden-mobile hidden-tablet" data-localize="labelNocCliente">Noc Cliente</span></a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#tabB"><span class="hidden-mobile hidden-tablet" data-localize="labelResposta">Resposta</span></a>
+                                        </li>
+                                        <li class="" ng-if="entity.QuantidadeDevolvida && entity.DataChegadaDoLote && entity.ValorDoFrete">
+                                            <a data-toggle="tab" href="#tabC"><span class="hidden-mobile hidden-tablet" data-localize="labelDispatch">Dispatch</span></a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#tabD"><span class="hidden-mobile hidden-tablet" data-localize="labelApprover">Approver</span></a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-pane fade padding-10 no-padding-bottom active in" id="tabA">
+                                        <div ng-include="'views/nocCliente/history-template.html'">
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade padding-10" id="tabB">
+                                        <div ng-include="'views/nocCliente/resposta-template.html'">
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade padding-10" id="tabC">
+                                        <table class="table table-striped word-break">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="col-sm-6">
+                                                        <label class="control-label"><strong data-localize="labelQuantidadeDevolvida">Quantidade Devolvida</strong> </label>
+                                                    </td>
+                                                    <td>{{ entity.QuantidadeDevolvida }}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-sm-6">
+                                                        <label class="control-label"><strong data-localize="labelDataChegadaDoLoteDevoldidoAFabrica">Data chegada do lote devolvido à fábrica</strong> </label>
+                                                    </td>
+                                                    <td>{{ entity.DataChegadaDoLote | date:'dd/MM/yyyy' }}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="col-sm-6">
+                                                        <label class="control-label"><strong data-localize="labelValorDoFrete">Valor do frete</strong> </label>
+                                                    </td>
+                                                    <td>{{ entity.ValorDoFrete | decimal }}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane fade padding-10" id="tabD">
+                                        <div class="row">
+                                            <label class="label" data-localize="labelAprovacao">Aprovação</label>
+                                            <div class="inline-group">
+                                                <label class="radio" ng-class="{'state-error': entity.Aprovar == undefined && showValidation}">
+                                                    <input type="radio" ng-model="entity.Aprovar" name="aprovar" value="0"><i></i><span data-localize="labelAprovar"> Aprovar </span>
+                                                </label>
+                                                <label class="radio" ng-class="{'state-error': entity.Aprovar == undefined && showValidation}">
+                                                    <input type="radio" ng-model="entity.Aprovar" name="aprovar" value="1"><i></i><span data-localize="labelSolicitarCorrecao"> Solicitar Correção </span>
+                                                </label>
+                                                <em class="invalid" ng-show="entity.Aprovar == undefined && showValidation"><span data-localize="validacaoInformeSeDesejaAprovar">Informe se deseja aprovar</span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-if="entity.Aprovar == '1'">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelPedidoCorrecao">Pedido de Correção</label>
+                                                <label class="input" ng-class="{'state-error': nocClienteApproverForm.pedidoDeCorrecao.$invalid && showValidation && devolver}">
+                                                    <textarea type="text" ng-model="entity.PedidoCorrecao" data-localize="placePedidoCorrecao" rows="3" name="pedidoDeCorrecao" id="pedidoDeCorrecao" maxlength="2000" required class="form-control"></textarea>
+                                                </label>
+                                                <em class="invalid" ng-show="nocClienteApproverForm.pedidoDeCorrecao.$invalid && showValidation && devolver"><span data-localize="validacaoPedidoCorrecao"></span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-if="entity.Aprovar == '1'">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelDevolverPara">Devolver para</label>
+                                                <label class="label" ng-class="{'state-error': !entity.DevolverPara && showValidation && devolver}">
+                                                    <select ng-model="entity.DevolverPara" name="devolverPara" id="devolverPara" required class="form-control">
+                                                        <option value="" selected="selected" data-localize="optionSelecioneAEtapaParaQualDesejaDevolver">Selecione a etapa para qual deseja devolver</option>
+                                                        <option value="0" data-localize="optionSolicitante">Solicitante</option>
+                                                        <option value="1" data-localize="optionResposta">Resposta</option>
+                                                    </select>
+                                                </label>
+                                                <em class="invalid" ng-show="!entity.DevolverPara && showValidation && devolver"><span data-localize="validacaoEtapaParaQualDesejaDevolver">Informe a etapa para qual deseja devolver</span></em>
+                                            </div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelSeveridade">Severidade</label>
+                                                <label class="label">
+                                                    <select ng-model="entity.Severidade" name="severidade" id="severidade" ng-options="s.Nome for s in severidades track by s.Id" required class="form-control">
+                                                    </select>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelComentarios">Comentários</label>
+                                                <label class="input">
+                                                    <textarea type="text" ng-model="entity.Comentarios" data-localize="placeComentarios" rows="3" name="comentarios" id="comentarios" maxlength="2000" class="form-control"></textarea>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="col-sm-12">
+                                            <ul class="pager wizard no-margin">
+                                                <li class="next finish">
+                                                    <a href="javascript:void(0);" id="salvar" class="btn btn-lg txt-color-darken" ng-click="submit(entity.Aprovar)"><span data-localize="liSalvar">Enviar</span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+</section>

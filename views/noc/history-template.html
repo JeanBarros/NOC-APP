@@ -1,0 +1,131 @@
+﻿<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" style="height: 34px; padding: 0; line-height: 40px; margin-left: 10px;">
+                    <span class="widget-icon" data-localize="labelHistorico"><i class="fa fa-list-alt">Histórico</i></span>
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in padding-10">
+            <div class="panel-body">
+
+                <div ng-repeat="resposta in entity.RespostasDeEvidencias">
+                    <legend>{{ resposta.EhRespostaDaRexam ? 'Resposta da Rexam' : 'Evidências' }}</legend>
+                    <div class="row">
+                        <section class="col col-6">
+                            <label class="label" data-localize="labelResponsavel">Responsável</label>
+                            <div class="input-group">
+                                <label>{{ resposta.NomeResponsavel }} </label>
+                            </div>
+                        </section>
+                        <section class="col col-6">
+                            <label class="label" data-localize="labelDataResposta">Data da Resposta</label>
+                            <label>{{ resposta.DataResposta | date:'dd/MM/yyyy HH:mm:ss' }} </label>
+                        </section>
+                    </div>
+                    <section>
+                        <label class="label" data-localize="labelStatusAprovacao">Status Aprovação</label>
+                        <label>{{ resposta.StatusResposta }} </label>
+                    </section>
+                    <section ng-if="!resposta.EhRespostaDaRexam">
+                        <label class="label" data-localize="labelAcoesCorretivasPreventivas">Ações Corretivas e Preventivas</label>
+                        <label>{{ resposta.AcoesCorretivasPreventivas }} </label>
+                    </section>
+                    <section>
+                        <label class="label" data-localize="labelComentarios">Comentários</label>
+                        <label>{{ resposta.Comentarios }} </label>
+                    </section>
+                    <section>
+                        <div ng-repeat="anexo in resposta.Anexos">
+                            <a target="_blank" href="{{ '/files/' + anexo.NomeArquivo }}" download="{{ anexo.NomeArquivo }}"><span>{{ anexo.NomeArquivo }}</span> </a>
+                        </div>
+                    </section>
+                </div>
+
+                <div ng-if="entity.ParecerComercial">
+                    <legend data-localize="labelParecerComercial">Parecer Comercial</legend>
+                    <div class="row">
+                        <section class="col col-6">
+                            <label class="label" data-localize="labelResponsavel">Responsável </label>
+                            <div class="input-group">
+                                <label>{{ entity.ParecerComercial.Usuario }} </label>
+                            </div>
+                        </section>
+                        <section class="col col-6">
+                            <label class="label" data-localize="labelDataParecer">Data do Parecer </label>
+                            <label>{{ entity.ParecerComercial.Data | date:'dd/MM/yyyy HH:mm:ss' }} </label>
+                        </section>
+                    </div>
+                    <section>
+                        <label class="label" data-localize="labelComentarios">Comentários</label>
+                        <label>{{ entity.ParecerComercial.Comentario }} </label>
+                    </section>
+                </div>
+
+                <!--Historico de Respostas-->
+                <div ng-repeat="resposta in entity.RespostasDoParecerTecnico">
+                    <legend>{{ resposta.EhRespostaDaRexam ? 'Resposta da Rexam' : 'Parecer Técnico' }}</legend>
+                    <div class="row">
+                        <section class="col col-6">
+                            <label class="label" data-localize="labelResponsavel">Responsável</label>
+                            <div class="input-group">
+                                <label>{{ resposta.NomeResponsavel }} </label>
+                            </div>
+                        </section>
+                        <section class="col col-6">
+                            <label class="label" data-localize="labelDataResposta">Data da Resposta</label>
+                            <label>{{ resposta.DataResposta | date:'dd/MM/yyyy HH:mm:ss' }} </label>
+                        </section>
+                    </div>
+                    <section>
+                        <label class="label" data-localize="labelStatusAprovacao">Status Aprovação</label>
+                        <label>{{ resposta.StatusResposta }} </label>
+                    </section>
+                    <div ng-if="!resposta.EhRespostaDaRexam">
+                        <section>
+                            <label class="label" data-localize="labelRMA">RMA</label>
+                            <label>{{ resposta.RMA }} </label>
+                        </section>
+                        <section>
+                            <label class="label" data-localize="labelAcoesCorretivasPreventivas">Ações Corretivas e Preventivas</label>
+                            <label>{{ resposta.AcoesCorretivasPreventivas }} </label>
+                        </section>
+                    </div>
+                    <section>
+                        <label class="label" data-localize="labelComentarios">Comentários</label>
+                        <label>{{ resposta.Comentarios }} </label>
+                    </section>
+                    <section>
+                        <div ng-repeat="anexo in resposta.Anexos">
+                            <a target="_blank" href="{{ '/files/' + anexo.NomeArquivo }}" download="{{ anexo.NomeArquivo }}"><span>{{ anexo.NomeArquivo }}</span> </a>
+                        </div>
+                    </section>
+                </div>
+                <div ng-if="entity.Aceite">
+                    <legend data-localize="labelAceiteFornecedor">Aceite do Fornecedor</legend>
+                    <div class="row">
+                        <section class="col col-6">
+                            <label class="label" data-localize="labelResponsavel">Responsável </label>
+                            <div class="input-group">
+                                <label>{{ entity.Aceite.Usuario }} </label>
+                            </div>
+                        </section>
+                        <section class="col col-6">
+                            <label class="label" data-localize="labelDataAceite">Data de Aceite </label>
+                            <label>{{ entity.Aceite.Data | date:'dd/MM/yyyy HH:mm:ss' }} </label>
+                        </section>
+                    </div>
+                </div>
+
+                <div>
+                    <legend data-localize="labelArquivos">Arquivos</legend>
+                    <div ng-repeat="anexo in entity.ListaAnexos">
+                        <a target="_blank" href="{{ '/files/' + anexo.NomeArquivo }}" download="{{ anexo.NomeArquivo }}"><span>{{ anexo.NomeArquivo }}</span> </a>
+                    </div>
+                    <label class="label">{{ entity.ListaAnexos.length == 0 ? 'Sem arquivos' : ''}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,367 @@
+<script src="js/plugin/fuelux/wizard/wizard.min.js"></script>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i>NOC <span data-localize="labelCadastro">Cadastro </span></h1>
+    </div>
+</div>
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+    <div class="container">
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="well no-padding">
+                    <form id="nocRegistrationForm" name="nocRegistrationForm" class="smart-form client-form" ng-submit="submit()" novalidate>
+                        <header>
+                            <span data-localize="tituloCriacaoNoc">Criação de NOC</span>
+                        </header>
+                        <fieldset>
+                            <section>
+                                <div id="mensagens" class="alert alert-info" style="display: none;">
+                                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                </div>
+                            </section>
+                            <section>
+                                <div id="bootstrap-wizard-1" class="col-sm-12">
+                                    <div class="form-bootstrapWizard">
+                                        <ul class="bootstrapWizard form-wizard">
+                                            <li class="active" data-target="#step1">
+                                                <a href="#tab1" data-toggle="tab"><span class="step">1</span> <span class="title" data-localize="labelInformacoesGerais">Informações Gerais</span> </a>
+                                            </li>
+                                            <li data-target="#step2" class="disabledTab">
+                                                <a href="#tab2" data-toggle="tab"><span class="step">2</span> <span class="title" data-localize="labelTituloDefeito">Defeito</span> </a>
+                                            </li>
+                                            <li data-target="#step3" class="disabledTab">
+                                                <a href="#tab3" data-toggle="tab"><span class="step">3</span> <span class="title" data-localize="labelCalculoReembolsoFinanceiro">Cálculo Reembolso Financeiro</span> </a>
+                                            </li>
+                                            <li data-target="#step4" class="disabledTab">
+                                                <a href="#tab4" data-toggle="tab"><span class="step">4</span> <span class="title" data-localize="labelCriarNOC">Criar NOC</span> </a>
+                                            </li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="tab-content">
+
+                                        <div class="tab-pane active" id="tab1">
+                                            <br>
+                                            <br>
+                                            <h3><span data-localize="labelEtapa1"><strong>Etapa 1</strong></span> - <span data-localize="labelInformacoesGerais">Informações Gerais</span></h3>
+                                            <br>
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="row">
+                                                        <section class="col col-6">
+                                                            <label class="label" data-localize="labelDataRecebimentoMetal">Data de Recebimento do Metal</label>
+                                                            <div class="input-group">
+                                                                <input type="text" data-localize-error="validacaoDataEntrada" ui-date ng-model="entity.DataEntrada" datepicker-popup="dd/MM/yyyy" is-open="exibirDatepickerDataEntrada" id="dataEntrada" name="dataEntrada" datepicker-options="{ showWeeks: false }" show-button-bar="false"
+                                                                    class="form-control" required max-date="entity.DataAbertura">
+                                                                <span class="input-group-addon" ng-click="exibirDatepicker($event, 'exibirDatepickerDataEntrada')"><i class="fa fa-calendar"></i></span>
+                                                            </div>
+                                                        </section>
+                                                        <section class="col col-6">
+                                                            <label class="label" data-localize="labelDataOcorrencia">Data de Ocorrência</label>
+                                                            <div class="input-group">
+                                                                <input type="text" data-localize-error="validacaoDataOcorrencia" ui-date ng-model="entity.DataOcorrencia" datepicker-popup="dd/MM/yyyy" is-open="exibirDatepickerDataOcorrencia" datepicker-options="{ showWeeks: false }" show-button-bar="false" id="dataOcorrencia" name="dataOcorrencia"
+                                                                    min-date="entity.DataEntrada" max-date="entity.DataAbertura" class="form-control" required>
+                                                                <span class="input-group-addon" ng-click="exibirDatepicker($event, 'exibirDatepickerDataOcorrencia')"><i class="fa fa-calendar"></i></span>
+                                                            </div>
+                                                        </section>
+                                                    </div>
+                                                </div>
+                                                <div class="row ">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelPlanta">Planta</label><!--p.Id as p.Nome for p in plantas-->
+                                                        <select ng-model="entity.planta" data-localize-error="validacaoPlanta" name="planta" id="planta" ng-options="p.Nome for p in plantas" required class="form-control">
+                                                            <option value="" selected="selected" data-localize="optionSelecionePlanta">Selecione a planta</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelFornecedor">Fornecedor</label>
+                                                        <select class="form-control" data-localize-error="validacaoFornecedor" ng-model="entity.fornecedor" name="fornecedor" id="fornecedor" ng-options="f.RazaoSocial for f in fornecedores" required disabled>
+                                                            <option value="" selected="selected" data-localize="optionSelecioneFornecedor">Selecione o fornecedor</option>
+                                                        </select>
+                                                        <em class="invalid" ng-show="nocRegistrationForm.classe.$valid && defeitos.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelTipoMetal">Tipo de Metal</label>
+                                                        <select class="form-control" data-localize-error="validacaoTipoMetal" ng-model="entity.tipoMetal" name="tipoMetal" id="tipoMetal" ng-options="t.Codigo for t in tiposMetais" required disabled>
+                                                            <option value="" selected="selected" data-localize="optionSelecioneTipoMetal">Selecione o tipo de metal</option>
+                                                        </select>
+                                                        <em class="invalid" ng-show="nocRegistrationForm.fornecedor.$valid && tiposMetais.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelCausaRaiz">Causa Raiz</label>
+                                                        <select class="form-control" data-localize-error="validacaoCausaRaiz" data-localize-error="validacaoCausaRaiz" ng-model="entity.causaRaiz" name="causaRaiz" id="causaRaiz" ng-options="c.Descricao for c in causas" required disabled
+                                                            ng-change="entity.NomeCausaRaiz = entity.causaRaiz.Descricao">
+                                                            <option value="" selected="selected" data-localize="optionSelecioneCausaRaiz">Selecione a causa raiz</option>
+                                                        </select>
+                                                        <em class="invalid" ng-show="nocRegistrationForm.tipoMetal.$valid && causas.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelCodigoMetal">Código do metal</label>
+                                                        <select class="form-control" data-localize-error="validacaoCodigoMetal" ng-model="entity.codigoMetal" name="codigoMetal" id="codigoMetal" ng-options="c.Codigo + ' - ' + c.Nome for c in materias" required disabled
+                                                            ng-change="entity.NomeMaterial = entity.codigoMetal.Nome">
+                                                            <option value="" selected="selected" data-localize="optionSelecioneCodMetal">Selecione o código do metal</option>
+                                                        </select>
+                                                        <em class="invalid" ng-show="nocRegistrationForm.tipoMetal.$valid && materias.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelNumeroCartaoHFI">Nº do Cartão HFI</label>
+                                                        <input type="text" data-localize-error="validacaoCartaoHFI" data-localize="placeINformeNumHFI" ng-model="entity.NumeroCartaoHFI" name="cartaoHFI" id="cartaoHFI" class="form-control" maxlength="50">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelTipoProblema">Tipo de Problema</label>
+                                                        <select class="form-control" data-localize-error="validacaoTipoProblema" ng-model="entity.tipoProblema" name="tipoProblema" id="tipoProblema" ng-options="t.Descricao for t in tiposProblemas" required
+                                                            ng-change="entity.NomeTipoProblema = entity.tipoProblema.Descricao">
+                                                            <option value="" selected="selected" data-localize="optionSelecioneProblema">Selecione o tipo de problema </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <br>
+                                                <div class="row" id="validacaoCalculos"></div>
+                                            </fieldset>
+                                            <br>
+                                            <br>
+                                        </div>
+
+                                        <div class="tab-pane" id="tab2">
+                                            <br>
+                                            <br>
+                                            <h3><span data-localize="labelEtapa2"><strong>Etapa 2</strong></span> - <span data-localize="labelTituloDefeito">Defeito</span></h3>
+                                            <br>
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelLote">Lote</label>
+                                                        <input type="text" ng-model="entity.Lote" name="lote" id="lote" data-localize-error="validacaoLote" data-localize="placeInformeNumLote" class="form-control" maxlength="50" required>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelDetalhesProblema">Detalhes do Problema</label>
+                                                        <textarea ng-model="entity.DetalhesProblema" name="dcrProblema" id="dcrProblema" data-localize="placeInformeDescricaoProblema" data-localize-error="validacaoDcrProblema" class="form-control" maxlength="50" required></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <div class="form-group">
+                                                            <label class="label" data-localize="labelPesoTotalBobina">Peso Total da Bobina (Kg)</label>
+                                                            <input type="text" ng-model="entity.PesoTotalBobina" name="pesoTotalBobina" id="pesoTotalBobina" data-localize="placeInformePesoTotalBobina" data-localize-error="validacaoPesoTotalBobina" class="form-control" number-decimal3 maxlength="14">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelPesoReclamada">Peso Reclamado (Kg)</label>
+                                                        <input type="text" ng-model="entity.PesoReclamada" name="pesoReclamada" id="pesoReclamada" data-localize="placeInformePesoReclamada" data-localize-error="validacaoPesoReclamada" class="form-control" number-decimal3 maxlength="14">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelQuantidadeAmostrasEnviadasFornecedor">Qtd. Amostras Enviadas ao Fornecedor (meia-lata ou chapas)</label>
+                                                        <input type="text" ng-model="entity.QtdAmostraEnviadaFornecedor" name="qtdAmostraEnviada" id="qtdAmostraEnviada" data-localize="placeInformeQntAmostrasEnviada" data-localize-error="validacaoQtdAmostraEnviada" class="form-control" maxlength="9" numbers-only>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelRetornoIndicadorRetornoVenda">Indicador de Devolução ou Venda</label>
+                                                        <select class="form-control" data-localize-error="validacaoIndicadorDevolucaoVenda" ng-model="entity.IndicadorDevolucaoVenda" name="indicadorDevolucaoVenda" id="indicadorDevolucaoVenda" required>
+                                                            <option value="" selected="selected">Selecione o indicador</option>
+                                                            <option data-localize="optionDevolucao" value="Devolução (metal origem venda direta)">Devolução (Metal origem venda direta)</option>
+                                                            <option data-localize="optionVenda" value="Venda (metal origem sucata)">Venda (Metal origem sucata)</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="row">
+                                                        <section class="col col-6">
+                                                            <label class="label" data-localize="labelGerouDrenoLinha">O defeito gerou dreno de linha?</label>
+                                                            <div class="inline-group">
+                                                                <label class="radio">
+                                                                    <input type="radio" ng-model="entity.FlgGerouDrenoLinha" name="gerouDrenoLinha" value="true" required data-localize-error="validacaoGerouDrenoLinha" ng-click="ValidarRadio($event)"><i></i><span data-localize="labelSim"> Sim </span>
+                                                                </label>
+                                                                <label class="radio">
+                                                                    <input type="radio" ng-model="entity.FlgGerouDrenoLinha" name="gerouDrenoLinha" value="false" required><i></i><span data-localize="labelNao"> Não </span>
+                                                                </label>
+                                                            </div>
+                                                        </section>
+                                                        <section class="col col-6">
+                                                            <label class="label" data-localize="labelQtsLatasTampas">Quantas Latas e/ou Tampas?</label>
+                                                            <input type="text" ng-required="entity.FlgGerouDrenoLinha == 'true'" ng-model="entity.QtdDefeitoDrenoLinha" name="qtdDefeitoDrenoLinha" id="qtdDefeitoDrenoLinha" data-localize="placeInformeLatasTampas" data-localize-error="validacaoQtdDefeitoDrenoLinha" class="form-control" maxlength="9" numbers-only>
+                                                        </section>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="row">
+                                                        <section class="col col-6">
+                                                            <label class="label" data-localize="labelGerouPerdaProducao">O defeito gerou perda de produção?</label>
+                                                            <div class="inline-group">
+                                                                <label class="radio">
+                                                                    <input type="radio" ng-model="entity.FlgGerouPerdaProducao" name="gerouPerdaProducao" value="true" required ng-click="ValidarRadio($event)"><i></i><span data-localize="labelSim" data-localize-error="validacaoGerouPerdaProducao"> Sim </span>
+                                                                </label>
+                                                                <label class="radio">
+                                                                    <input type="radio" ng-model="entity.FlgGerouPerdaProducao" name="gerouPerdaProducao" value="false" required><i></i><span data-localize="labelNao"> Não </span>
+                                                                </label>
+                                                            </div>
+                                                        </section>
+                                                        <section class="col col-6">
+                                                            <label class="label" data-localize="labelQtsLatasTampas">Quantos Latas e/ou Tampas?</label>
+                                                            <input type="text" ng-required="entity.FlgGerouPerdaProducao == 'true'" ng-model="entity.QtdDefeitoPerdaProducao" name="qtdDefeitoPerdaProducao" id="qtdDefeitoPerdaProducao" data-localize="placeInformeLatasTampas" data-localize-error="validacaoQtdDefeitoPerdaProducao" class="form-control" maxlength="9" numbers-only>
+                                                        </section>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelPerdaFerramenta">Houve perda de ferramenta? (APENAS EM CASO DE CRISE E ACORDADO COM O CORPORATIVO)</label>
+                                                        <div class="inline-group">
+                                                            <label class="radio">
+                                                                <input type="radio" ng-model="entity.FlgPerdaFerramenta" name="perdaFerramenta" value="true" required ng-click="ValidarRadio($event)"><i></i><span data-localize="labelSim"> Sim </span>
+                                                            </label>
+                                                            <label class="radio">
+                                                                <input type="radio" ng-model="entity.FlgPerdaFerramenta" data-localize-error="validacaoPerdaFerramenta" name="perdaFerramenta" value="false" required><i></i><span data-localize="labelNao"> Não </span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <div class="col col-3">
+                                                            <label class="label" data-localize="labelValor">Valor</label>
+                                                            <input type="text" ng-required="entity.FlgPerdaFerramenta == 'true'" ng-model="entity.ValorPerdaFerramenta" name="valorPerdaFerramenta" id="valorPerdaFerramenta" data-localize="placeInformeValorPerdaFerramenta" data-localize-error="validacaoValorPerdaFerramenta" class="form-control" maxlength="10" number-decimal>
+                                                        </div>
+                                                        <div class="col col-9">
+                                                            <label class="label" data-localize="labelDetalhesPerdaFerramenta">Detalhar perda ferramental</label>
+                                                            <textarea ng-required="entity.FlgPerdaFerramenta == 'true'" ng-model="entity.DescricaoPerdaFerramenta" name="dcrPerdaFerramenta" id="dcrPerdaFerramenta" data-localize="placeInformeDetalhePerdaFerramenta" data-localize-error="validacaoDcrPerdaFerramenta" rows="3" maxlength="500" class="form-control"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelOutrasPerdasCustos">Houve outras perdas ou outros custos? (APENAS EM CASO DE CRISE E ACORDADO COM O CORPORATIVO)</label>
+                                                        <div class="inline-group">
+                                                            <label class="radio">
+                                                                <input type="radio" ng-model="entity.FlgPerdaOutrosCustos" name="perdaOutrosCustos" value="true" required data-localize-error="validacaoPerdaOutrosCustos" ng-click="ValidarRadio($event)"><i></i><span data-localize="labelSim"> Sim </span>
+                                                            </label>
+                                                            <label class="radio">
+                                                                <input type="radio" ng-model="entity.FlgPerdaOutrosCustos" name="perdaOutrosCustos" value="false" required><i></i><span data-localize="labelNao"> Não </span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <section class="col col-3">
+                                                        <label class="label" data-localize="labelValor">Valor</label>
+                                                        <input type="text" ng-required="entity.FlgPerdaOutrosCustos == 'true'" ng-model="entity.ValorPerdaOutrosCustos" name="valorPerdaOutrosCustos" id="valorPerdaOutrosCustos" data-localize="placeInformeValorPerdaFerramenta" data-localize-error="validacaoValorPerdaOutrosCustos" class="form-control" maxlength="10" number-decimal>
+                                                    </section>
+                                                    <section class="col col-9">
+                                                        <label class="label" data-localize="labelDetalhesOutrasPerdas">Detalhar outras perdas</label>
+                                                        <textarea ng-required="entity.FlgPerdaOutrosCustos == 'true'" ng-model="entity.DescricaoPerdaOutrosCustos" name="dcrPerdaOutrosCustos" id="dcrPerdaOutrosCustos" data-localize="placeInformeDetalhePerdaFerramenta" data-localize-error="validacaoDcrPerdaOutrosCustos" rows="3" maxlength="500" class="form-control"></textarea>
+                                                    </section>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelReteste">Houve reteste?</label>
+                                                        <div class="inline-group">
+                                                            <label class="radio">
+                                                                <input type="radio" ng-model="entity.FlgReteste" name="reteste" value="true" required ng-click="ValidarRadio($event)" data-localize-error="validacaoReteste"><i></i><span data-localize="labelSim"> Sim </span>
+                                                            </label>
+                                                            <label class="radio">
+                                                                <input type="radio" ng-model="entity.FlgReteste" name="reteste" value="false" required><i></i><span data-localize="labelNao"> Não </span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelAcompanhamentoFornecedor">Houve acompanhamento do fornecedor?</label>
+                                                        <div class="inline-group">
+                                                            <label class="radio">
+                                                                <input type="radio" ng-model="entity.FlgAcompanhamentoFornecedor" name="acompanhamentoFornecedor" value="true" data-localize-error="validacaoAcompanhamentoFornecedor" required ng-click="ValidarRadio($event)"><i></i><span data-localize="labelSim"> Sim </span>
+                                                            </label>
+                                                            <label class="radio">
+                                                                <input type="radio" ng-model="entity.FlgAcompanhamentoFornecedor" name="acompanhamentoFornecedor" value="false" required><i></i><span data-localize="labelNao"> Não </span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelComentarioRexam">Comentários Adicionais da Rexam</label>
+                                                        <textarea ng-model="entity.ComentariosRexam" name="comentariosRexam" id="comentariosRexam" data-localize="placeComentariosAdicionais" rows="3" maxlength="500" class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+
+                                            </fieldset>
+                                            <br>
+                                            <br>
+                                        </div>
+
+                                        <div class="tab-pane col col-sm-12" id="tab3">
+                                            <br>
+                                            <br>
+                                            <h3><span data-localize="labelEtapa3"><strong>Etapa 3</strong></span> - <span data-localize="labelCalculoReembolsoFinanceiro">Cálculo do Reembolso Financeiro</span></h3>
+                                            <br>
+                                            <fieldset>
+                                                <div ng-include="'views/noc/calculation-template.html'">
+                                                </div>
+                                            </fieldset>
+                                            <br />
+                                            <br />
+                                        </div>
+
+                                        <div class="tab-pane" id="tab4">
+                                            <br>
+                                            <br>
+                                            <h3><span data-localize="labelEtapa4"><strong>Etapa 4</strong></span> - <span data-localize="labelCriarNOC">Criar NOC</span></h3>
+                                            <br>
+
+                                            <file-upload></file-upload>
+                                            <br>
+                                            <br>
+                                            <div id="mensagem">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                            <ul class="pager wizard no-margin">
+                                                <li class="previous disabled">
+                                                    <a href="javascript:void(0);" class="btn btn-lg btn-default"><span data-localize="liAnterior">Anterior </span></a>
+                                                </li>
+                                                <li class="next">
+                                                    <a href="javascript:void(0);" class="btn btn-lg txt-color-darken" data-localize="liProximo">Próximo</a>
+                                                </li>
+                                                <li class="next finish" style="display: none;">
+                                                    <a href="javascript:void(0);" id="salvarWizard" class="btn btn-lg txt-color-darken" ng-click="submit()"><span data-localize="liSalvar">Enviar</span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+
+</section>
+<!-- end widget grid -->

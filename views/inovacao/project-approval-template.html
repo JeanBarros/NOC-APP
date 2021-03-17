@@ -1,0 +1,33 @@
+﻿<div class="row">
+    <label class="label" data-localize="labelAprovacao">Aprovação</label>
+    <div class="inline-group">
+        <label class="radio" ng-class="{'state-error': inovacaoApprovalForm.aprovar.$invalid && showValidation}">
+            <input type="radio" ng-model="entity.Aprovar" name="aprovar" value="0" required><i></i><span data-localize="labelAprovar"> Aprovar </span>
+        </label>
+        <label class="radio" ng-class="{'state-error': inovacaoApprovalForm.aprovar.$invalid && showValidation}">
+            <input type="radio" ng-model="entity.Aprovar" name="aprovar" value="1" required><i></i><span data-localize="labelReprovar"> Reprovar </span>
+        </label>
+        <label class="radio" ng-class="{'state-error': inovacaoApprovalForm.aprovar.$invalid && showValidation}">
+            <input type="radio" ng-model="entity.Aprovar" name="aprovar" value="2" required><i></i><span data-localize="labelSolicitarCorrecao"> Solicitar Correção </span>
+        </label>
+        <em class="invalid" ng-show="inovacaoApprovalForm.aprovar.$invalid && showValidation"><span data-localize="labelInformeUmaResposta">Informe uma resposta</span></em>
+    </div>
+</div>
+<div class="row" ng-show="entity.Aprovar == 1">
+    <div class="form-group">
+        <label class="label" data-localize="labelJustificativaReprovacao">Justificativa de Reprovação</label>
+        <label class="input" ng-class="{'state-error': inovacaoApprovalForm.justificativaDeReprovacao.$invalid && showValidation}">
+            <input type="text" ng-model="entity.JustificativaDeReprovacao" maxlength="200" data-localize="placeInformeJustificativaDeReprovacao" name="justificativaDeReprovacao" id="justificativaDeReprovacao" ng-required="entity.Aprovar == 1" class="form-control">
+        </label>
+        <em class="invalid" ng-show="inovacaoApprovalForm.justificativaDeReprovacao.$invalid && showValidation"><span data-localize="validacaoInformeJustificativaDeReprovacao"></span></em>
+    </div>
+</div>
+<div class="row" ng-show="entity.Aprovar == 2">
+    <div class="form-group">
+        <label class="label" data-localize="labelMotivoCorrecao">Motivo da Correção</label>
+        <label class="input" ng-class="{'state-error': inovacaoApprovalForm.motivoDaCorrecao.$invalid && showValidation}">
+            <textarea ng-model="entity.MotivoDaCorrecao" data-localize="placeMotivoCorrecao" rows="2" maxlength="200" name="motivoDaCorrecao" id="motivoDaCorrecao" ng-required="entity.Aprovar == 2" class="form-control"></textarea>
+        </label>
+        <em class="invalid" ng-show="inovacaoApprovalForm.motivoDaCorrecao.$invalid && showValidation"><span data-localize="validacaoMotivoCorrecao"></span></em>
+    </div>
+</div>

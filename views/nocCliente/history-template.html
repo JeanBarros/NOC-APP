@@ -1,0 +1,229 @@
+﻿<table class="table table-striped word-break">
+    <tbody>
+        <tr ng-if="entity.IdExterno">
+            <td class="col-sm-6">
+                <label class="control-label"><strong>NOC</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.IdExterno }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.EhInformativa != undefined">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelFerramentaIntermutavel">NOC Informativa?</strong> </label>
+            </td>
+            <td>
+                <label ng-if="entity.EhInformativa" data-localize="labelSim">Sim</label>
+                <label ng-if="!entity.EhInformativa" data-localize="labelNao">Não</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Fabrica.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelFabrica">Fábrica</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Fabrica.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Cliente.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelCliente">Cliente</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Cliente.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Fabrica.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelMoeda">Moeda</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Fabrica.Moeda.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Severidade.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelSeveridade">Severidade</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Severidade.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.ClasseDefeito.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelClasse">Classe</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.ClasseDefeito.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Defeito.Id">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelTituloDefeito">Defeito</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Defeito.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Criticidade">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelTituloCriticidade">Criticidade</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Criticidade }}</label>
+            </td>
+        </tr>
+
+        <tr ng-if="entity.TipoDeDocumento.Nome">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelTipoDeDocumento">Tipo de Documento</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.TipoDeDocumento.Nome }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.NumeroDoDocumento">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelNumeroDoDocumento">Número do documento</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.NumeroDoDocumento }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Fornecedor">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelTransportadora">Transportadora</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Fornecedor.RazaoSocial }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Produto">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelCodigoDoProduto">Código do Produto</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Produto.Descricao }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.DataFabricacao">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelDataFabricacao">Data de Fabricação</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.DataFabricacao | date:'dd/MM/yyyy' }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.HoraFabricacao">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelHoraDeFabricacao">Hora de Fabricação</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.HoraFabricacao }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Turma">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelTurma">Turma</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.Turma }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.PrensaMatrizELote">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelPrensaMatriz">Prensa/Matriz/Lote</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.PrensaMatrizELote }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.NotaFiscal">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelNotaFiscal">Nota Fiscal</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.NotaFiscal }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.DataOcorrencia">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelDataOcorrencia">Data de Ocorrência</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.DataOcorrencia | date:'dd/MM/yyyy' }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.HoraOcorrencia">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelHoraDeOcorrencia">Hora de Ocorrência</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.HoraOcorrencia }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.QuantidadeRetida">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelQuantidadeRetida">Qtde. Retida</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.QuantidadeRetida | decimal }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.UnidadeRetida">
+            <td class="col-sm-6">
+                <label class="control-label"><strong data-localize="labelUnidadeRetida">Unid. Retida</strong>: </label>
+            </td>
+            <td>
+                <label>{{ entity.UnidadeRetida }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.ComentariosDoCliente">
+            <td colspan="2" class="col-sm-12">
+                <label class="control-label"><strong data-localize="labelComentariosDoCliente">Comentários do cliente</strong>: </label>
+                <label>{{ entity.ComentariosDoCliente }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.DadosAtendimentoReclamacao">
+            <td colspan="2" class="col-sm-12">
+                <label class="control-label"><strong data-localize="labelDadosDeAtendimentoReclamação">Dados de atendimento a reclamação</strong>: </label>
+                <label>{{ entity.DadosAtendimentoReclamacao }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.Comentarios">
+            <td colspan="2" class="col-sm-12">
+                <label class="control-label"><strong data-localize="labelComentarios">Comentários do aprovador</strong>: </label>
+                <label>{{ entity.Comentarios }}</label>
+            </td>
+        </tr>
+        <tr ng-if="!entity.Resposta.Rascunho && entity.DataResposta">
+            <td colspan="2" class="col-sm-12">
+                <label class="control-label"><strong data-localize="labelDataResposta">Data da Resposta</strong>: </label>
+                <label>{{ !entity.Resposta.Rascunho ? (entity.DataResposta | date:'dd/MM/yyyy') : '' }}</label>
+            </td>      
+        </tr>
+
+        <tr ng-if="entity.Comentarios">
+            <td colspan="2" class="col-sm-12">
+                <label class="control-label"><strong data-localize="labelComentarios">Comentários do aprovador</strong>: </label>
+                <label>{{ entity.Comentarios }}</label>
+            </td>
+        </tr>
+        <tr ng-if="entity.DataAprovacao">
+            <td colspan="2" class="col-sm-12">
+                <label class="control-label"><strong data-localize="labelDataEncerramento">Data de Encerramento</strong>: </label>
+                <label>{{ entity.DataAprovacao | date:'dd/MM/yyyy'  }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="row" ng-show="entity.ListaAnexos.length > 0">
+                    <label data-localize="labelArquivos">Arquivos</label>
+                    <div ng-repeat="anexo in entity.ListaAnexos">
+                        <a target="_blank" href="{{ '/files/' + anexo.NomeArquivo }}" download="{{ anexo.NomeArquivo }}"><span>{{ anexo.NomeArquivo }}</span> </a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

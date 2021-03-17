@@ -1,0 +1,73 @@
+﻿<div>
+    <legend>Nova Resposta</legend>
+    <div class="row">
+        <section class="col col-6">
+            <label class="label" data-localize="labelResponsavel">Responsável</label>
+
+            <div class="input-group">
+                <label>{{ resposta.NomeResponsavel }} </label>
+            </div>
+        </section>
+        <section class="col col-6">
+            <label class="label" data-localize="labelDataResposta">Data da Resposta</label>
+            <label>{{ resposta.DataResposta | date:'dd/MM/yyyy' }} </label>
+        </section>
+    </div>
+    <div ng-if="entity.EhEtapaDeReembolso">
+        <section>
+            <label class="label" data-localize="labelAplicarReembolso">Aplicar Reembolso</label>
+
+            <div class="inline-group" ng-init="resposta.AplicarReembolso = false">
+                <label class="radio">
+                    <input type="radio" name="reembolso" ng-model="resposta.AplicarReembolso" ng-value="true">
+                    <i></i><span data-localize="labelSim">Sim</span></label>
+                <label class="radio">
+                    <input type="radio" name="reembolso" ng-model="resposta.AplicarReembolso" ng-value="false">
+                    <i></i><span data-localize="labelNao">Não</span></label>
+            </div>
+        </section>
+        <section>
+            <label class="label" data-localize="labelNecessitaEvidencias">Necessita de novas evidências técnicas</label>
+
+            <div class="inline-group" ng-init="resposta.NecessidaDeEvidencias = false">
+                <label class="radio">
+                    <input type="radio" name="evidencias" ng-model="resposta.NecessidaDeEvidencias" ng-value="true">
+                    <i></i><span data-localize="labelSim">Sim</span></label>
+                <label class="radio">
+                    <input type="radio" name="evidencias" ng-model="resposta.NecessidaDeEvidencias" ng-value="false">
+                    <i></i><span data-localize="labelNao">Não</span></label>
+            </div>
+        </section>
+    </div>
+    <section ng-if="!entity.EhEtapaDeReembolso && !entity.EhEtapaDeEvidencias">
+        <label class="label" data-localize="labelStatusAprovacao">Status Aprovação</label>
+        <label class="label" ng-class="{'state-error': nocAceiteForm.respostaWorkflow.$invalid && showValidation}">
+            <select ng-model="resposta.respostaWorkflow" id="respostaWorkflow" name="respostaWorkflow"
+                    ng-options="respostaWorkflow as respostaWorkflow.Texto for respostaWorkflow in resposta.RespostasWorkflow"
+                    required class="form-control">
+                <option value="" selected="selected" data-localize="labelSelecioneStatus">Selecione o Status</option>
+            </select>
+        </label>
+        <em class="invalid" ng-show="nocAceiteForm.respostaWorkflow.$invalid && showValidation"><span
+                data-localize="validacaoStatus"></span></em>
+    </section>
+    <section ng-if="!entity.EhRespostaDaRexam && entity.EhEtapaDeParecerTecnico" ng-class="{'state-error': nocAceiteForm.rma.$invalid && showValidation}">
+        <label class="label" data-localize="labelRMA">RMA</label>
+        <input type="text" data-localize="placeRMA" ng-model="resposta.RMA" name="rma" id="rma" class="form-control"
+               maxlength="50" required>
+        <em class="invalid" ng-show="nocAceiteForm.rma.$invalid  && showValidation">Informar RMA</em>
+    </section>
+    <section ng-if="!entity.EhRespostaDaRexam" ng-class="{'state-error': nocAceiteForm.acoesCorretivasPrev.$invalid && showValidation}">
+        <label class="label" data-localize="labelAcoesCorretivasPreventivas">Ações Corretivas e Preventivas</label>
+        <textarea ng-model="resposta.AcoesCorretivasPreventivas" name="acoesCorretivasPrev" id="acoesCorretivasPrev"
+                  placeholder="Ações Corretivas e Preventivas" rows="3" maxlength="500" class="form-control"
+                  required></textarea>
+        <em class="invalid" ng-show="nocAceiteForm.acoesCorretivasPrev.$invalid  && showValidation">Informar ações corretivas e preventivas</em>
+    </section>
+    <section>
+        <label class="label" data-localize="labelComentarios">Comentários</label>
+        <textarea ng-model="resposta.Comentarios" name="comentarios" id="comentarios" placeholder="Comentários" rows="3"
+                  maxlength="500" class="form-control"></textarea>
+    </section>
+</div>
+

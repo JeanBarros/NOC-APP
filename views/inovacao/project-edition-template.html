@@ -1,0 +1,486 @@
+﻿<form id="inovacaoRegistrationForm" name="inovacaoRegistrationForm" class="smart-form client-form" ng-submit="submit()" novalidate>
+    <div id="bootstrap-wizard-1" class="col-sm-12">
+        <div class="form-bootstrapWizard" id="myWizard">
+            <ul class="bootstrapWizard form-wizard">
+                <li class="active" data-target="#step1">
+                    <a href="#tab1" id="htab1" data-toggle="tab"><span class="step">1</span> <span class="title" data-localize="labelInformacoesGerais">Informações Gerais</span> </a>
+                </li>
+                <li data-target="#step2" class="disabledTab">
+                    <a href="#tab2" id="htab2" data-toggle="tab"><span class="step">2</span> <span class="title" data-localize="labelDescricaoDoProjeto">Descrição do projeto</span> </a>
+                </li>
+                <li data-target="#step3" class="disabledTab">
+                    <a href="#tab3" id="htab3" data-toggle="tab"><span class="step">3</span> <span class="title" data-localize="labelCategorizacao">Categorização</span> </a>
+                </li>
+                <li data-target="#step4" class="disabledTab">
+                    <a href="#tab4" id="htab4" data-toggle="tab"><span class="step">4</span> <span class="title" data-localize="labelGanhosObtidos">Ganhos Obtidos</span> </a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="tab-content">
+
+            <div class="tab-pane active" id="tab1">
+                <br>
+                <br>
+                <h3><span data-localize="labelEtapa1"><strong>Etapa 1</strong></span> - <span data-localize="labelInformacoesGerais">Informações Gerais</span></h3>
+                <br>
+                <fieldset>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelUnidadeDoProjeto">Unidade do Projeto</label>
+                            <label class="label" ng-class="{'state-error': inovacaoRegistrationForm.unidadeDoProjeto.$invalid && showValidation}">
+                                <select ng-model="entity.UnidadeDoProjeto" name="unidadeDoProjeto" id="unidadeDoProjeto" ng-options="u.Nome for u in unidades track by u.Id" required class="form-control">
+                                    <option value="" selected="selected" data-localize="placeUnidadeDoProjeto">Selecione a unidade do projeto</option>
+                                </select>
+                            </label>
+                            <em class="invalid" ng-show="inovacaoRegistrationForm.unidadeDoProjeto.$invalid && showValidation"><span data-localize="validacaonidadeDoProjeto"></span></em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelNomeDoProjeto">Nome do projeto</label>
+                            <label class="input" ng-class="{'state-error': inovacaoRegistrationForm.nomeDoProjeto.$invalid && showValidation}">
+                                <textarea ng-model="entity.NomeDoProjeto" maxlength="200" rows="2" data-localize="placeNomeDoProjeto" name="nomeDoProjeto" id="nomeDoProjeto" required class="form-control"></textarea>
+                            </label>
+                            <em class="invalid" ng-show="inovacaoRegistrationForm.nomeDoProjeto.$invalid && showValidation"><span data-localize="validacaoNomeDoProjeto"></span></em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelEquipeDoProjeto">Equipe do Projeto</label>
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-xm" id="btn-equipe" data-toggle="modal" data-target="#cadEquipe" ng-click="atualizarEquipe()" data-localize="buttonIncluirMembro">
+                                    Incluir Membro da Equipe
+                                </button>
+                            </div>
+                        </div>
+                        <section class="table-responsive" ng-show="entity.EquipeDoProjeto.length">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th data-localize="labelUnidadeDoParticipante">Unidade do Participante</th>
+                                        <th data-localize="labelParticipante">Participante</th>
+                                        <th data-localize="labelMatricula">Matrícula</th>
+                                        <th data-localize="labelDepartamento">Departamento</th>
+                                        <th data-localize="labelCargo">Cargo</th>
+                                        <th data-localize="labelTurma">Turma</th>
+                                        <th data-localize="labelLider">Líder</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="e in entity.EquipeDoProjeto.slice(0) track by $index">
+                                        <td><span class="remove" ng-click="removeMembro($index)"><i class="fa fa-trash-o fa-lg"></i></span></td>
+                                        <td>{{ e.NomeUnidadeDoParticipante }}</td>
+                                        <td>{{ e.NomeParticipante }}</td>
+                                        <td>{{ e.Matricula }}</td>
+                                        <td>{{ e.Departamento }}</td>
+                                        <td>{{ e.Cargo }}</td>
+                                        <td>{{ e.NomeDaTurma }}</td>
+                                        <td>
+                                            <label class="radio" ng-class="{'state-error': entity.LiderDoProjeto === undefined && showValidation}">
+                                                <input type="radio" ng-model="entity.LiderDoProjeto" name="liderDoProjeto" ng-value="$index"><i></i>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <em class="invalid" ng-show="entity.LiderDoProjeto === undefined && showValidation"><span data-localize="labelInformarLiderDoProjeto">Informar o líder do Projeto.</span></em>
+                        </section>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelEmailParaNotificacoes">E-mail para Notificações</label>
+                            <label class="input" ng-class="{'state-error': inovacaoRegistrationForm.emailParaNotificacoes.$invalid && showValidation}">
+                                <textarea ng-model="entity.EmailParaNotificacao" form="inovacaoRegistrationForm" rows="2" maxlength="200" data-localize="placeEmailParaNotificacoes" name="emailParaNotificacoes" id="emailParaNotificacoes" required class="form-control"></textarea>
+                            </label>
+                            <em class="invalid" ng-show="inovacaoRegistrationForm.emailParaNotificacoes.$invalid && showValidation"><span data-localize="validacaoEmailParaNotificacoes"></span></em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelSupervisorResponsavel">Gestor Responsável</label>
+                            <label class="label" ng-class="{'state-error': inovacaoRegistrationForm.supervisorResponsavel.$invalid && showValidation}">
+                                <select ng-model="entity.SupervisorResponsavel" name="supervisorResponsavel" id="supervisorResponsavel" ng-options="s.Login for s in supervisores track by s.Id" required class="form-control">
+                                    <option value="" selected="selected" data-localize="optionSupervisorResponsavel">Indique o melhor Gestor para avaliar este projeto</option>
+                                </select>
+                            </label>
+                            <em class="invalid" ng-show="inovacaoRegistrationForm.supervisorResponsavel.$invalid && showValidation"><span data-localize="validacaoSupervisorResponsavel"></span></em>
+                            <em class="invalid" ng-show="inovacaoRegistrationForm.tipoMaterial.$valid && supervisores.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="label" data-localize="labelEsteProjetoEstaSendoImportadoDeOutraUnidade">Este projeto está sendo importado de outra unidade?</label>
+                        <div class="inline-group">
+                            <label class="radio" ng-class="{'state-error': inovacaoRegistrationForm.projetoImportado.$invalid && showValidation}">
+                                <input type="radio" ng-model="entity.ProjetoImportadoDeOutraUnidade" name="projetoImportado" ng-value="true" required><i></i><span data-localize="labelSim"> Sim </span>
+                            </label>
+                            <label class="radio" ng-class="{'state-error': inovacaoRegistrationForm.projetoImportado.$invalid && showValidation}">
+                                <input type="radio" ng-model="entity.ProjetoImportadoDeOutraUnidade" name="projetoImportado" ng-value="false" required><i></i><span data-localize="labelNao"> Não </span>
+                            </label>
+                            <em class="invalid" ng-show="inovacaoRegistrationForm.projetoImportado.$invalid && showValidation"><span data-localize="validacaoEsteProjetoEstaSendoImportadoDeOutraUnidade"></span></em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelProjetoDesenvolvidoNaUnidade">Projeto Desenvolvido na Unidade</label>
+                            <label class="label" ng-class="{'state-error': inovacaoRegistrationForm.unidadeDoProjetoReplicado.$invalid && showValidation}">
+                                <select ng-model="entity.UnidadeDoProjetoReplicado" name="unidadeDoProjetoReplicado" id="unidadeDoProjetoReplicado" ng-options="u.Nome for u in unidades track by u.Id" ng-required="entity.ProjetoImportadoDeOutraUnidade" disabled class="form-control">
+                                    <option value="" selected="selected" data-localize="optionUnidadeOndeProjetoFoiDesenvolvido">Selecione a unidade onde o projeto foi desenvolvido</option>
+                                </select>
+                            </label>
+                            <em class="invalid" ng-show="inovacaoRegistrationForm.unidadeDoProjetoReplicado.$invalid && showValidation"><span data-localize="validacaUnidadeOndeProjetoFoiDesenvolvido"></span></em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelProjeto">Projeto</label>
+                            <label class="label" ng-class="{'state-error': inovacaoRegistrationForm.projetoReplicado.$invalid && showValidation}">
+                                <select ng-model="entity.ProjetoReplicado" name="projetoReplicado" id="projetoReplicado" ng-options="p.Nome for p in projetos track by p.Id" ng-required="entity.ProjetoImportadoDeOutraUnidade" disabled class="form-control">
+                                    <option value="" selected="selected" data-localize="optionProjeto">Selecione o projeto</option>
+                                </select>
+                            </label>
+                            <em class="invalid" ng-show="inovacaoRegistrationForm.projetoReplicado.$invalid && showValidation"><span data-localize="validacaoProjeto"></span></em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" ng-class="{'state-error': inovacaoRegistrationForm.dataDeImplantacaoDoProjeto.$invalid && showValidation}" data-localize="labelDataimplantacaoDoProjeto">Data de Implantação do Projeto</label>
+                            <div class="input-group">
+                                <input type="text" ui-date ng-model="entity.DataDeImplementacaoDoProjeto" datepicker-popup="dd/MM/yyyy" is-open="exibirDatepickerInovacao" datepicker-options="{ showWeeks: false }" show-button-bar="false" id="dataDeImplantacaoDoProjeto" name="dataDeImplantacaoDoProjeto"
+                                    class="form-control" ng-required="entity.ProjetoImportadoDeOutraUnidade" disabled max-date="entity.Hoje">
+                                <span class="input-group-addon" ng-click="exibirDatepicker($event)"><i class="fa fa-calendar"></i></span>
+                            </div>
+                            <em class="invalid" ng-show="inovacaoRegistrationForm.dataDeImplantacaoDoProjeto.$invalid && showValidation"><span data-localize="validacaoDataimplantacaoDoProjeto"></span></em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelInvestimentoDoProjeto">Investimento do Projeto (em Reais)</label>
+                            <label class="input" ng-class="{'state-error': inovacaoRegistrationForm.investimentoDoProjeto.$invalid && showValidation}">
+                                <input type="text" ng-model="entity.InvestimentoDoProjeto" maxlength="20" data-localize="placeInvestimentoDoProjeto" name="investimentoDoProjeto" id="investimentoDoProjeto" required number-decimal class="form-control">
+                            </label>
+                            <em class="invalid" ng-show="inovacaoRegistrationForm.investimentoDoProjeto.$invalid && showValidation"><span data-localize="validacaoInvestimentoDoProjeto"></span></em>
+                        </div>
+                    </div>
+                </fieldset>
+                <br>
+                <br>
+            </div>
+
+            <div class="tab-pane" id="tab2">
+                <br>
+                <br>
+                <h3><span data-localize="labelEtapa2"><strong>Etapa 2</strong></span> - <span data-localize="labelDescricaoDoProjeto">Descrição do projeto</span></h3>
+                <br>
+                <fieldset>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelDefinicaoDoProblema">Definição do Problema</label>
+                            <label class="input" ng-class="{'state-error': inovacaoRegistrationForm.definicaoDoProblema.$invalid && showValidation}">
+                                <textarea ng-model="entity.DefinicaoDoProblema" data-localize="placeDefinicaoDoProblema" name="definicaoDoProblema" id="definicaoDoProblema" rows="10" required class="form-control" maxlength="4000"></textarea>
+                            </label>
+                            <em class="invalid" ng-show="inovacaoRegistrationForm.definicaoDoProblema.$invalid && showValidation"><span data-localize="validacaoDefinicaoDoProblema"></span></em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelAnaliseDoProblemaESuasCausas">Análise do problema e suas causas</label>
+                            <label class="input" ng-class="{'state-error': inovacaoRegistrationForm.analiseDoProblema.$invalid && showValidation}">
+                                <textarea ng-model="entity.AnaliseDoProblemaECausa" data-localize="placeAnaliseDoProblemaESuasCausas" name="analiseDoProblema" id="analiseDoProblema" rows="10" required class="form-control" maxlength="4000"></textarea>
+                            </label>
+                            <em class="invalid" ng-show="inovacaoRegistrationForm.analiseDoProblema.$invalid && showValidation"><span data-localize="validacaoAnaliseDoProblemaESuasCausas"></span></em>
+                        </div>
+                    </div>
+
+                    <file-upload tipodocumento="'DescricaoProjeto'"></file-upload>
+                    <div ng-show="entity.ListaAnexos.length">
+                        <div ng-repeat="anexo in entity.ListaAnexos.slice(0) track by $index">
+                            <div ng-if="anexo.DcrTipoDocumento == 'DescricaoProjeto'">
+                                <span><a target="_blank" href="{{ '/files/' + anexo.NomeArquivo }}" download="{{ anexo.NomeArquivo }}"><span>{{ anexo.NomeArquivo }}</span> </a></span><span class="remove" ng-click="removeArquivo($index)"><i class="fa fa-trash-o fa-lg"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <br>
+                <br>
+            </div>
+
+            <div class="tab-pane col col-sm-12" id="tab3">
+                <br>
+                <br>
+                <h3><span data-localize="labelEtapa3"><strong>Etapa 3</strong></span> - <span data-localize="labelCategorizacao">Categorização</span></h3>
+                <br>
+                <fieldset>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelSolucoesImplementadas">Soluções Implementadas</label>
+                            <label class="input" ng-class="{'state-error': inovacaoRegistrationForm.solucoesImplementadas.$invalid && showValidation}">
+                                <textarea ng-model="entity.SolucaoImplementada" data-localize="placeSolucoesImplementadas" name="solucoesImplementadas" id="solucoesImplementadas" rows="3" required class="form-control" maxlength="4000"></textarea>
+                            </label>
+                            <em class="invalid" ng-show="inovacaoRegistrationForm.solucoesImplementadas.$invalid && showValidation"><span data-localize="validacaoSolucoesImplementadas"></span></em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelTipodeProjeto">Tipo de Projeto</label>
+                            <label class="label" ng-class="{'state-error': inovacaoRegistrationForm.tipoDeProjeto.$invalid && showValidation}">
+                                <select ng-model="entity.TipoDeProjeto" name="tipoDeProjeto" id="tipoDeProjeto" required class="form-control">
+                                    <option value="" selected="selected" data-localize="optionSelecioneTipoDeProjeto">Selecione o tipo de projeto</option>
+                                    <option value="0" selected="selected" data-localize="optionMelhoria">Melhoria</option>
+                                    <option value="1" selected="selected" data-localize="optionInovacao">Inovação</option>
+                                </select>
+                            </label>
+                            <em class="invalid" ng-show="inovacaoRegistrationForm.tipoDeProjeto.$invalid && showValidation"><span data-localize="validacaoTipodeProjeto"></span></em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group word-break">
+                            <label class="label" data-localize="labelCategoria">Categoria</label>
+                            <label class="label">
+                                <label class="radio" ng-repeat="c in categorias track by c.Id" ng-class="{'state-error': !inovacaoRegistrationForm.categoria.$modelValue && showValidation}">
+                                    <input type="radio" name="categoria" ng-model="entity.CategoriaId" ng-value="c.Id" required /><i></i>{{ c.Nome + ' - ' + c.Descricao }} 
+                                </label>
+                            </label>
+                            <em class="invalid" ng-show="!inovacaoRegistrationForm.categoria.$modelValue && showValidation"><span data-localize="validacaoInformeCategoria">Informe a categoria</span></em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="label" data-localize="labelAtuaSobreGargalo">Atua Sobre o Gargalo</label>
+                        <div class="inline-group">
+                            <label class="radio" ng-class="{'state-error': inovacaoRegistrationForm.atuaSobreOGargalo.$invalid  && showValidation}">
+                                <input type="radio" ng-model="entity.AtuaSobreGargalo" name="atuaSobreOGargalo" ng-value="true" required><i></i><span data-localize="labelSim"> Sim </span>
+                            </label>
+                            <label class="radio" ng-class="{'state-error': inovacaoRegistrationForm.atuaSobreOGargalo.$invalid && showValidation}">
+                                <input type="radio" ng-model="entity.AtuaSobreGargalo" name="atuaSobreOGargalo" ng-value="false" required><i></i><span data-localize="labelNao"> Não </span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row">
+                            <section class="col col-6">
+                                <label class="label" data-localize="labelHouveRiscosEliminadosPeloPeojeto">Houve Riscos Eliminados Pelo Projeto?</label>
+                                <div class="inline-group">
+                                    <label class="radio" ng-class="{'state-error': inovacaoRegistrationForm.houveRiscosEliminadosPeloProjeto.$invalid && showValidation}">
+                                        <input type="radio" ng-model="entity.HouveRiscoEliminadoPeloProjeto" name="houveRiscosEliminadosPeloProjeto" ng-value="true" required><i></i><span data-localize="labelSim"> Sim </span>
+                                    </label>
+                                    <label class="radio" ng-class="{'state-error': inovacaoRegistrationForm.houveRiscosEliminadosPeloProjeto.$invalid && showValidation}">
+                                        <input type="radio" ng-model="entity.HouveRiscoEliminadoPeloProjeto" name="houveRiscosEliminadosPeloProjeto" ng-value="false" required><i></i><span data-localize="labelNao"> Não </span>
+                                    </label>
+                                </div>
+                            </section>
+                            <section class="col col-6">
+                                <label class="label" data-localize="labelQual">Qual?</label>
+                                <label class="input" ng-class="{'state-error': inovacaoRegistrationForm.qualRiscoFoiEliminado.$invalid && showValidation}">
+                                    <textarea ng-model="entity.DescricaoDoRiscoEliminado" data-localize="placeQual" rows="4" name="qualRiscoFoiEliminado" id="qualRiscoFoiEliminado" ng-required="entity.HouveRiscoEliminadoPeloProjeto" disabled class="form-control" maxlength="4000"></textarea>
+                                </label>
+                                <em class="invalid" ng-show="inovacaoRegistrationForm.qualRiscoFoiEliminado.$invalid && showValidation"><span data-localize="validacaoQual"></span></em>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row word-break">
+                            <section class="col col-6">
+                                <label class="label" data-localize="labelSeuProjetoEstaVinculadoPerdaDeLatasTampas">Seu Projeto está Vinculado a Perda de Latas/Tampas?</label>
+                                <div class="form-group">
+                                    <label class="radio" ng-class="{'state-error': inovacaoRegistrationForm.projetoEstaVinculadoAPerdaDeLata.$invalid && showValidation}">
+                                        <input type="radio" ng-model="entity.ProjetoVinculadoAPerdaDeLatas" name="projetoEstaVinculadoAPerdaDeLata" ng-value="true" required><i></i><span data-localize="labelSim"> Sim </span>
+                                    </label>
+                                    <label class="radio" ng-class="{'state-error': inovacaoRegistrationForm.projetoEstaVinculadoAPerdaDeLata.$invalid && showValidation}">
+                                        <input type="radio" ng-model="entity.ProjetoVinculadoAPerdaDeLatas" name="projetoEstaVinculadoAPerdaDeLata" ng-value="false" required><i></i><span data-localize="labelNao"> Não </span>
+                                    </label>
+                                </div>
+                            </section>
+                            <section class="col col-6">
+                                <div class="row">
+                                    <label class="label" data-localize="labelAntesDaInovacao">Antes da Inovação (latas/tampas por minuto)</label>
+                                    <label class="input" ng-class="{'state-error': inovacaoRegistrationForm.antesDaInovacao.$invalid && showValidation}">
+                                        <input type="text" ng-model="entity.LatasPerdidasPorMinutoAntes " maxlength="9" data-localize="placeAntesDaInovacao" numbers-only-formatted  name="antesDaInovacao" id="antesDaInovacao" ng-required="entity.ProjetoVinculadoAPerdaDeLatas" disabled class="form-control">
+                                    </label>
+                                    <em class="invalid" ng-show="inovacaoRegistrationForm.antesDaInovacao.$invalid && showValidation"><span data-localize="validacaoPerdaAntesDaInovacao"></span></em>
+                                </div>
+                                <div class="row">
+                                    <label class="label" data-localize="labelDepoisDaInovacao">Depois da Inovação (latas/tampas por minuto)</label>
+                                    <label class="input" ng-class="{'state-error': inovacaoRegistrationForm.depoisDaInovacao.$invalid && showValidation}">
+                                        <input type="text" ng-model="entity.LatasPerdidasPorMinutoDepois" maxlength="9" data-localize="placeDepoisDaInovacao" numbers-only-formatted  name="depoisDaInovacao" id="depoisDaInovacao" ng-required="entity.ProjetoVinculadoAPerdaDeLatas" disabled class="form-control">
+                                    </label>
+                                    <em class="invalid" ng-show="inovacaoRegistrationForm.depoisDaInovacao.$invalid && showValidation"><span data-localize="validacaoPerdaDepoisDaInovacao"></span></em>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <file-upload tipodocumento="'Categorizacao'"></file-upload>
+                    <div ng-show="entity.ListaAnexos.length">
+                        <div ng-repeat="anexo in entity.ListaAnexos.slice(0) track by $index">
+                            <div ng-if="anexo.DcrTipoDocumento == 'Categorizacao'">
+                                <span><a target="_blank" href="{{ '/files/' + anexo.NomeArquivo }}" download="{{ anexo.NomeArquivo }}"><span>{{ anexo.NomeArquivo }}</span> </a></span><span class="remove" ng-click="removeArquivo($index)"><i class="fa fa-trash-o fa-lg"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="tab-pane" id="tab4">
+                <br>
+                <br>
+                <h3><span data-localize="labelEtapa4"><strong>Etapa 4</strong></span> - <span data-localize="labelGanhosObtidos">Ganhos Obtidos</span></h3>
+                <br>
+                <fieldset>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelGanhosNaoMensurados">Resultados alcançados</label>
+                            <label class="input" ng-class="{'state-error': inovacaoRegistrationForm.ganhosNaoMensurados.$invalid && showValidation}">
+                                <textarea ng-model="entity.GanhosNaoMensurados" data-localize="placeGanhosNaoMensurados" name="ganhosNaoMensurados" id="ganhosNaoMensurados" rows="4" required class="form-control" maxlength="4000"></textarea>
+                            </label>
+                            <em class="invalid" ng-show="inovacaoRegistrationForm.ganhosNaoMensurados.$invalid && showValidation"><span data-localize="validacaoGanhosNaoMensurados"></span></em>
+                        </div>
+                    </div>
+                    <div class="row" ng-show="entity.ProjetoVinculadoAPerdaDeLatas != undefined && !entity.ProjetoVinculadoAPerdaDeLatas">
+                        <div class="form-group">
+                            <label class="label" data-localize="labelOutrasEconomiasMensais">Saving mensal gerado (em Reais, não vinculado a perda de latas ou tampas)</label>
+                            <label class="input" ng-class="{'state-error': inovacaoRegistrationForm.outrasEconomias.$invalid && showValidation}">
+                                <input type="text" ng-model="entity.OutrasEconomias" data-localize="placeOutrasEconomiasMensais" name="outrasEconomias" id="outrasEconomias" ng-required="entity.ProjetoVinculadoAPerdaDeLatas != undefined &&!entity.ProjetoVinculadoAPerdaDeLatas" number-decimal class="form-control" maxlength="13">
+                            </label>
+                            <em class="invalid" ng-show="inovacaoRegistrationForm.outrasEconomias.$invalid && showValidation"><span data-localize="validacaoOutrasEconomiasMensais"></span></em>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <label class="label" data-localize="labelGanhosMensurados">Ganhos mensurados</label>
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <td class="col-sm-6">
+                                    <label class="control-label" data-localize="labelUnidadesPerdidasPorMesAntesDaInovacao"><strong>Unidades perdidas por mês (antes da inovação)</strong>:</label>
+                                </td>
+                                <td class="valorCalculo">
+                                    <label>{{ entity.UnidadesPerdidasPorMesAntesDaInovacao | decimal:0 }} </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-6">
+                                    <label class="control-label" data-localize="labelUnidadesPerdidasPorMesDepoisDaInovacao"><strong>Unidades perdidas por mês (depois da inovação)</strong>:</label>
+                                </td>
+                                <td class="valorCalculo">
+                                    <label>{{ entity.UnidadesPerdidasPorMesDepoisDaInovacao | decimal:0 }} </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-6">
+                                    <label class="control-label" data-localize="labelUnidadesPerdidasPorAnoAntesDaInovacao"><strong>Unidades perdidas por ano (antes da inovação)</strong>:</label>
+                                </td>
+                                <td class="valorCalculo">
+                                    <label>{{ entity.UnidadesPerdidasPorAnoAntesDaInovacao | decimal:0 }} </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-6">
+                                    <label class="control-label" data-localize="labelUnidadesPerdidasPorAnoDepoisDaInovacao"><strong>Unidades perdidas por ano (depois da inovação)</strong>:</label>
+                                </td>
+                                <td class="valorCalculo">
+                                    <label>{{ entity.UnidadesPerdidasPorAnoDepoisDaInovacao | decimal:0 }} </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-6">
+                                    <label class="control-label" data-localize="labelDesperdicioMesAntesDaInovacao"><strong>Desperdício mês (US$, antes da inovação)</strong>:</label>
+                                </td>
+                                <td class="valorCalculo">
+                                    <label>{{ entity.DesperdicioMesAntesDaInovacao | decimal }} </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-6">
+                                    <label class="control-label" data-localize="labelDesperdicioMesDepoisDaInovacao"><strong>Desperdício mês (US$, depois da inovação)</strong>:</label>
+                                </td>
+                                <td class="valorCalculo">
+                                    <label>{{ entity.DesperdicioMesDepoisDaInovacao | decimal }} </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-6">
+                                    <label class="control-label" data-localize="labelDesperdicioAnoAntesDaInovacao"><strong>Desperdício ano (US$, antes da inovação)</strong>:</label>
+                                </td>
+                                <td class="valorCalculo">
+                                    <label>{{ entity.DesperdicioAnoAntesDaInovacao | decimal }} </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-6">
+                                    <label class="control-label" data-localize="labelDesperdicioAnoDepoisDaInovacao"><strong>Desperdício ano (US$, depois da inovação)</strong>:</label>
+                                </td>
+                                <td class="valorCalculo">
+                                    <label>{{ entity.DesperdicioAnoDepoisDaInovacao | decimal }} </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-6">
+                                    <label class="control-label" data-localize="labelOutrasEconomiasMensais"><strong>Saving mensal gerado (em Reais, não vinculado a perda de latas ou tampas)</strong>:</label>
+                                </td>
+                                <td class="valorCalculo">
+                                    <label>{{ entity.OutrasEconomias | decimal }} </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-6">
+                                    <label class="control-label" data-localize="labelEconomiaGeradaPorMes"><strong>Economia gerada por mês (US$)</strong>:</label>
+                                </td>
+                                <td class="valorCalculo">
+                                    <label>{{ entity.EconomiaGeradaPorMes | decimal }} </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-6">
+                                    <label class="control-label" data-localize="labelEconomiaGeradaPorAno"><strong>Economia gerada por ano (US$)</strong>:</label>
+                                </td>
+                                <td class="valorCalculo">
+                                    <label>{{ entity.EconomiaGeradaPorAno | decimal }} </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-6">
+                                    <label class="control-label" data-localize="labelInvestimentoDoProjeto"><strong>Investimento do Projeto (em Reais)</strong>:</label>
+                                </td>
+                                <td class="valorCalculo">
+                                    <label>{{ entity.InvestimentoDoProjeto | decimal }} </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-6">
+                                    <label class="control-label" data-localize="labelCPM"><strong>CPM</strong>:</label>
+                                </td>
+                                <td class="valorCalculo">
+                                    <label>{{ entity.CPM | decimal }} </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-sm-6">
+                                    <label class="control-label" data-localize="labelTotalDeCreditos"><strong>Total de Créditos</strong>:</label>
+                                </td>
+                                <td class="valorCalculo">
+                                    <label>{{ entity.TotalDeCreditos | decimal:0 }} </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+                <br>
+                <br>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <ul class="pager wizard no-margin">
+                <li class="previous disabled">
+                    <a href="javascript:void(0);" class="btn btn-lg btn-default"><span data-localize="liAnterior">Anterior </span></a>
+                </li>
+                <li class="next">
+                    <a href="javascript:void(0);" class="btn btn-lg txt-color-darken" data-localize="liProximo">Próximo</a>
+                </li>
+                <li class="next finish" style="display: none;">
+                    <a href="javascript:void(0);" id="salvarWizard" class="btn btn-lg txt-color-darken" ng-click="submit()"><span data-localize="liSalvar">Enviar</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</form>

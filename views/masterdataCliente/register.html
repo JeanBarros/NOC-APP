@@ -1,0 +1,578 @@
+<style type="text/css">
+    .smart-form fieldset {
+        padding-top: 0px !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i>Masterdata - <span data-localize="tituloCadastroCLiente">Cadastro de Cliente</span>
+        </h1>
+    </div>
+</div>
+
+<!-- widget grid -->
+<section id="widget-grid" class="">
+    <div class="container">
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="well no-padding">
+                    <form id="masterdataClientRegistrationForm" name="masterdataClientRegistrationForm" class="smart-form client-form" ng-submit="submit()" novalidate>
+                        <header>
+                            <span data-localize="tituloCadastroCLiente">Cadastro de Cliente</span>
+                        </header>
+                        <fieldset>
+                            <section>
+                                <div class="row" ng-if="entity.Id">
+                                    <div class="alert adjusted alert-info fade in" style="margin: 10px;">
+                                        <span>
+                                            <i class="fa-fw fa-lg fa fa-info"></i>
+                                            <label data-localize="labelPedidoCorrecao" style="font-weight: bold;">Pedido de Correção</label>
+                                        </span>
+                                        <br />
+                                        <span>{{entity.PedidoCorrecao}}</span>
+                                    </div>
+                                </div>
+                            </section>
+                            <section>
+                                <div id="bootstrap-wizard-1" class="col-sm-12">
+                                    <div class="form-bootstrapWizard" id="myWizard">
+                                        <ul class="bootstrapWizard form-wizard" style="padding: 0 25%;">
+                                            <li class="active" data-target="#step1">
+                                                <a href="#tab1" id="htab1" data-toggle="tab"><span class="step">1</span> <span class="title" data-localize="liCliente">Cliente</span> </a>
+                                            </li>
+                                            <li data-target="#step2" class="disabledTab">
+                                                <a href="#tab2" id="htab2" data-toggle="tab"><span class="step">2</span> <span class="title" data-localize="liRexam">Rexam</span> </a>
+                                            </li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tab1">
+                                            <br>
+                                            <br>
+                                            <h3><span data-localize="labelEtapa1"><strong>Etapa 1</strong></span> - <span data-localize="labelInformacoesGerais">Informações Gerais</span></h3>
+                                            <br>
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelTipoDePessoa">Tipo de Pessoa</label>
+                                                        <div class="inline-group">
+                                                            <label class="radio">
+                                                                <input type="radio" ng-model="entity.TipoDePessoa" name="tipoDePessoa" value="F" ng-change="SetMascaraCodigoFiscal()"><i></i><span data-localize="labelFisica"> Física </span>
+                                                            </label>
+                                                            <label class="radio">
+                                                                <input type="radio" ng-model="entity.TipoDePessoa" name="tipoDePessoa" value="J" ng-change="SetMascaraCodigoFiscal()"><i></i><span data-localize="labelJuridica"> Jurídica </span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelPaisDoCliente">País do Cliente</label>
+                                                        <label class="label" ng-class="{'state-error': masterdataClientRegistrationForm.paisDoCliente.$invalid && showValidation}">
+                                                            <select ng-model="entity.PaisDoCliente" name="paisDoCliente" id="paisDoCliente" ng-options="p.Nome for p in paises track by p.Id" required class="form-control" ng-change="paisDoClienteChange()">
+                                                                <option value="" selected="selected" data-localize="optionSelecionePaisCliente">Selecione o país do cliente</option>
+                                                            </select>
+                                                        </label>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.paisDoCliente.$invalid && showValidation"><span data-localize="validacaoPaisDoCliente"></span></em>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelCodigoFiscal">Código Fiscal</label>
+                                                        <label class="input" ng-class="{'state-error': (masterdataClientRegistrationForm.codigoFiscal.$invalid && showValidation) || (masterdataClientRegistrationForm.codigoFiscal.$valid && cpf_cnpj_invalido) }">
+                                                            <input type="text" ng-model="entity.CodigoFiscal" data-localize="placeCodigoFiscal" name="codigoFiscal" id="codigoFiscal" required maxlength="20" class="form-control" disabled ng-blur="ValidarCpfCnpf($event)">
+                                                        </label>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.codigoFiscal.$invalid && showValidation"><span data-localize="validacaoCodigoFiscal"></span></em>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.codigoFiscal.$valid && cpf_cnpj_invalido"><span data-localize="validacaoCpfCnpj">Código Fiscal inválido </span></em>
+                                                    </div>
+                                                </div>
+                                                <div ng-show="entity.TipoDePessoa == 'J' && entity.PaisDoCliente.PossuiInscricaoEstadualMunicipal">
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="label" data-localize="labelInscricaoEstadual">Inscrição Estadual</label>
+                                                            <label class="input" ng-class="{'state-error': masterdataClientRegistrationForm.inscricaoEstadual.$invalid && showValidation}">
+                                                                <input type="text" ng-model="entity.InscricaoEstadual" data-localize="placeInscricaoEstadual" maxlength="20" name="inscricaoEstadual" id="inscricaoEstadual" class="form-control">
+                                                            </label>
+                                                            <em class="invalid" ng-show="masterdataClientRegistrationForm.inscricaoEstadual.$invalid && showValidation"><span data-localize="validacaoInscricaoEstadual"></span></em>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="label" data-localize="labelInscricaoMunicipal">Inscrição Municipal</label>
+                                                            <label class="input" ng-class="{'state-error': masterdataClientRegistrationForm.inscricaoMunicipal.$invalid && showValidation}">
+                                                                <input type="text" ng-model="entity.InscricaoMunicipal" data-localize="placeInscricaoMunicipal" maxlength="20" name="inscricaoMunicipal" id="inscricaoMunicipal" class="form-control">
+                                                            </label>
+                                                            <em class="invalid" ng-show="masterdataClientRegistrationForm.inscricaoMunicipal.$invalid && showValidation"><span data-localize="validacaoInscricaoMunicipal"></span></em>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelNomeCliente">Nome Cliente</label>
+                                                        <label class="input" ng-class="{'state-error': masterdataClientRegistrationForm.nomeCliente.$invalid && showValidation}">
+                                                            <input type="text" ng-model="entity.NomeCliente" data-localize="placeNomeCliente" name="nomeCliente" id="nomeCliente" maxlength="100" required class="form-control">
+                                                        </label>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.nomeCliente.$invalid && showValidation"><span data-localize="validacaoNomeCliente"></span></em>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelNomeDeBusca">Nome de Busca</label>
+                                                        <label class="input" ng-class="{'state-error': masterdataClientRegistrationForm.nomeDeBusca.$invalid && showValidation}">
+                                                            <input type="text" ng-model="entity.NomeDeBusca" data-localize="placeNomeDeBusca" name="nomeDeBusca" id="nomeDeBusca" maxlength="100" required class="form-control">
+                                                        </label>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.nomeDeBusca.$invalid && showValidation"><span data-localize="validacaoNomeDeBusca"></span></em>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelLogradouro">Logradouro</label>
+                                                        <label class="input" ng-class="{'state-error': masterdataClientRegistrationForm.logradouro.$invalid && showValidation}">
+                                                            <input type="text" ng-model="entity.Logradouro" data-localize="placeLogradouro" name="logradouro" id="logradouro" maxlength="100" required class="form-control">
+                                                        </label>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.logradouro.$invalid && showValidation"><span data-localize="validacaoLogradouro"></span></em>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="row">
+                                                        <section class="col col-3">
+                                                            <label class="label" data-localize="labelNumeroEndereco">Número</label>
+                                                            <label class="input" ng-class="{'state-error': masterdataClientRegistrationForm.numeroEndereco.$invalid && showValidation}">
+                                                                <input type="text" ng-model="entity.NumeroEndereco" data-localize="placeNumero" name="numeroEndereco" id="numeroEndereco" maxlength="6" required class="form-control">
+                                                            </label>
+                                                            <em class="invalid" ng-show="masterdataClientRegistrationForm.numeroEndereco.$invalid && showValidation"><span data-localize="validacaoNumero"></span></em>
+                                                        </section>
+                                                        <section class="col col-4">
+                                                            <label class="label" data-localize="labelComplementoEndereco">Complemento</label>
+                                                            <label class="input" ng-class="{'state-error': masterdataClientRegistrationForm.complementoEndereco.$invalid && showValidation}">
+                                                                <input type="text" ng-model="entity.ComplementoEndereco" data-localize="placeComplemento" name="complementoEndereco" id="complementoEndereco" maxlength="100" class="form-control">
+                                                            </label>
+                                                        </section>
+                                                        <section class="col col-5">
+                                                            <label class="label" data-localize="labelBairro">Bairro</label>
+                                                            <label class="input" ng-class="{'state-error': masterdataClientRegistrationForm.bairro.$invalid && showValidation}">
+                                                                <input type="text" ng-model="entity.Bairro" data-localize="placeBairro" name="bairro" id="bairro" maxlength="100" required class="form-control">
+                                                            </label>
+                                                            <em class="invalid" ng-show="masterdataClientRegistrationForm.bairro.$invalid && showValidation"><span data-localize="validacaoBairro"></span></em>
+                                                        </section>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="row">
+                                                        <section class="col col-4">
+                                                            <label class="label" data-localize="labelCEP">CEP</label>
+                                                            <label class="input" ng-class="{'state-error': masterdataClientRegistrationForm.cep.$invalid && showValidation}">
+                                                                <input type="text" ng-model="entity.Cep" data-localize="placeCEP" name="cep" id="cep" maxlength="15" required class="form-control">
+                                                            </label>
+                                                            <em class="invalid" ng-show="masterdataClientRegistrationForm.cep.$invalid && showValidation"><span data-localize="validacaoCEP"></span></em>
+                                                        </section>
+                                                        <section class="col col-4">
+                                                            <label class="label" data-localize="labelCidade">Cidade</label>
+                                                            <label class="input" ng-class="{'state-error': masterdataClientRegistrationForm.cidade.$invalid && showValidation}">
+                                                                <input type="text" ng-model="entity.Cidade" data-localize="placeCidade" name="cidade" id="cidade" maxlength="100" required class="form-control">
+                                                            </label>
+                                                            <em class="invalid" ng-show="masterdataClientRegistrationForm.cidade.$invalid && showValidation"><span data-localize="validacaoCidade"></span></em>
+                                                        </section>
+                                                        <section class="col col-4">
+                                                            <label class="label" data-localize="labelRegiao">Estado</label>
+                                                            <div ng-show="!mostrarDropboxRegiao">
+                                                                <label class="input" ng-class="{'state-error': masterdataClientRegistrationForm.regiao.$invalid && showValidation}">
+                                                                    <input type="text" disabled ng-model="entity.DcrRegiao" data-localize="placeRegiao" name="regiao" id="regiao" maxlength="100" ng-required="!mostrarDropboxRegiao" class="form-control">
+                                                                </label>
+                                                            </div>
+                                                            <em class="invalid" ng-show="masterdataClientRegistrationForm.regiao.$invalid && showValidation"><span data-localize="validacaoRegiao"></span></em>
+                                                            <div ng-show="mostrarDropboxRegiao">
+                                                                <label class="label" ng-class="{'state-error': masterdataClientRegistrationForm.regiaoddl.$invalid && showValidation}">
+                                                                    <select ng-model="entity.Regiao" name="regiaoddl" id="regiaoddl" ng-options="r.Nome for r in regioes track by r.Id" ng-required="mostrarDropboxRegiao" disabled class="form-control">
+                                                                        <option value="" selected="selected" data-localize="optionSelecioneRegiao">Selecione o estado</option>
+                                                                    </select>
+                                                                </label>
+                                                            </div>
+                                                            <em class="invalid" ng-show="masterdataClientRegistrationForm.regiaoddl.$invalid && showValidation"><span data-localize="validacaoRegiao"></span></em>
+                                                        </section>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelTelefone">Telefone</label>
+                                                        <label class="input" ng-class="{'state-error': masterdataClientRegistrationForm.telefone.$invalid && showValidation}">
+                                                            <input type="text" ng-model="entity.Telefone" data-localize="placeTelefone" name="telefone" id="telefone" maxlength="20" ng-change="telefoneDoClienteChange()" ng-focus="InputMaskTelefoneCliente()" ng-focusout="OutputMaskTelefoneCliente()" class="form-control" required>
+                                                        </label>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.telefone.$invalid && showValidation"><span data-localize="validacaoTelefone"></span></em>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelEmail">E-mail</label>
+                                                        <label class="input" ng-class="{'state-error': masterdataClientRegistrationForm.email.$invalid && showValidation}">
+                                                            <input type="text" ng-model="entity.Email" data-localize="placeEmail" name="email" id="email" maxlength="100" class="form-control" required>
+                                                        </label>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.email.$invalid && showValidation"><span data-localize="validacaoEmail"></span></em>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelEmailNFE">E-mail NFE</label>
+                                                        <label class="input" ng-class="{'state-error': masterdataClientRegistrationForm.emailNFE.$invalid && showValidation}">
+                                                            <input type="text" ng-model="entity.EmailNFE" data-localize="placeEmailNFE" name="emailNFE" id="emailNFE" maxlength="100" required class="form-control">
+                                                        </label>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.emailNFE.$invalid && showValidation"><span data-localize="validacaoEmailNFE"></span></em>
+                                                    </div>
+                                                </div>
+
+                                            </fieldset>
+                                        </div>
+                                        <div class="tab-pane" id="tab2">
+                                            <br>
+                                            <br>
+                                            <h3><span data-localize="labelEtapa2"><strong>Etapa 2</strong></span> - <span data-localize="liRexam">Rexam</span></h3>
+                                            <br>
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelPaisRexam">País da Rexam</label>
+                                                        <label class="label" ng-class="{'state-error': masterdataClientRegistrationForm.paisDaRexam.$invalid && showValidation}">
+                                                            <select ng-model="entity.PaisDaRexam" name="paisDaRexam" id="paisDaRexam" ng-options="p.Nome for p in paisesRexam track by p.Id" required class="form-control">
+                                                                <option value="" selected="selected" data-localize="optionSelecionePaisRexam">Selecione o país da Rexam</option>
+                                                            </select>
+                                                        </label>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.paisDaRexam.$invalid && showValidation"><span data-localize="validacaoPaisDaRexam"></span></em>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelEmpresas">Empresas</label>
+                                                        <div class="form-group">
+                                                            <button class="btn btn-primary btn-xm" id="btn-empresas" data-localize="buttonIncluirEmpresa" data-toggle="modal" data-target="#cadEmpresa" ng-click="atualizarEmpresas()" disabled>
+                                                                Incluir Empresa
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <section class="table-responsive" ng-show="entity.ListaEmpresas.length">
+                                                        <table class="table table-striped table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <th><label class="label" data-localize="labelEmpresa">Empresa</label></th>
+                                                                    <th><label class="label" data-localize="labelCentroDeFornecimento">Centro de fornecimento</label></th>
+                                                                    <th><label class="label" data-localize="labelGrupoDeCliente">Grupo de cliente</label></th>
+                                                                    <th><label class="label" data-localize="labelGrupoDePreco">Grupo de preço</label></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="r in entity.ListaEmpresas.slice(0) track by $index">
+                                                                    <td><span class="remove" ng-click="removeEmpresa($index)"><i class="fa fa-trash-o fa-lg"></i></span></td>
+                                                                    <td>{{ r.DcrEmpresa }}</td>
+                                                                    <td>{{ r.DcrCentroFornecimento }}</td>
+                                                                    <td>{{ r.DcrGrupoCliente }}</td>
+                                                                    <td>{{ r.DcrGrupoPreco }}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </section>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelFormaDePagamento">Forma de Pagamento</label>
+                                                        <label class="label" ng-class="{'state-error': masterdataClientRegistrationForm.formaDePagamento.$invalid && showValidation}">
+                                                            <select ng-model="entity.FormaDePagamento" name="formaDePagamento" id="formaDePagamento" ng-options="f.Nome for f in formasDePagamento track by f.Id" required class="form-control">
+                                                                <option value="" selected="selected" data-localize="optionSelecioneFormaDePagamento">Selecione um valor para o campo Forma de Pagamento</option>
+                                                            </select>
+                                                        </label>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.formaDePagamento.$invalid && showValidation"><span data-localize="validacaoFormaDePagamento"></span></em>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelEmailDeCobranca">E-mail de Cobrança</label>
+                                                        <label class="input" ng-class="{'state-error': masterdataClientRegistrationForm.emailDeCobranca.$invalid && showValidation}">
+                                                            <input type="text" ng-model="entity.EmailDeCobranca" data-localize="placeEmailCobranca" name="emailDeCobranca" id="emailDeCobranca" maxlength="100" required class="form-control">
+                                                        </label>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.emailDeCobranca.$invalid && showValidation"><span data-localize="validacaoEmailCobranca"></span></em>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelGrupoDeContas">Grupo de Contas</label>
+                                                        <label class="label" ng-class="{'state-error': masterdataClientRegistrationForm.grupoDeContas.$invalid && showValidation}">
+                                                            <select ng-model="entity.GrupoDeContas" name="grupoDeContas" id="grupoDeContas" ng-options="g.Nome for g in gruposDeContas track by g.Id" required class="form-control">
+                                                                <option value="" selected="selected" data-localize="optionSelecioneGrupoDeContas">Selecione o grupo de contas</option>
+                                                            </select>
+                                                        </label>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.grupoDeContas.$invalid && showValidation"><span data-localize="validacaoGrupoDeContas"></span></em>
+                                                    </div>
+                                                </div>
+                                                <div class="row" ng-if="entity.TipoDePessoa == 'J'">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelClienteEnvasadoraProdutoAcabado">Cliente Envasadora / Produto Acabado?</label>
+                                                        <div class="inline-group">
+                                                            <label class="radio" ng-class="{'state-error': masterdataClientRegistrationForm.flgClienteEnvasadoraProdutoAcabado.$invalid && showValidation}">
+                                                                <input type="radio" ng-model="entity.FlgClienteEnvasadoraProdutoAcabado" name="flgClienteEnvasadoraProdutoAcabado" ng-value="true" ng-required="entity.TipoDePessoa == 'J'"><i></i><span data-localize="labelSim"> Sim </span>
+                                                            </label>
+                                                            <label class="radio" ng-class="{'state-error': masterdataClientRegistrationForm.flgClienteEnvasadoraProdutoAcabado.$invalid && showValidation}">
+                                                                <input type="radio" ng-model="entity.FlgClienteEnvasadoraProdutoAcabado" name="flgClienteEnvasadoraProdutoAcabado" ng-value="false" ng-required="entity.TipoDePessoa == 'J'"><i></i><span data-localize="labelNao"> Não </span>
+                                                            </label>
+                                                            <em class="invalid emInvalid" ng-show="masterdataClientRegistrationForm.flgClienteEnvasadoraProdutoAcabado.$invalid && showValidation"><span data-localize="validacaoClienteEnvasadoraProdutoAcabado">Cliente Envasadora / Produto Acabado?</span></em>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelMotivoDaSolicitacao">Motivo da Solicitação</label>
+                                                        <label class="input" ng-class="{'state-error': masterdataClientRegistrationForm.motivoDaSolicitacao.$invalid && showValidation}">
+                                                            <textarea ng-model="entity.MotivoDaSolicitacao" data-localize="placeMotivoSolicitacao" name="motivoDaSolicitacao" id="motivoDaSolicitacao" rows="3" required class="form-control" maxlength="500"></textarea>
+                                                        </label>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.motivoDaSolicitacao.$invalid && showValidation"><span data-localize="validacaoMotivoDaSolicitacao"></span></em>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="row">
+                                                        <section class="col col-6">
+                                                            <label class="label" data-localize="labelOrganizacaoDeVendas">Organização de Vendas</label>
+                                                            <label name="organizacaoDeVendas" id="organizacaoDeVendas" required class="form-control">{{entity.PaisDaRexam.CodigoOrganizacaoDeVendas}}</label>
+                                                        </section>
+                                                        <section class="col col-6">
+                                                            <label class="label" data-localize="labelCanalDeDistribuicao">Canal de Distribuição</label>
+                                                            <label name="canalDeDistribuicao" id="canalDeDistribuicao" required class="form-control">{{entity.PaisDaRexam.CodigoCanalDeDistribuicao}}</label>
+                                                        </section>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="row">
+                                                        <section class="col col-6">
+                                                            <label class="label" data-localize="labelSetorDeAtividade">Setor de Atividade</label>
+                                                            <label name="setorDeAtividade" id="setorDeAtividade" required class="form-control">{{entity.PaisDaRexam.CodigoSetorDeAtividade}}</label>
+                                                        </section>
+                                                        <section class="col col-6">
+                                                            <label class="label" data-localize="labelGrupoDeVendedores">Grupo de Vendedores</label>
+                                                            <label name="grupoDeVendedores" id="grupoDeVendedores" required class="form-control">{{entity.PaisDaRexam.CodigoGrupoDeVendedores}}</label>
+                                                        </section>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelRegiaoDeVendas">Região de Vendas</label>
+                                                        <label class="label" ng-class="{'state-error': masterdataClientRegistrationForm.regiaoDeVendas.$invalid && showValidation}">
+                                                            <select ng-model="entity.RegiaoDeVendas" name="regiaoDeVendas" id="regiaoDeVendas" ng-options="r.Nome for r in regioesDeVendas track by r.Id" disabled required class="form-control">
+                                                                <option value="" selected="selected" data-localize="optionSelecioneRegiaoDeVendas">Selecione a região de vendas</option>
+                                                            </select>
+                                                        </label>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.regiaoDeVendas.$invalid && showValidation"><span data-localize="validacaoRegiãoDeVendas"></span></em>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.paisDaRexam.$valid && regioesDeVendas.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <section>
+                                                            <label class="label" data-localize="labelZonaDeTransporte">Zona de Transporte</label>
+                                                            <label class="label" ng-class="{'state-error': masterdataClientRegistrationForm.zonaDeTransporte.$invalid && showValidation}">
+                                                                <select ng-model="entity.ZonaDeTransporte" name="zonaDeTransporte" id="zonaDeTransporte" ng-options="z.Nome for z in zonasDeTransporte track by z.Id" disabled required class="form-control">
+                                                                    <option value="" selected="selected" data-localize="optionZonaDeTransporte">Selecione uma zona de transporte</option>
+                                                                </select>
+                                                            </label>
+                                                            <em class="invalid" ng-show="masterdataClientRegistrationForm.zonaDeTransporte.$invalid && showValidation"><span data-localize="validacaoZonaDeTransporte"></span></em>
+                                                            <em class="invalid" ng-show="masterdataClientRegistrationForm.paisDaRexam.$valid && zonasDeTransporte.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+                                                        </section>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelMoedaContabilizacao">Moeda de Contabilização</label>
+                                                        <label class="label" ng-class="{'state-error': masterdataClientRegistrationForm.moedaDeContabilizacao.$invalid && showValidation}">
+                                                            <select ng-model="entity.MoedaDeContabilizacao" name="moedaDeContabilizacao" id="moedaDeContabilizacao" ng-options="m.Nome for m in moedasDeContabilizacao track by m.Id" required class="form-control">
+                                                                <option value="" selected="selected" data-localize="optionMoedaContabilizacao">Selecione a moeda de contabilização</option>
+                                                            </select>
+                                                        </label>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.moedaDeContabilizacao.$invalid && showValidation"><span data-localize="validacaoMoedaContabilizacao"></span></em>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelAgenteFrete">Agente Frete</label>
+                                                        <label class="input" ng-class="{'state-error': masterdataClientRegistrationForm.agenteFrete.$invalid && showValidation}">
+                                                            <input type="text" ng-model="entity.AgenteFrete" data-localize="placeAgenteFrete" name="agenteFrete" id="agenteFrete" maxlength="100" required class="form-control">
+                                                        </label>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.agenteFrete.$invalid && showValidation"><span data-localize="validacaoAgenteFrete"></span></em>
+                                                    </div>
+                                                </div>
+                                                <!--<div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelRecebedorMercadoria">Recebedor da Mercadoria</label>
+                                                        <label class="input" ng-class="{'state-error': masterdataClientRegistrationForm.recebedorDaMercadoria.$invalid && showValidation}">
+                                                            <input type="text" ng-model="entity.RecebedorDaMercadoria" data-localize="placeRecebedorDaMercadoria" name="recebedorDaMercadoria" id="recebedorDaMercadoria" maxlength="100" class="form-control">
+                                                        </label>
+                                                    </div>
+                                                </div>-->
+                                                <div class="row">
+                                                    <div class="row">
+                                                        <section class="col col-6">
+                                                            <label class="label" data-localize="labelRecebedorMercadoriaDiferente" style="white-space:normal">Recebedor de mercadoria diferente deste cadastro? *</label>
+                                                            <div class="inline-group">
+                                                                <label class="radio" ng-class="{'state-error': masterdataClientRegistrationForm.recebedorDiferente.$invalid && showValidation}">
+                                                                    <input type="radio" ng-model="entity.FlgRecebedorDiferente" name="recebedorDiferente" ng-value="true" required><i></i><span data-localize="labelSim"> Sim </span>
+                                                                </label>
+                                                                <label class="radio" ng-class="{'state-error': masterdataClientRegistrationForm.recebedorDiferente.$invalid && showValidation}">
+                                                                    <input type="radio" ng-model="entity.FlgRecebedorDiferente" name="recebedorDiferente" ng-value="false" required><i></i><span data-localize="labelNao"> Não </span>
+                                                                </label>
+                                                                <em class="invalid" ng-show="masterdataClientRegistrationForm.recebedorDiferente.$invalid && showValidation"><span data-localize="validacaoRecebedorDiferente">Recebedor de mercadoria diferente deste cadastro?</span></em>
+                                                            </div>
+                                                        </section>
+                                                        <section class="col col-6">
+                                                            <label class="label" data-localize="labelCodigoClienteSAP">Código Cliente SAP</label>
+                                                            <label class="input" ng-class="{'state-error': masterdataClientRegistrationForm.codigoClienteSap.$invalid && showValidation}">
+                                                                <input type="text" ng-model="entity.CodigoClienteSap" data-localize="placeCodigoClienteSAP" name="codigoClienteSap" id="codigoClienteSap" maxlength="9" ng-required="entity.FlgRecebedorDiferente" disabled class="form-control" numbers-only>
+                                                            </label>
+                                                            <em class="invalid" ng-show="masterdataClientRegistrationForm.codigoClienteSap.$invalid && showValidation"><span data-localize="validacaoCodigoClienteSAP"></span></em>
+                                                        </section>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelCondicaoDaExpedicao">Condição de Expedição</label>
+                                                        <label class="label" ng-class="{'state-error': masterdataClientRegistrationForm.condicaoDeExpedicao.$invalid && showValidation}">
+                                                            <select ng-model="entity.CondicaoDeExpedicao" name="condicaoDeExpedicao" id="condicaoDeExpedicao" ng-options="c.Nome for c in condicoesDeExpedicao track by c.Id" disabled required class="form-control">
+                                                                <option value="" selected="selected" data-localize="optionSelecioneCondicaoExpedicao">Selecione a condição de expedição</option>
+                                                            </select>
+                                                        </label>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.condicaoDeExpedicao.$invalid && showValidation"><span data-localize="validacaoCondicaoDeExpedicao"></span></em>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.paisDaRexam.$valid && condicoesDeExpedicao.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelCondicaoDePagamento">Condição de Pagamento</label>
+                                                        <label class="label" ng-class="{'state-error': masterdataClientRegistrationForm.condicaoDePagamento.$invalid && showValidation}">
+                                                            <select ng-model="entity.CondicaoDePagamento" name="condicaoDePagamento" id="condicaoDePagamento" ng-options="c.Nome for c in condicoesDePagamento track by c.Id" disabled required class="form-control">
+                                                                <option value="" selected="selected" data-localize="optionSelecioneCondicaoPagamento">Selecione a condição de pagamento</option>
+                                                            </select>
+                                                        </label>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.condicaoDePagamento.$invalid && showValidation"><span data-localize="validacaoCondicaoDePagamento"></span></em>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.paisDaRexam.$valid && condicoesDePagamento.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="label" data-localize="labelIncoterm">Incoterm</label>
+                                                        <label class="label" ng-class="{'state-error': masterdataClientRegistrationForm.incoterm.$invalid && showValidation}">
+                                                            <select ng-model="entity.Incoterm" name="incoterm" id="incoterm" ng-options="i.Nome for i in incoterms track by i.Id" required class="form-control">
+                                                                <option value="" selected="selected" data-localize="optionSelecioneIncoterm">Selecione a incoterm</option>
+                                                            </select>
+                                                        </label>
+                                                        <em class="invalid" ng-show="masterdataClientRegistrationForm.incoterm.$invalid && showValidation"><span data-localize="validacaoIncoterm"></span></em>
+                                                    </div>
+                                                </div>
+                                                <file-upload></file-upload>
+                                                <div ng-show="entity.ListaAnexos.length">
+                                                    <div ng-repeat="anexo in entity.ListaAnexos.slice(0) track by $index">
+                                                        <span><a target="_blank" href="{{ '/files/' + anexo.NomeArquivo }}" download="{{ anexo.NomeArquivo }}"><span>{{ anexo.NomeArquivo }}</span> </a></span><span class="remove" ng-click="removeArquivo($index)"><i class="fa fa-trash-o fa-lg"></i></span>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="col-sm-12">
+                                        <ul class="pager wizard no-margin">
+                                            <li class="previous disabled">
+                                                <a href="javascript:void(0);" class="btn btn-lg btn-default"><span data-localize="liAnterior">Anterior </span></a>
+                                            </li>
+                                            <li class="next">
+                                                <a href="javascript:void(0);" class="btn btn-lg txt-color-darken" data-localize="liProximo">Próximo</a>
+                                            </li>
+                                            <li class="next finish" style="display: none;">
+                                                <a href="javascript:void(0);" id="salvarWizard" class="btn btn-lg txt-color-darken" ng-click="submit()"><span data-localize="liSalvar">Enviar</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </section>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+</section>
+<!-- end widget grid -->
+<!--cadastro de empresa-->
+<div class="modal fade" id="cadEmpresa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel" data-localize="labelNovaEmpresa">Nova Empresa</h4>
+            </div>
+            <div class="modal-body smart-form client-form">
+                <fieldset>
+                    <div class="row">
+                        <section>
+                            <label class="label" data-localize="labelEmpresas">Empresas</label>
+                            <label class="label" ng-class="{'state-error': showValidationEmpresa && !entityEmpresa.empresa.Id}">
+                                <select ng-model="entityEmpresa.empresa" name="empresa" id="empresa" ng-options="e.Nome for e in empresas track by e.Id" class="form-control">
+                                    <option value="" selected="selected" data-localize="optionSelecioneEmpresas">Selecione uma ou mais empresas</option>
+                                </select>
+                            </label>
+                            <em class="invalid" ng-show="showValidationEmpresa && !entityEmpresa.empresa.Id"><span data-localize="validacaoSelecioneEmpresa">Selecione uma empresa</span></em>
+                            <em class="invalid" ng-show="masterdataClientRegistrationForm.paisDaRexam.$valid && empresas.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+                        </section>
+                    </div>
+                    <div class="row">
+                        <section>
+                            <label class="label" data-localize="labelCentroDeFornecimento">Centro de Fornecimento</label>
+                            <label class="label" ng-class="{'state-error': showValidationEmpresa && !entityEmpresa.centroDeFornecimento.Id}">
+                                <select ng-model="entityEmpresa.centroDeFornecimento" name="centroDeFornecimento" id="centroDeFornecimento" ng-options="c.Nome for c in centrosDeFornecimento track by c.Id" disabled class="form-control">
+                                    <option value="" selected="selected" data-localize="optionSelecioneCentroDeFornecimento">Selecione o centro de fornecimento</option>
+                                </select>
+                            </label>
+                            <em class="invalid" ng-show="showValidationEmpresa && !entityEmpresa.centroDeFornecimento.Id"><span data-localize="validacaoCentroDeFornecimento">Selecione um centro de fornecimento</span></em>
+                        </section>
+                    </div>
+                    <div class="row">
+                        <section>
+                            <label class="label" data-localize="labelGrupoDeClientes">Grupo de Clientes</label>
+                            <label class="label" ng-class="{'state-error': showValidationEmpresa && !entityEmpresa.grupoDeClientes.Id}">
+                                <select ng-model="entityEmpresa.grupoDeClientes" name="grupoDeClientes" id="grupoDeClientes" ng-options="g.Nome for g in gruposDeClientes | orderBy:'Nome' " class="form-control" required>
+                                    <option value="" selected="selected" data-localize="optionNovoGrupoDeClientes">Novo grupo de clientes</option>
+                                </select>
+                            </label>
+                            <em class="invalid" ng-show="showValidationEmpresa && !entityEmpresa.grupoDeClientes.Id"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+                        </section>
+                    </div>
+                    <div class="row">
+                        <section>
+                            <label class="label" data-localize="labelGrupoDePreco">Grupo de Preço</label>
+                            <label class="label" ng-class="{'state-error': showValidationEmpresa && !entityEmpresa.grupoDePreco.Id}">
+                                <select ng-model="entityEmpresa.grupoDePreco" name="grupoDePreco" id="grupoDePreco" ng-options="g.Nome for g in gruposDePrecos | orderBy:'Nome' " class="form-control" required>
+                                    <option value="" selected="selected" data-localize="optionNovoGrupoDePreco">Novo grupo de preço</option>
+                                </select>
+                            </label>
+                            <em class="invalid" ng-show="showValidationEmpresa && !entityEmpresa.grupoDePreco.Id"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
+                        </section>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-localize="buttonCancelar" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-primary" data-localize="buttonSalvar" ng-click="IncluirEmpresa()">
+                    Salvar
+                </button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
