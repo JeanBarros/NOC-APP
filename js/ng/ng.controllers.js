@@ -5500,26 +5500,51 @@ angular.module('app.controllers', ['ngSanitize'])
         //     $('#fornecedor').attr('disabled', true);
         // });
 
-        // $scope.$watch('entity.Fabrica', function (newValue) {
-        //     if (newValue && newValue.Id) {
-        //         LookupsNocClienteRepository.getClientes(newValue.Id).success(function (data) {
-        //             $scope.clientes = data;
-        //             $('#cliente').attr('disabled', false);
-        //         }).error(function (err, status) {
-        //             defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
-        //             $('#cliente').attr('disabled', true);
-        //         });
+        $scope.$watch('entity.Fabrica', function (newValue) {
+            if (newValue && newValue.Id) {
+                LookupsNocClienteRepository.getClientes(newValue.Id).success(function (data) {
+                    // $scope.clientes = data; // esta é a versão original
+                    $scope.clientes = data.Cliente; //o nó data.Cliente foi adicionado apenas para teste local com o arquivo clientes.json
+                    $('#cliente').attr('disabled', false);
+                }).error(function (err, status) {
+                    defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
+                    $('#cliente').attr('disabled', true);
+                });
 
-        //     }
-        //     else {
-        //         $('#cliente').attr('disabled', true);
-        //     }
+            }
+            else {
+                $('#cliente').attr('disabled', true);
+            }
+        });
+
+        // Get data from API
+        // $scope.$watch('entity.Fabrica', function () {
+        //     LookupsNocClienteRepository.getFabricas(settings.currentLang.codigoId).success(function (data) {
+        //         $scope.fabricas = data.data;
+        //         console.log(data.data);
+        //     }).error(function (err, status) {
+        //         defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
+        //         console.log(status);
+        //         console.log(err);
+        //     });            
         // });
 
+        // Get data from local file - for test purpose
         $scope.$watch('entity.Fabrica', function () {
             LookupsNocClienteRepository.getFabricas(settings.currentLang.codigoId).success(function (data) {
-                $scope.fabricas = data.data;
-                console.log(data.data);
+                $scope.fabricas = data.Fabrica;
+                console.log(data.Fabrica);
+            }).error(function (err, status) {
+                defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
+                console.log(status);
+                console.log(err);
+            });            
+        });
+
+        $scope.$watch('entity.Impacto', function () {
+            LookupsNocClienteRepository.getImpactos(settings.currentLang.codigoId).success(function (data) {
+                $scope.impactos = data.Impacto;
+                console.log(data.Impacto);
             }).error(function (err, status) {
                 defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
                 console.log(status);

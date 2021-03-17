@@ -59,14 +59,14 @@
                                             <div class="form-group">
                                                 <label class="label" data-localize="labelFabrica">Fábrica</label>
                                                 <label class="label" ng-class="{'state-error': nocClienteRegistrationForm.fabrica.$invalid && showValidation}">
-                                                    <select ng-model="entity.Fabrica" name="fabrica" id="fabrica" ng-options="f.employee_name for f in fabricas track by f.id" required class="form-control">
+                                                    <select ng-model="entity.Fabrica" name="fabrica" id="fabrica" ng-options="f.Nome for f in fabricas track by f.Id" required class="form-control">
                                                         <option value="" selected="selected" data-localize="optionFabrica">Selecione a fábrica</option>
                                                     </select>
                                                 </label>
                                                 <em class="invalid" ng-show="nocClienteRegistrationForm.fabrica.$invalid && showValidation"><span data-localize="validacaoFabrica"></span></em>
                                             </div>
                                         </div>
-                                        <!-- <div class="row">
+                                        <div class="row">
                                             <div class="form-group">
                                                 <label class="label" data-localize="labelCliente">Cliente</label>
                                                 <label class="label" ng-class="{'state-error': nocClienteRegistrationForm.cliente.$invalid && showValidation}">
@@ -76,12 +76,12 @@
                                                 </label>
                                                 <em class="invalid" ng-show="nocClienteRegistrationForm.cliente.$invalid && showValidation"><span data-localize="validacaoCliente"></span></em>
                                             </div>
-                                        </div> -->
+                                        </div>
                                         <div class="row ">
                                             <div class="form-group">
                                                 <label class="label" data-localize="labelImpacto">Impacto na linha do Cliente</label>
                                                 <label class="label" ng-class="{'state-error': nocClienteRegistrationForm.impacto.$invalid && showValidation}">
-                                                    <select ng-model="entity.Impacto" name="impacto" id="impacto" ng-options="s.Nome for s in impactos track by s.Id" required class="form-control">
+                                                    <select ng-model="entity.Impacto" name="impacto" id="impacto" ng-options="i.Nome for i in impactos track by i.Id" required class="form-control">
                                                         <option value="" selected="selected" data-localize="optionSelecioneImpacto">Selecione o impacto</option>
                                                     </select>
                                                 </label>

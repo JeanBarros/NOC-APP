@@ -17,8 +17,8 @@ var RexamWorkflowApp = angular.module('RexamWorkflowApp', [
 
 RexamWorkflowApp
     //.value('serverBaseUrl', 'http://' + window.location.hostname + '/Rexam.Workflow.Api/')
-    .value('serverBaseUrl', 'http://dummy.restapiexample.com') // public test API
-    //.value('serverBaseUrl', 'http://localhost:8000/') // Local server
+    //.value('serverBaseUrl', 'http://dummy.restapiexample.com') // public test API
+    .value('serverBaseUrl', 'http://localhost:8000/') // Local server
     .value('clientBaseUrl', 'http://' + window.location.hostname + '/Rexam.Client/')
     .value('loginUrl', 'http://' + window.location.hostname + '/Rexam.Client/login.html')
     .value('loginInternoUrl', 'http://' + window.location.hostname + '/Rexam.Client/logininterno.html')

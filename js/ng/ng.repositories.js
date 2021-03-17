@@ -237,18 +237,22 @@
         return repository;
     }).factory('LookupsNocClienteRepository', function ($apiRepository, $api) {
         // var apiPath = '/api/LookupsNocCliente';
-        var apiPath = '/api/v1/employees';
-        // var apiPath = '/data/fabricas.json';
+        // var apiPath = '/api/v1/employees';
+        var apiPath = '/data'; // Data from local file for test purpose
 
         var repository = $apiRepository.create(apiPath);
         angular.extend(repository, {
             getFabricas: function (idiomaId) {
                 // return $api.get(apiPath + '/GetFabricas/' + idiomaId);
-                return $api.get(apiPath);
+                return $api.get(apiPath + '/fabricas.json');
+            },
+            getImpactos: function (idiomaId) {
+                // return $api.get(apiPath + '/GetFabricas/' + idiomaId);
+                return $api.get(apiPath + '/impactos.json');
             },
             getClientes: function (fabricaId) {
                 // return $api.get(apiPath + '/GetClientes/' + fabricaId);
-                return $api.get(apiPath);
+                return $api.get(apiPath + '/clientes.json');
             },
             getClassesDefeito: function (idiomaId) {
                 return $api.get(apiPath + '/GetClassesDefeito/' + idiomaId);
