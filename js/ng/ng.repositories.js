@@ -250,6 +250,10 @@
                 // return $api.get(apiPath + '/GetFabricas/' + idiomaId);
                 return $api.get(apiPath + '/impactos.json');
             },
+            getContencaoEfeito: function (idiomaId) {
+                // return $api.get(apiPath + '/GetFabricas/' + idiomaId);
+                return $api.get(apiPath + '/contencaoEfeito.json');
+            },
             getClientes: function (fabricaId) {
                 // return $api.get(apiPath + '/GetClientes/' + fabricaId);
                 return $api.get(apiPath + '/clientes.json');

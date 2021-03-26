@@ -1142,17 +1142,46 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div class="row">
+                                                            <div class="form-group" ng-controller="NocClienteRespostaController">
+                                                                <label class="label" data-localize="labelContencaoEfeito">Contenção do Efeito</label>
+                                                                <label class="label" ng-class="{'state-error': nocClienteRespostaForm.ContencaoEfeito.$invalid && showValidation}">
+                                                                    <select ng-model="entity.ContencaoEfeito" name="ContencaoEfeito" id="ContencaoEfeito" ng-options="c.value for c in contencaoValues track by c.Id" class="form-control">
+                                                                        <option value="" selected="selected" data-localize="optionSelecioneContencaoEfeito">Selecione a Contenção do Efeito</option>
+                                                                    </select>
+                                                                </label>
+                                                                <em class="invalid" ng-show="nocClienteRespostaForm.ContencaoEfeito.$invalid && showValidation"><span data-localize="validacaoContencaoEfeito"></span></em>
+                                                            </div>
+                                                        </div>                                                        
+                                                        <!-- Data loaded in hard code -->
+                                                        <!-- <div class="row">
+                                                            <div class="form-group">
+                                                                <label class="label" data-localize="labelContencaoEfeito">Contenção do Efeito</label>
+                                                                <label class="label">
+                                                                    <select ng-model="resposta.ContencaoEfeito" name="ContencaoEfeito" id="ContencaoEfeito" class="form-control">
+                                                                        <option value="" selected="selected" data-localize="optionSelecioneContencaoEfeito">Selecione a Contenção do Efeito</option>
+                                                                        <option value="1" data-localize="labelIndefinida">N/D</option>
+                                                                        <option value="2" data-localize="labelBaixa">Baixa</option>
+                                                                        <option value="3" data-localize="labelNenhuma">Nenhuma</option>
+                                                                        <option value="4" data-localize="labelMedia">Média</option>
+                                                                        <option value="5" data-localize="labelUrgente">Urgente</option>
+                                                                        <option value="6" data-localize="labelAlta">Alta</option>
+                                                                    </select>
+                                                                </label>
+                                                            </div>
+                                                        </div> -->
                                                         <div class="row ">
                                                             <div class="form-group">
                                                                 <label class="label" data-localize="labelFabricaDevolucao">Fábrica Devolução</label>
                                                                 <label class="label" ng-class="{'state-error': nocClienteRespostaForm.fabricaDevolucao.$invalid && showValidation}">
-                                                                    <select ng-model="resposta.FabricaDevolucao" name="fabricaDevolucao" id="fabricaDevolucao" ng-options="f.Nome for f in fabricas track by f.Id" disabled class="form-control" ng-required="resposta.Devolucao == true && !resposta.Rascunho">
+                                                                    <select ng-model="resposta.FabricaDevolucao" name="fabricaDevolucao" id="fabricaDevolucao" ng-options="f.Nome for f in fabricas track by f.Id" 
+                                                                            disabled class="form-control" ng-required="resposta.Devolucao == true && !resposta.Rascunho">
                                                                         <option value="" selected="selected" data-localize="optionSelecioneFabricaDevolucao">Selecione a fabrica devolução</option>
                                                                     </select>
                                                                 </label>
                                                                 <em class="invalid" ng-show="nocClienteRespostaForm.fabricaDevolucao.$invalid && showValidation"><span data-localize="validacaoFabricaDevolucao"></span></em>
                                                             </div>
-                                                        </div>
+                                                        </div>                                                                                                                
                                                         <div class="row">
                                                             <div class="form-group">
                                                                 <label class="label" data-localize="labelQuantidadeAutorizadaDevolver">Quantidade Autorizada a Devolver</label>

@@ -1,0 +1,32 @@
+{
+    "Contencao": [
+      {
+        "Id": "1",
+        "value": "Nenhuma ação de recolhimento de produto"
+      },
+      {
+        "Id": "2",
+        "value": "Cliente aceitou utilização do lote com restrições"
+      },
+      {
+        "Id": "3",
+        "value": "Houve devolução de latas vazias, independentemente da quantidade"
+      },
+      {
+        "Id": "4",
+        "value": "Foi realizado retrabalho de latas cheias até 1 palete conforme standard do cliente"
+      },
+      {
+        "Id": "5",
+        "value": "Foi realizado retrabalho de latas cheias até 100.000 unidades de produto cheio"
+      },
+      {
+        "Id": "6",
+        "value": "Foi realizado retrabalho de latas cheias até 1.000.000 unidades de produto cheio"
+      },
+      {
+        "Id": "7",
+        "value": "Foi necessário cliente realizar recolhimento de produto no mercado (Problema regulatório/Legislação/FDA)"
+      }
+    ]
+  }

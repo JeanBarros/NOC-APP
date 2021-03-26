@@ -2,23 +2,15 @@
     "Impacto": [
       {
         "Id": "1",
-        "Nome": "Alto"
+        "value": "Não houve parada ou redução de velocidade na linha do cliente"
       },
       {
         "Id": "2",
-        "Nome": "Médio"
+        "value": "Houve parada da linha do cliente até 1h ou o cliente rodou com baixa eficiência/redução de velocidade"
       },
       {
         "Id": "3",
-        "Nome": "Moderado"
-      },
-      {
-        "Id": "4",
-        "Nome": "Baixo"
-      },
-      {
-        "Id": "5",
-        "Nome": "Nenhum"
+        "value": "Houve parada da linha do cliente superior a 1h"
       }
     ]
   }

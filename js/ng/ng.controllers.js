@@ -46,7 +46,6 @@ angular.module('app.controllers', ['ngSanitize'])
 
         $scope.userName = function () { return localStorage.userName; }
         $scope.logout = $accountService.logout;
-
     }])
 
 	.controller('LangController', ['$scope', 'settings', 'localize', function ($scope, settings, localize) {
@@ -353,6 +352,7 @@ angular.module('app.controllers', ['ngSanitize'])
     }])
 
     .controller('RelatorioViewNocFornecedorController', ['$scope', '$location', 'NocFornecedorRelatorioViewRepository', '$window', '$accountService', function ($scope, $location, NocFornecedorRelatorioViewRepository, $window, $accountService) {
+        
         $scope.showValidation = false;
         $scope.userName = localStorage.userName;
 
@@ -1309,11 +1309,11 @@ angular.module('app.controllers', ['ngSanitize'])
             defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
         });
 
-        // LookupsNocFornecedorRepository.getSeveridades(settings.currentLang.codigoId).success(function (data) {
-        //     $scope.severidades = data;
-        // }).error(function (err, status) {
-        //     defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
-        // });
+        LookupsNocFornecedorRepository.getSeveridades(settings.currentLang.codigoId).success(function (data) {
+            $scope.severidades = data;
+        }).error(function (err, status) {
+            defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
+        });
 
         LookupsNocFornecedorRepository.getTiposServico(settings.currentLang.codigoId).success(function (data) {
             $scope.tiposDeServico = data;
@@ -1352,12 +1352,12 @@ angular.module('app.controllers', ['ngSanitize'])
 
         $scope.$watch('entity.categoria', function (newValue) {
             if (newValue) {
-                // LookupsNocFornecedorRepository.getClassesDefeito(newValue, settings.currentLang.codigoId).success(function (data) {
-                //     $('#classe').attr('disabled', false);
-                //     $scope.classes = data;
-                // }).error(function (err, status) {
-                //     defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
-                // });
+                LookupsNocFornecedorRepository.getClassesDefeito(newValue, settings.currentLang.codigoId).success(function (data) {
+                    $('#classe').attr('disabled', false);
+                    $scope.classes = data;
+                }).error(function (err, status) {
+                    defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
+                });
                 $scope.entity.fornecedor = {};
                 if ($scope.entity.planta) {
                     LookupsNocFornecedorRepository.getFornecedores($scope.entity.planta.Id, newValue).success(function (data) {
@@ -5295,6 +5295,7 @@ angular.module('app.controllers', ['ngSanitize'])
     }])
 
     .controller('InovacaoHistoricoController', ['$scope', '$compile', '$timeout', '$location', '$routeParams', '$filter', 'LookupsInovacaoRepository', 'InovacaoRepository', 'serverBaseUrl', 'settings', '$accountService', 'localize', function ($scope, $compile, $timeout, $location, $routeParams, $filter, LookupsInovacaoRepository, InovacaoRepository, serverBaseUrl, settings, $accountService, localize) {
+        
         $scope.settings = settings;
         $scope.entity = {};
 
@@ -5311,6 +5312,7 @@ angular.module('app.controllers', ['ngSanitize'])
     }])
 
     .controller('InovacaoRelatorioPlantaController', ['$scope', '$location', 'RelatorioPlantaInovacaoRepository', 'LookupsInovacaoRepository', '$window', '$accountService', 'settings', 'localize', function ($scope, $location, RelatorioPlantaInovacaoRepository, LookupsInovacaoRepository, $window, $accountService, settings, localize) {
+        
         $scope.settings = settings;
         app.showProcess();
 
@@ -5378,6 +5380,7 @@ angular.module('app.controllers', ['ngSanitize'])
     }])
 
     .controller('InovacaoRelatorioParticipanteController', ['$scope', '$location', 'RelatorioParticipanteInovacaoRepository', 'LookupsInovacaoRepository', '$window', '$accountService', 'settings', 'localize', function ($scope, $location, RelatorioParticipanteInovacaoRepository, LookupsInovacaoRepository, $window, $accountService, settings, localize) {
+        
         $scope.settings = settings;
         //app.showProcess();
 
@@ -5447,6 +5450,7 @@ angular.module('app.controllers', ['ngSanitize'])
     }])
 
     .controller('NocClienteRegistrationController', ['$scope', '$compile', '$location', '$routeParams', '$filter', 'LookupsNocClienteRepository', 'NocClienteRepository', 'serverBaseUrl', 'settings', '$accountService', 'localize', function ($scope, $compile, $location, $routeParams, $filter, LookupsNocClienteRepository, NocClienteRepository, serverBaseUrl, settings, $accountService, localize) {
+        
         $scope.showValidation = false;
         $scope.entity = { EhInformativa: "false", Hoje: new Date().toJSON(), Produto: [] };
         $scope.settings = settings;
@@ -5460,45 +5464,46 @@ angular.module('app.controllers', ['ngSanitize'])
 
         $scope.produtoCheio = [];
 
-        // LookupsNocClienteRepository.getProdutos(settings.currentLang.codigoId).success(function (data) {
-        //     $scope.produtoCheio = data;
-        // }).error(function (err, status) {
-        //     defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
-        // });
+        LookupsNocClienteRepository.getProdutos(settings.currentLang.codigoId).success(function (data) {
+            $scope.produtoCheio = data;
+        }).error(function (err, status) {
+            defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
+        });
 
 
-        // $scope.$watch('settings.currentLang', function (newValue) {
-        //     LookupsNocClienteRepository.getFabricas(settings.currentLang.codigoId).success(function (data) {
-        //         $scope.fabricas = data;
-        //     }).error(function (err, status) {
-        //         defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
-        //     });
-        //     // LookupsNocClienteRepository.getClassesDefeito(settings.currentLang.codigoId).success(function (data) {
-        //     //     $scope.classes = data;
-        //     //     $('#classe').attr('disabled', false);
-        //     // }).error(function (err, status) {
-        //     //     defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
-        //     //     $('#classe').attr('disabled', true);
-        //     // });
-        //     // LookupsNocClienteRepository.getSeveridades(settings.currentLang.codigoId).success(function (data) {
-        //     //     $scope.severidades = data;
-        //     // }).error(function (err, status) {
-        //     //     defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
-        //     // });
-        //     // LookupsNocClienteRepository.getTiposDeDocumento(settings.currentLang.codigoId).success(function (data) {
-        //     //     $scope.tiposDeDocumentos = data;
-        //     // }).error(function (err, status) {
-        //     //     defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
-        //     // });
-        // });
+        $scope.$watch('settings.currentLang', function (newValue) {
+            LookupsNocClienteRepository.getFabricas(settings.currentLang.codigoId).success(function (data) {
+                // $scope.fabricas = data - original repository;
+                $scope.fabricas = data.Fabrica;
+            }).error(function (err, status) {
+                defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
+            });
+            LookupsNocClienteRepository.getClassesDefeito(settings.currentLang.codigoId).success(function (data) {
+                $scope.classes = data;
+                $('#classe').attr('disabled', false);
+            }).error(function (err, status) {
+                defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
+                $('#classe').attr('disabled', true);
+            });
+            LookupsNocClienteRepository.getSeveridades(settings.currentLang.codigoId).success(function (data) {
+                $scope.severidades = data;
+            }).error(function (err, status) {
+                defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
+            });
+            LookupsNocClienteRepository.getTiposDeDocumento(settings.currentLang.codigoId).success(function (data) {
+                $scope.tiposDeDocumentos = data;
+            }).error(function (err, status) {
+                defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
+            });
+        });
 
-        // LookupsNocClienteRepository.getFornecedores(3).success(function (data) {
-        //     $scope.fornecedores = data;
-        //     $('#fornecedor').attr('disabled', false);
-        // }).error(function (err, status) {
-        //     defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
-        //     $('#fornecedor').attr('disabled', true);
-        // });
+        LookupsNocClienteRepository.getFornecedores(3).success(function (data) {
+            $scope.fornecedores = data;
+            $('#fornecedor').attr('disabled', false);
+        }).error(function (err, status) {
+            defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
+            $('#fornecedor').attr('disabled', true);
+        });
 
         $scope.$watch('entity.Fabrica', function (newValue) {
             if (newValue && newValue.Id) {
@@ -5517,9 +5522,10 @@ angular.module('app.controllers', ['ngSanitize'])
             }
         });
 
-        // Get data from API
+        // Get data from test API
         // $scope.$watch('entity.Fabrica', function () {
         //     LookupsNocClienteRepository.getFabricas(settings.currentLang.codigoId).success(function (data) {
+        //         $scope.fabricas = data; - original repository
         //         $scope.fabricas = data.data;
         //         console.log(data.data);
         //     }).error(function (err, status) {
@@ -5532,25 +5538,26 @@ angular.module('app.controllers', ['ngSanitize'])
         // Get data from local file - for test purpose
         $scope.$watch('entity.Fabrica', function () {
             LookupsNocClienteRepository.getFabricas(settings.currentLang.codigoId).success(function (data) {
+                // $scope.fabricas = data; - original repository
                 $scope.fabricas = data.Fabrica;
-                console.log(data.Fabrica);
+                console.table(data.Fabrica);
             }).error(function (err, status) {
                 defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
                 console.log(status);
                 console.log(err);
             });            
-        });
+        });        
 
         $scope.$watch('entity.Impacto', function () {
             LookupsNocClienteRepository.getImpactos(settings.currentLang.codigoId).success(function (data) {
                 $scope.impactos = data.Impacto;
-                console.log(data.Impacto);
+                console.table(data.Impacto);
             }).error(function (err, status) {
                 defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
                 console.log(status);
                 console.log(err);
             });            
-        });
+        });        
 
         $scope.$watch('entity.UnidadeRetida', AtualizarListaProdutos);
 
@@ -5676,6 +5683,7 @@ angular.module('app.controllers', ['ngSanitize'])
     }])
 
     .controller('NocClienteEditController', ['$scope', '$compile', '$location', '$routeParams', '$filter', 'LookupsNocClienteRepository', 'NocClienteRepository', 'serverBaseUrl', 'settings', '$accountService', 'localize', function ($scope, $compile, $location, $routeParams, $filter, LookupsNocClienteRepository, NocClienteRepository, serverBaseUrl, settings, $accountService, localize) {
+        
         $scope.showValidation = false;
         var flagPermissao = false;
         app.showProcess();
@@ -5721,7 +5729,8 @@ angular.module('app.controllers', ['ngSanitize'])
 
         $scope.$watch('settings.currentlang', function (newvalue) {
             LookupsNocClienteRepository.getFabricas(settings.currentLang.codigoId).success(function (data) {
-                $scope.fabricas = data;
+                //$scope.fabricas = data - original repository;
+                $scope.fabricas = data.Fabrica;
             }).error(function (err, status) {
                 defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
             });
@@ -5730,13 +5739,11 @@ angular.module('app.controllers', ['ngSanitize'])
             }).error(function (err, status) {
                 defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
             });
-            // LookupsNocClienteRepository.getSeveridades(settings.currentLang.codigoId).success(function (data) {
-            //     $scope.severidades = data;
-            // }).error(function (err, status) {
-            //     defaulterrorresponsehandler($accountservice, status, err.exceptionmessage);
-            // });
-
-
+            LookupsNocClienteRepository.getSeveridades(settings.currentLang.codigoId).success(function (data) {
+                $scope.severidades = data;
+            }).error(function (err, status) {
+                defaulterrorresponsehandler($accountservice, status, err.exceptionmessage);
+            });
         });
 
         $scope.$watch('entity.Resposta.Ressarcimento', function (newValue) {
@@ -5773,7 +5780,7 @@ angular.module('app.controllers', ['ngSanitize'])
                 $('#quantidadeAutorizadaADevolver').val('');
                 $('#fabricaDevolucao').val('');
                 $('#valorDoFrete').val('');
-            }
+            }            
         });
 
         $scope.salvar = function () {
@@ -5794,7 +5801,7 @@ angular.module('app.controllers', ['ngSanitize'])
                 app.hideProcess();
             });
         }
-        checaPermissaoEdicao();
+        checaPermissaoEdicao();        
     }])
 
     .controller('NocClienteHistoricoController', ['$scope', '$compile', '$timeout', '$location', '$routeParams', '$filter', 'NocClienteRepository', 'serverBaseUrl', 'settings', '$accountService', 'localize', function ($scope, $compile, $timeout, $location, $routeParams, $filter, NocClienteRepository, serverBaseUrl, settings, $accountService, localize) {
@@ -5870,9 +5877,23 @@ angular.module('app.controllers', ['ngSanitize'])
             $scope.resposta.ListaAnexos.splice(index, 1);
         };
 
+        // Added by Jean Barros in 3/2021
+        $scope.$watch('entity.ContencaoEfeito', function () {
+            LookupsNocClienteRepository.getContencaoEfeito(settings.currentLang.codigoId).success(function (data) {
+                $scope.contencaoValues = data.Contencao;
+                console.table(data.Contencao);
+            }).error(function (err, status) {
+                defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
+                console.log(status);
+                console.log(err);
+            });
+        });
+        // End
+
         $scope.$watch('settings.currentLang', function (newValue) {
             LookupsNocClienteRepository.getFabricas(settings.currentLang.codigoId).success(function (data) {
-                $scope.fabricas = data;
+                //$scope.fabricas = data - original repository;
+                $scope.fabricas = data.Fabrica;
             }).error(function (err, status) {
                 defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
             });
@@ -5885,11 +5906,11 @@ angular.module('app.controllers', ['ngSanitize'])
                 $('#classe').attr('disabled', true);
             });
 
-            // LookupsNocClienteRepository.getSeveridades(settings.currentLang.codigoId).success(function (data) {
-            //     $scope.severidades = data;
-            // }).error(function (err, status) {
-            //     defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
-            // });
+            LookupsNocClienteRepository.getSeveridades(settings.currentLang.codigoId).success(function (data) {
+                $scope.severidades = data;
+            }).error(function (err, status) {
+                defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
+            });
             LookupsNocClienteRepository.getPareceres(settings.currentLang.codigoId).success(function (data) {
                 $scope.pareceres = data;
             }).error(function (err, status) {
@@ -6437,3 +6458,25 @@ angular.module('app.controllers', ['ngSanitize'])
     }])
 
 ;
+
+// LookupsNocClienteRepository.getFabricas(settings.currentLang.codigoId).success(function (data) {
+//     // $scope.fabricas = data; - original repository
+//     $scope.fabricas = data.Fabrica;
+//     console.log(data.Fabrica);
+// }).error(function (err, status) {
+//     defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
+//     console.log(status);
+//     console.log(err);
+// }); 
+
+// $scope.$watch('entity.Fabrica', function () {
+//     LookupsNocClienteRepository.getFabricas(settings.currentLang.codigoId).success(function (data) {
+//         // $scope.fabricas = data; - original repository
+//         $scope.fabricas = data.Fabrica;
+//         console.log(data.Fabrica);
+//     }).error(function (err, status) {
+//         defaultErrorResponseHandler($accountService, status, err.ExceptionMessage);
+//         console.log(status);
+//         console.log(err);
+//     });            
+// });

@@ -13,6 +13,17 @@
     </div>
 </div>
 
+<script>
+    $('#impactClientLine option').each(function(index) {
+        if(index > 0){
+            if(index == $('#impactClientLine option')[index].getAttribute('value')){  
+                console.log(index);
+                $('#impactClientLine option')[index].setAttribute("data-localize", 'labelImpacto' + index);
+            }
+        }
+    })
+</script>
+
 <!-- widget grid -->
 <section id="widget-grid" class="">
     <div class="container">
@@ -77,17 +88,32 @@
                                                 <em class="invalid" ng-show="nocClienteRegistrationForm.cliente.$invalid && showValidation"><span data-localize="validacaoCliente"></span></em>
                                             </div>
                                         </div>
-                                        <div class="row ">
+                                        <!-- Data loaded dynamically via API -->
+                                        <div class="row">
                                             <div class="form-group">
-                                                <label class="label" data-localize="labelImpacto">Impacto na linha do Cliente</label>
-                                                <label class="label" ng-class="{'state-error': nocClienteRegistrationForm.impacto.$invalid && showValidation}">
-                                                    <select ng-model="entity.Impacto" name="impacto" id="impacto" ng-options="i.Nome for i in impactos track by i.Id" required class="form-control">
+                                                <label class="label" data-localize="labelImpacto">Impacto na linha do Cliente</label>                                                
+                                                    <select ng-model="entity.Impacto" name="impactClientLine" id="impactClientLine" ng-options="i.value for i in impactos track by i.Id" required class="form-control">
                                                         <option value="" selected="selected" data-localize="optionSelecioneImpacto">Selecione o impacto</option>
                                                     </select>
                                                 </label>
-                                                <em class="invalid" ng-show="nocClienteRegistrationForm.impacto.$invalid && showValidation"><span data-localize="validacaoImpacto"></span></em>
-                                            </div>
+                                            </div>                                            
                                         </div>
+                                        <!-- End of data loaded dynamically via API -->
+                                        <!-- Data loaded in hard code -->
+                                        <!-- <div class="row">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelImpacto">Impacto na linha do Cliente</label>
+                                                <label class="label">
+                                                    <select ng-model="entity.Impacto" name="impacto" id="impacto" class="form-control">
+                                                        <option value="" selected="selected" data-localize="optionSelecioneImpacto">Selecione o impacto</option>
+                                                        <option value="0" data-localize="labelImpacto1">Não houve parada ou redução de velocidade na linha do cliente</option>
+                                                        <option value="1" data-localize="labelImpacto2">Houve parada da linha do cliente até 1h ou o cliente rodou com baixa eficiência/redução de velocidade</option>
+                                                        <option value="2" data-localize="labelImpacto3">Houve parada da linha do cliente superior a 1h</option>
+                                                    </select>
+                                                </label>
+                                            </div>
+                                        </div> -->
+                                        <!-- End of data loaded in hard code -->
                                         <!-- <div class="row ">
                                             <div class="form-group">
                                                 <label class="label" data-localize="labelMoeda">Moeda</label>
