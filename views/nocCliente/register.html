@@ -13,17 +13,6 @@
     </div>
 </div>
 
-<script>
-    $('#impactClientLine option').each(function(index) {
-        if(index > 0){
-            if(index == $('#impactClientLine option')[index].getAttribute('value')){  
-                console.log(index);
-                $('#impactClientLine option')[index].setAttribute("data-localize", 'labelImpacto' + index);
-            }
-        }
-    })
-</script>
-
 <!-- widget grid -->
 <section id="widget-grid" class="">
     <div class="container">
@@ -36,7 +25,7 @@
                             <span data-localize="labelCriacaoDeNocCliente">Criação de NOC Cliente</span>
                         </header>
                         <fieldset>
-                            <!-- <section>
+                            <section>
                                 <div class="row" ng-if="entity.PedidoDeCorrecao">
                                     <div class="alert adjusted alert-info fade in" style="margin: 10px;">
                                         <span><i class="fa-fw fa-lg fa fa-info"></i>
@@ -46,11 +35,11 @@
                                         <span>{{entity.PedidoDeCorrecao}}</span>
                                     </div>
                                 </div>
-                            </section> -->
+                            </section>
                             <section>
                                 <div class="tab-pane active">
                                     <fieldset>
-                                        <!-- <div class="row">
+                                        <div class="row">
                                             <div class="form-group">
                                                 <label class="label" data-localize="labelNocInformativa">NOC Informativa?</label>
                                                 <div class="inline-group">
@@ -65,7 +54,7 @@
                                                     <em class="invalid" ng-show="nocClienteRegistrationForm.ehInformativa.$invalid && showValidation"><span data-localize="labelNocInformativa">Noc Informativa?</span></em>
                                                 </div>
                                             </div>
-                                        </div> -->
+                                        </div>
                                         <div class="row ">
                                             <div class="form-group">
                                                 <label class="label" data-localize="labelFabrica">Fábrica</label>
@@ -87,34 +76,8 @@
                                                 </label>
                                                 <em class="invalid" ng-show="nocClienteRegistrationForm.cliente.$invalid && showValidation"><span data-localize="validacaoCliente"></span></em>
                                             </div>
-                                        </div>
-                                        <!-- Data loaded dynamically via API -->
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <label class="label" data-localize="labelImpacto">Impacto na linha do Cliente</label>                                                
-                                                    <select ng-model="entity.Impacto" name="impactClientLine" id="impactClientLine" ng-options="i.value for i in impactos track by i.Id" required class="form-control">
-                                                        <option value="" selected="selected" data-localize="optionSelecioneImpacto">Selecione o impacto</option>
-                                                    </select>
-                                                </label>
-                                            </div>                                            
-                                        </div>
-                                        <!-- End of data loaded dynamically via API -->
-                                        <!-- Data loaded in hard code -->
-                                        <!-- <div class="row">
-                                            <div class="form-group">
-                                                <label class="label" data-localize="labelImpacto">Impacto na linha do Cliente</label>
-                                                <label class="label">
-                                                    <select ng-model="entity.Impacto" name="impacto" id="impacto" class="form-control">
-                                                        <option value="" selected="selected" data-localize="optionSelecioneImpacto">Selecione o impacto</option>
-                                                        <option value="0" data-localize="labelImpacto1">Não houve parada ou redução de velocidade na linha do cliente</option>
-                                                        <option value="1" data-localize="labelImpacto2">Houve parada da linha do cliente até 1h ou o cliente rodou com baixa eficiência/redução de velocidade</option>
-                                                        <option value="2" data-localize="labelImpacto3">Houve parada da linha do cliente superior a 1h</option>
-                                                    </select>
-                                                </label>
-                                            </div>
-                                        </div> -->
-                                        <!-- End of data loaded in hard code -->
-                                        <!-- <div class="row ">
+                                        </div>                                        
+                                        <div class="row ">
                                             <div class="form-group">
                                                 <label class="label" data-localize="labelMoeda">Moeda</label>
                                                 <input type="text" class="form-control" value="{{ entity.Fabrica.Moeda.Nome }}" disabled />
@@ -155,6 +118,32 @@
                                                 <em class="invalid" ng-show="nocClienteRegistrationForm.classe.$valid && defeitos.length == 0"><span data-localize="validacaoNaoExistemDadosCadastrados">Não existem dados cadastrados</span></em>
                                             </div>
                                         </div>
+                                        <!-- Data loaded dynamically via API -->
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelImpacto">Impacto na linha do Cliente</label>                                                
+                                                    <select ng-model="entity.Impacto" name="impactClientLine" id="impactClientLine" ng-options="i.value for i in impactos track by i.Id" required class="form-control">
+                                                        <option value="" selected="selected" data-localize="optionSelecioneImpacto">Selecione o impacto</option>
+                                                    </select>
+                                                </label>
+                                            </div>                                            
+                                        </div>
+                                        <!-- End of data loaded dynamically via API -->
+                                        <!-- Data loaded in hard code -->
+                                        <!-- <div class="row">
+                                            <div class="form-group">
+                                                <label class="label" data-localize="labelImpacto">Impacto na linha do Cliente</label>
+                                                <label class="label">
+                                                    <select ng-model="entity.Impacto" name="impacto" id="impacto" class="form-control">
+                                                        <option value="" selected="selected" data-localize="optionSelecioneImpacto">Selecione o impacto</option>
+                                                        <option value="0" data-localize="labelImpacto1">Não houve parada ou redução de velocidade na linha do cliente</option>
+                                                        <option value="1" data-localize="labelImpacto2">Houve parada da linha do cliente até 1h ou o cliente rodou com baixa eficiência/redução de velocidade</option>
+                                                        <option value="2" data-localize="labelImpacto3">Houve parada da linha do cliente superior a 1h</option>
+                                                    </select>
+                                                </label>
+                                            </div>
+                                        </div> -->
+                                        <!-- End of data loaded in hard code -->
                                         <div class="row ">
                                             <div class="form-group">
                                                 <label class="label" data-localize="labelTipoDeDocumento">Tipo de Documento</label>
@@ -181,9 +170,16 @@
                                                     <option value="" selected="selected" data-localize="optionTransportadora">Selecione a Transportadora</option>
                                                 </select>
                                             </div>
-                                        </div> -->
-                                        <!-- <div class="row">
+                                        </div>
+                                        <div class="row">
                                             <div class="form-group">
+                                                <!--<label class="label" data-localize="labelUnidadeRetida">Unid. Retida</label>
+                                                <label class="input" ng-class="{'state-error': nocClienteRegistrationForm.unidadeRetida.$invalid && showValidation}">
+                                                    <input type="text" data-localize="placeUnidadeRetida" ng-model="entity.UnidadeRetida" name="unidadeRetida" id="unidadeRetida" class="form-control" maxlength="50" required>
+
+                                                </label>
+                                                <em class="invalid" ng-show="nocClienteRegistrationForm.unidadeRetida.$invalid && showValidation"><span data-localize="validacaoUnidadeRetida">Informe unid. retida</span> </em>-->
+
                                                 <label class="label" data-localize="labelUnidadeRetida">Unid. Retida</label>
                                                 <label class="label" ng-class="{'state-error': nocClienteRegistrationForm.unidadeRetida.$invalid && showValidation}">
                                                     <select ng-model="entity.UnidadeRetida" name="unidadeRetida" id="unidadeRetida" required class="form-control">
@@ -194,8 +190,8 @@
                                                 </label>
                                                 <em class="invalid" ng-show="nocClienteRegistrationForm.unidadeRetida.$invalid && showValidation"><span data-localize="validacaoUnidadeRetida"></span></em>
                                             </div>
-                                        </div> -->
-                                        <!-- <div class="row">
+                                        </div>
+                                        <div class="row">
                                             <div class="form-group">
                                                 <label class="label" data-localize="labelCodigoDoProduto">Código do Produto</label>
                                            
@@ -289,7 +285,7 @@
                                                     <textarea ng-model="entity.DadosAtendimentoReclamacao" name="dadosAtendimentoReclamacao" id="dadosAtendimentoReclamacao" data-localize="placeDadosDeAtendimentoReclamação" rows="5" maxlength="4000" class="form-control"></textarea>
                                                 </label>
                                             </div>
-                                        </div> -->
+                                        </div>
                                     </fieldset>
                                     <file-upload></file-upload>
                                     <div ng-show="entity.ListaAnexos.length">
