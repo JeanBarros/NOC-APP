@@ -236,19 +236,18 @@
         });
         return repository;
     }).factory('LookupsNocClienteRepository', function ($apiRepository, $api) {
-        // var apiPath = '/api/LookupsNocCliente';
-        // var apiPath = '/api/v1/employees';
-        var apiPath = '/data'; // Data from local file for test purpose
+        var apiPath = '/api/LookupsNocCliente';
+        // var apiPath = '/data'; // Data from local file for test purpose
 
         var repository = $apiRepository.create(apiPath);
         angular.extend(repository, {
             getFabricas: function (idiomaId) {
-                // return $api.get(apiPath + '/GetFabricas/' + idiomaId);
-                return $api.get(apiPath + '/fabricas.json');
+                return $api.get(apiPath + '/GetFabricas/' + idiomaId);
+                //return $api.get(apiPath + '/fabricas.json');
             },
             getImpactos: function (idiomaId) {
-                // return $api.get(apiPath + '/GetFabricas/' + idiomaId);
-                return $api.get(apiPath + '/impactos.json');
+                return $api.get(apiPath + '/GetFabricas/' + idiomaId);
+                //return $api.get(apiPath + '/impactos.json');
             },
             getContencaoEfeito: function (idiomaId) {
                 // return $api.get(apiPath + '/GetFabricas/' + idiomaId);

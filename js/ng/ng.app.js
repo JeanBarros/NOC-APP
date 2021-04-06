@@ -17,14 +17,20 @@ var RexamWorkflowApp = angular.module('RexamWorkflowApp', [
 
 RexamWorkflowApp
     //.value('serverBaseUrl', 'http://' + window.location.hostname + '/Rexam.Workflow.Api/')
-    //.value('serverBaseUrl', 'http://dummy.restapiexample.com') // public test API
-    .value('serverBaseUrl', 'http://localhost:8000/') // Local server
-    .value('clientBaseUrl', 'http://' + window.location.hostname + '/Rexam.Client/')
-    .value('loginUrl', 'http://' + window.location.hostname + '/Rexam.Client/login.html')
-    .value('loginInternoUrl', 'http://' + window.location.hostname + '/Rexam.Client/logininterno.html')
+    //.value('serverBaseUrl', 'http://localhost:8000/') // Local server
+    //.value('clientBaseUrl', 'http://' + window.location.hostname + '/Rexam.Client/')
+    //.value('loginUrl', 'http://' + window.location.hostname + '/Rexam.Client/login.html')
+    //.value('loginInternoUrl', 'http://' + window.location.hostname + '/Rexam.Client/logininterno.html')
 
+    .value('serverBaseUrl', 'http://gbswiderex02:8082/WebAPI/') // Local server
+    .value('clientBaseUrl', 'http://gbswiderex02:8082/#/')
+    .value('loginUrl', 'http://gbswiderex02:8082/login.html')
+    .value('loginInternoUrl', 'http://gbswiderex02:8082/Rexam.Client/logininterno.html')
+
+    
 
 RexamWorkflowApp.config(['$routeProvider', '$provide', function ($routeProvider, $provide) {
+
     $routeProvider
 		.when('/', {
 		    redirectTo: '/noc/home'
